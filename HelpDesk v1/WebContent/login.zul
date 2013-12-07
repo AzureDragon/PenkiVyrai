@@ -1,0 +1,82 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+<zk xmlns:n="native" xmlns:h="http://www.w3.org/1999/xhtml">
+    <style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; }
+		.cg-title {
+        font-weight: normal;
+        color: #008DB7;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .cg-desc {
+        margin-top: 0;
+        font-family: arial,sans-serif;
+        font-size: small;
+        font-weight: normal;
+        color: #252525;
+    }
+    .gray_bkg {
+        background-color: #ccc; 
+    }
+    div.status {
+        border: 0 none;
+    }
+    .status tr.z-grid-odd td.z-row-inner,
+    .status tr.z-grid-odd .z-cell,
+    .status tr.z-grid-odd {
+        background: none;
+        border: 0 none;
+    }
+     
+    .status .head {
+        text-align : right;
+    }
+    .status .head span {    
+        font-weight : bold;
+    }
+	</style>
+	<div align="center">
+        
+            <vlayout spacing="40px" style="padding-left: 10px;">
+            	<h:br />
+                <image src="/img/sistema.png" />
+                <h:br />             
+            </vlayout>
+        <vbox>
+        <grid  width="300px" height="50px">
+            <columns>
+                <column width="300px" />
+            </columns>
+            <rows>
+            	<row>
+        			<label id="message"  value="Prašome įvesti prisijungimo duomenis."/>
+        		</row>
+        	</rows>
+        </grid>    
+        <vlayout spacing="15px"> 
+        <grid  width="300px" >
+            <columns>
+                <column width="100px" />
+            </columns>
+            <rows width="100px" apply="mainControllers.LoginController">
+                <row>Vartotojo vardas<textbox id="account" /></row>
+                <row>Slaptažodis<textbox id="password" type="password"/></row>
+                <row>
+                <cell sclass="loginCtl" colspan="2" align="center">
+                	<vlayout>
+                    	<button id="login" label="Prisijungti" width="100px"/>   
+                	</vlayout>
+                </cell>
+                </row>
+            </rows>
+        </grid>
+        </vlayout>
+        
+        </vbox>
+        </div>
+   </zk>

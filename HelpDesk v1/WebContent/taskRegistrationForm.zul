@@ -1,0 +1,120 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+
+<window height="550px" width="700px" closable="true"
+	contentStyle="overflow:auto" 
+	title="Kreipinio registracija"
+	border="normal" 
+	apply="mainControllers.TaskRegistrationController" >
+	<grid>
+		<columns>
+			<column />
+			<column />
+		</columns>
+		<rows>
+			<row>
+				<label value="Klientas"></label>
+				<combobox id="klientas">
+					<template name="model">
+						<comboitem label="${each.name}" />
+					</template>
+				</combobox>
+			</row>
+			<row>
+				<label value="Kreipinio gavimo būdas"></label>
+				<combobox id="gavimoBudas">
+					<comboitem label="Telefonu" />
+					<comboitem label="El. paštu" />
+					<comboitem label="Savitarnoje" />
+				</combobox>
+			</row>
+			<row>
+				<label value="Tipas"></label>
+				<combobox id="tipas">
+					<comboitem label="Incidentas" />
+					<comboitem label="Užklausimas" />
+				</combobox>
+			</row>
+			<row>
+				<label value="Paslauga"></label>
+				<combobox id="paslauga">
+					<comboitem label="Virtualūs serveriai" />
+					<comboitem label="Rezervinis kopijavimas" />
+					<comboitem label="Kitas šūdas" />
+				</combobox>
+			</row>
+			<row>
+				<label value="Priskirti"></label>
+				<combobox id="priskirti">
+					<template name="model">
+						<comboitem label="${each.firstName} ${each.surName}" />
+					</template>
+				</combobox>
+			</row>
+			<row>
+				<label value="Išspręsti iki"></label>
+				<datebox id="issprestiIkiDateBox" cols="12" format="short "
+					onCreate="self.value = new Date()" mold="rounded" />
+			</row>
+
+		</rows>
+	</grid>
+	<grid>
+		<columns>
+			<column />
+		</columns>
+
+		<rows>
+			<row>
+				<textbox placeholder="Įrašykite temą..." id="tema" cols="200" />
+			</row>
+
+
+			<row>
+				<vlayout>
+					<button label="Pridėti failą" upload="true">
+						<attribute name="onUpload">
+							org.zkoss.util.media.Media media =
+							event.getMedia();
+							if (media instanceof org.zkoss.image.Image) {
+							org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+							if
+							(img.getWidth() > img.getHeight()){
+							if (img.getHeight() > 300) {
+							pics.setHeight("100px");
+							pics.setWidth(img.getWidth() * 100 /
+							img.getHeight() + "px");
+							}
+							}
+							if (img.getHeight() > img.getWidth()){
+							if (img.getWidth() > 400) {
+							pics.setWidth("400px");
+							pics.setHeight(img.getHeight() * 400 / img.getWidth() + "px");
+							}
+							}
+							pics.setContent(img);
+							} else {
+							Messagebox.show("Not an image:"+media, "Error", Messagebox.OK, Messagebox.ERROR);
+							break; //not to show too many errors
+							}
+						</attribute>
+					</button>
+					<image id="pics" />
+				</vlayout>
+			</row>
+
+			<row>
+				<textbox placeholder="Įrašykite aprašymą..." id="aprasymas"
+					rows="10" cols="200" />
+			</row>
+		</rows>
+	</grid>
+	<button id="sukurtiKreipini" label="Sukurti" width="100px"
+		height="30px"></button>
+
+
+
+</window>

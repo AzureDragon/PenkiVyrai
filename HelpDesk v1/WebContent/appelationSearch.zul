@@ -1,0 +1,185 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+<zk xmlns:n="native" xmlns:x="xhtml">
+  <include src="index.zul" />
+
+
+  <style>
+    .z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow: hidden; } .cg-title { font-weight: normal; color: #008DB7; margin-bottom: 0; padding-bottom:
+    0; } .cg-desc { margin-top: 0; font-family: arial,sans-serif; font-size: small; font-weight: normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+    div.status { border: 0 none; } .status tr.z-grid-odd td.z-row-inner, .status tr.z-grid-odd .z-cell, .status tr.z-grid-odd { background: none; border: 0
+    none; }
+
+    .status .head { text-align : right; } .status .head span { font-weight : bold; } .subject { font-weight: normal; font-size:24px; color: #008DB7;
+    margin-bottom: 0; padding-bottom: 0; } .info { font-weight: normal; font-size:21px; color: #787878 ; margin-bottom: 0; padding-bottom: 0; }
+  </style>
+  <groupbox sclass="main z-demo-config">
+    <caption label="Kreipiniai" />
+    <hlayout spacing="40px" style="padding-left: 10px;">
+      <image src="/img/task.png"></image>
+      <n:h1 class="cg-title">Kreipinių administravimas</n:h1>
+    </hlayout>
+    <vlayout spacing="15px">
+      <hbox align="center"
+        apply="mainControllers.SearchController, mainControllers.AssignEmployeeController, mainControllers.SolveTaskController">
+        <toolbar>
+          Kreipinys:
+          <textbox id="keywordBox" />
+          <button id="searchButton" label="Ieškoti" image="/img/search.png" />
+          <button id="uzregistruotiKreipiniButton" label="Užregistruoti kreipinį">
+
+            <attribute name="onClick">
+	{
+		final Window kreipinioRegistracija = (Window) Executions
+				.createComponents("taskRegistrationForm.zul", null, null);
+		kreipinioRegistracija.setMaximizable(true);
+		kreipinioRegistracija.doModal();
+	}
+</attribute>
+          </button>
+          <button id="solve" label="Išspręsti kreipinį">
+
+            <attribute name="onClick">
+	{
+		final Window solveTask = (Window) Executions.createComponents(
+				"solveTask.zul", null, null);
+		solveTask.setMaximizable(true);
+		solveTask.doModal();
+	}
+</attribute>
+
+          </button>
+          <button id="startProgress" label="Pradėti spręsti kreipinį" />
+        </toolbar>
+      </hbox>
+
+    </vlayout>
+    <vlayout spacing="15px">
+      <menupopup id="msg">
+        <menuitem id="priskirtiKreipiniDarbuotojuiButton" label="Priskirti kreipinį">
+          <attribute name="onClick">
+	{
+		final Window win = (Window) Executions.createComponents(
+				"priskirtiDarbuotoja.zul", null, null);
+		win.setMaximizable(true);
+		win.doModal();
+	}
+</attribute>
+        </menuitem>
+        <menuitem label="Redaguoti" />
+      </menupopup>
+
+      <listbox maxlength="8" id="taskListbox" sclass="z-listbox-autopaging" height="300px" emptyMessage="Kreipinių nerasta">
+
+        <listhead sizable="true">
+          <listheader label="Nr" width="4%" />
+          <listheader label="Kreipinys" width="40%" />
+          <listheader label="Tipas" />
+          <listheader label="Būsena" />
+          <listheader label="Klientas" />
+          <listheader label="Užregistruota" />
+          <listheader label="Išspręsti iki" />
+        </listhead>
+
+        <template name="model">
+          <listitem context="msg" height="5px" sclass="z-listbox-autopaging">
+            <listcell label="${each.id}"></listcell>
+            <listcell height="20px" label="${each.subject}"></listcell>
+            <listcell height="20px" label="${each.type}"></listcell>
+            <listcell height="20px" label="${each.status}"></listcell>
+            <listcell height="20px" label="${each.clientId}"></listcell>
+            <listcell height="20px" label="${each.registered}"></listcell>
+            <listcell height="20px" label="${each.solveUntil}"></listcell>
+
+          </listitem>
+        </template>
+      </listbox>
+    </vlayout>
+    <tabbox id="detailBox" visible="false">
+      <tabs>
+        <tab label="Detali informacija" image="/img/info.png" />
+        <tab id="comments" label="Komentarai" image="/img/comments.png" closable="true" />
+        <tab label="Istorija" image="/img/history.png" closable="true" />
+      </tabs>
+      <tabpanels>
+        <tabpanel>
+          <hbox style="margin-top:20px">
+            <vbox>
+              <box orient="horizontal">
+                <label sclass="subject" id="temaLabel"></label>
+              </box>
+              <groupbox>
+                <caption label="Pagrindinė informacija" />
+                <x:table cellpadding="5">
+                  <x:tr>
+                    <x:td>
+                      <box orient="horizontal" sclass="info">
+                        Tipas:
+                        <label style="font-weight:bold" id="tipasLabel" />
+                      </box>
+                      <box orient="horizontal" sclass="info">
+                        Užregistruota:
+                        <label style="font-weight:bold" id="dataLabel" />
+                      </box>
+                      <box orient="horizontal" sclass="info">
+                        Išspręsti iki:
+                        <label style="font-weight:bold" id="issprestiIkiLabel" />
+                      </box>
+                    </x:td>
+                    <x:td>
+                      <box orient="horizontal" sclass="info">
+                        Būsena:
+                        <label style="color:red" id="busenaLabel" />
+                      </box>
+                      <box orient="horizontal" sclass="info">
+                        Priskyrė:
+                        <label style="font-weight:bold" id="klientasLabel" />
+                      </box>
+                      <box orient="horizontal" sclass="info">
+                        Priskirta:
+                        <label style="font-weight:bold" id="priskirtaLabel" />
+                        <!-- <button id="priskirtiKreipiniDarbuotojuiButton" width="200px" 
+                          label="Priskirti kreipinį"> </button> -->
+                      </box>
+                    </x:td>
+                  </x:tr>
+                </x:table>
+              </groupbox>
+              <groupbox>
+                <caption label="Aprašymas" />
+                <box orient="horizontal" sclass="info">
+                  <label style="font-weight:italic" id="aprasymasLabel" />
+                </box>
+              </groupbox>
+            </vbox>
+          </hbox>
+        </tabpanel>
+        <tabpanel>
+          <groupbox>
+            <caption label="Komentarai" />
+            <box orient="horizontal" sclass="info">
+
+              <grid id="commentsGrid" rowRenderer="addtionalControllers.CommentRowRenderer">
+    
+              </grid>
+
+
+            </box>
+          </groupbox>
+
+        </tabpanel>
+        <tabpanel>
+          <groupbox>
+            <caption label="Istorija" />
+            <box orient="horizontal" sclass="info">Service unavailable</box>
+          </groupbox>
+
+        </tabpanel>
+      </tabpanels>
+
+    </tabbox>
+  </groupbox>
+</zk>

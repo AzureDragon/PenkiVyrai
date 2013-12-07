@@ -1,0 +1,47 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+<window id="solveWindow" height="450px" width="600px" closable="true" contentStyle="overflow:auto" title="Kreipinio išsprendimas" border="normal"
+  apply="mainControllers.SolveTaskController, mainControllers.InitSolveTaskController">
+
+
+  <vbox>
+    <box orient="horizontal">
+      <vbox>
+        <label height="30px" value="Būsena" />
+
+        <combobox id="status" height="30px" width="280px" onSelect="">
+          <comboitem label="Išspręsta" />
+          <comboitem id="second" label="Atsisakyta spręsti" />
+        </combobox>
+      </vbox>
+      <vbox>
+        <label id="priskirtiLabel" value="Priskirti"></label>
+        <combobox id="priskirti" height="30px" width="280px">
+          <template name="model">
+            <comboitem label="${each.firstName} ${each.surName}" />
+          </template>
+        </combobox>
+      </vbox>
+    </box>
+
+    <label value="Komentaras" style="font-weight:bold; font-size:20px;"></label>
+  </vbox>
+
+
+  <popup id="taskSolved" apply="mainControllers.SolveTaskController">Kreipinys sėkmingai išspręstas</popup>
+
+
+
+
+  <box orient="horizontal">
+
+    <textbox id="comment" rows="8" cols="83" type="text"></textbox>
+  </box>
+  <button height="25px" width="120px" id="solveButton" label="Patvirtinti" popup="taskSolved, x=50,y=50" />
+  <button height="25px" width="100px" id="cancelButton" label="Atšaukti" popup="taskSolved" onClick="solveWindow.onClose()" />
+
+
+</window>

@@ -1,0 +1,53 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+
+<zk xmlns:n="native">
+
+	<!-- Begin Menu -->
+	<menubar apply="mainControllers.IndexController" id="menubar"
+		autodrop="true">
+		<menuitem label="Pagrindinis" href="index.zul" />
+		<menuitem label="Paslaugos" onClick="alert(self.label)" />
+		<menuitem label="Sutartys" onClick="alert(self.label)" />
+		<menuitem label="Klientai" href="client.zul" />
+		<menuitem label="Kreipiniai" href="appelationSearch.zul" />
+	</menubar>
+	<!-- End Menu -->
+	<hbox width="100%" pack="end">
+		<cell>
+			<label id="timer" width="33%" />
+
+			<timer id="timer2" delay="1000" repeats="true">
+				<attribute name="onTimer">
+	Locale locale = org.zkoss.util.Locales.getCurrent();
+	java.text.DateFormat dateFormat = java.text.DateFormat.getDateTimeInstance(
+			java.text.DateFormat.MEDIUM, java.text.DateFormat.MEDIUM, locale);
+	String strTime = dateFormat.format(java.util.Calendar.getInstance(locale)
+			.getTime());
+	timer.setValue(strTime);
+</attribute>
+			</timer>
+		</cell>
+		<cell>
+			<label id="profile"
+				value="${sessionScope.Authentication.loginName}" />
+		</cell>
+		<cell>
+			<label value="logOut" id="logOut" />
+		</cell>
+	</hbox>
+
+	<div id="container" sclass="container" width="570px">
+<vlayout id="product_list" width="100%">
+
+			<!--  <n:h1 class="mo_head">HD kreipinių valdymo sistema</n:h1> -->
+            <image
+						src="/img/sistema.png" /> 
+			
+		</vlayout>
+		
+	</div>
+</zk>

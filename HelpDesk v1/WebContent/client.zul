@@ -1,0 +1,146 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+<zk xmlns:n="native">
+	<include src="index.zul" />
+	<style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; } .cg-title { font-weight: normal; color: #008DB7;
+		margin-bottom: 0; padding-bottom: 0; } .cg-desc { margin-top: 0;
+		font-family: arial,sans-serif; font-size: small; font-weight:
+		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+		div.status { border: 0 none; } .status tr.z-grid-odd
+		td.z-row-inner, .status tr.z-grid-odd .z-cell, .status
+		tr.z-grid-odd { background: none; border: 0 none; }
+
+		.status .head { text-align : right; } .status .head span {
+		font-weight : bold; }
+	</style>
+	<groupbox sclass="main z-demo-config">
+		<caption label="Klientai" />
+		<hlayout spacing="40px" style="padding-left: 10px;">
+			<image src="/img/client2.png"></image>
+			<n:h1 class="cg-title">Klientų administravimas</n:h1>
+		</hlayout>
+		<vlayout spacing="15px">
+			<hbox
+			apply="mainControllers.ClientsController">
+				<toolbar>
+					Pavadinimas:
+					<textbox id="keywordBox" />
+					<button id="searchButton" label="Ieškoti"
+						image="/img/search.png" />
+
+					<button id="uzregistruotiKlientaButton"
+						label="Užregistruoti klientą">
+						<attribute name="onClick">
+	{
+		final Window klientoRegistracija = (Window) Executions
+				.createComponents("klientoRegistracijaForma.zul", null, null);
+		klientoRegistracija.setMaximizable(true);
+		klientoRegistracija.doModal();
+	}
+</attribute>
+					</button>
+				</toolbar>
+				</hbox>
+		</vlayout>
+		<vlayout spacing="15px">
+			<listbox maxlength="8" id="clientsListbox"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Klientų nerasta">
+
+				<listhead sizable="true">
+					<listheader label="Nr" width="4%" />
+					<listheader label="Pavadinimas" width="40%" />
+					<listheader label="Kodas" />
+					<listheader label="Adresas" />
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell label="${each.id}"></listcell>
+						<listcell height="20px" label="${each.name}"></listcell>
+						<listcell height="20px" label="${each.code}"></listcell>
+						<listcell height="20px"
+							label="${each.address}">
+						</listcell>
+						
+
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+		<tabbox id="detailBox" width="400px" visible="false">
+			<tabs>
+				<tab label="Detali informacija" image="/img/folder.gif" />
+				<tab label="Komentarai" image="/img/folder.gif"
+					closable="true" />
+				<tab label="Istorija" image="/img/folder.gif"
+					closable="true" />
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<hbox style="margin-top:20px">
+
+						<vbox>
+							<box orient="horizontal">
+								Tema:
+								<label style="font-weight:bold"
+									id="temaLabel">
+								</label>
+							</box>
+							<box orient="horizontal">
+								Siuntėjas:
+								<label style="font-weight:bold"
+									id="klientasLabel" />
+							</box>
+							<box orient="horizontal">
+								Užregistruota:
+								<label style="font-weight:bold"
+									id="dataLabel" />
+							</box>
+							<box orient="horizontal">
+								Išspręsti iki:
+								<label style="font-weight:bold"
+									id="issprestiIkiLabel" />
+
+							</box>
+
+							<box orient="horizontal">
+								Būsena:
+								<label style="color:red"
+									id="busenaLabel" />
+							</box>
+							<box orient="horizontal">
+								Tipas:
+								<label style="font-weight:bold"
+									id="tipasLabel" />
+							</box>
+							<box orient="horizontal">
+								Priskirta:
+								<label style="font-weight:bold"
+									id="priskirtaLabel" />
+								<!-- <button id="priskirtiKreipiniDarbuotojuiButton" width="200px" 
+									label="Priskirti kreipinį"> </button> -->
+							</box>
+							<box orient="horizontal">
+								Aprašymas:
+								<label style="font-weight:italic"
+									id="aprasymasLabel" />
+							</box>
+						</vbox>
+					</hbox>
+				</tabpanel>
+				<tabpanel>Service unavailable</tabpanel>
+				<tabpanel>Service unavailable</tabpanel>
+			</tabpanels>
+
+		</tabbox>
+	</groupbox>
+
+
+</zk>

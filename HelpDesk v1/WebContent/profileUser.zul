@@ -1,0 +1,85 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+<?link rel="stylesheet" type="text/css" href="/style.css"?>
+<window apply="mainControllers.EmployeeProfileViewController">
+<include src="index.zul" />
+    <vlayout>
+        <grid width="500px">
+            <columns>
+                <column align="right" hflex="min"/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <cell sclass="row-title">Prisijungimo vardas :</cell>
+                    <cell><label id="account"/></cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Senas slaptažodis :</cell>
+                    <cell>
+                        <textbox id="oldPassword" type="password"/>
+                    </cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Naujas slaptažodis :</cell>
+                    <cell>
+                        <textbox id="newPassword" type="password"/>
+                    </cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Pakartokite slaptažodį :</cell>
+                    <cell>
+                        <textbox id="newRepPassword" type="password"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Vardas :</cell>
+                    <cell>
+                        <textbox id="firstName"
+                        constraint="no empty: Iveskite vardą!" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Pavardė :</cell>
+                    <cell>
+                        <textbox id="lastName"
+                        constraint="no empty: Iveskite Pavardę!" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Elektroninis paštas :</cell>
+                    <cell>
+                        <textbox id="eMail"
+                        constraint="/.+@.+\.[a-z]+/: Iveskite elektroninio pašto adresą" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Telefono numeris :</cell>
+                    <cell>
+                        <textbox id="phone"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Gimimo data :</cell>
+                    <cell>
+                        <datebox id="birthday"
+                        constraint="no future" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Teisės :</cell>
+                    <cell><label id="rights"/></cell>
+                </row>               
+   
+            </rows>
+        </grid>
+        <div>Jūs koreaguojate <label id="nameLabel"/> profilį.</div>
+        <hlayout>
+            <button id="saveProfile" label="Išsaugoti"/>
+            <button id="reloadProfile" label="Atnaujinti"/>
+        </hlayout>
+    </vlayout>
+</window>

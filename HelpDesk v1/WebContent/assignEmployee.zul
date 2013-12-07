@@ -1,0 +1,59 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window id="darbuotojoLangas" height="300px" width="500px"
+		closable="true"
+		apply="mainControllers.AssignEmployeeController, mainControllers.EmployeeController"
+		title="Kreipinio priskyrimas" border="normal">
+
+		<grid>
+			<columns>
+				<column />
+				<column />
+			</columns>
+			<rows>
+				<row>
+					<label value="Priskirti"></label>
+					<combobox id="darbuotojas">
+						<template name="model">
+							<comboitem
+								label="${each.firstName} ${each.surName}" />
+						</template>
+					</combobox>
+				</row>
+				<row>
+					<label value="Išspręsti iki"></label>
+					<datebox id="isprestiIkiDateBox" cols="12"
+						format="short " onCreate="self.value = new Date()" mold="rounded" />
+				</row>
+			</rows>
+
+		</grid>
+		<label value="Papildoma informacija"></label>
+		<textbox rows="8" cols="83"></textbox>
+		<grid>
+			<columns>
+				<column />
+			</columns>
+			<rows>
+
+				<row>
+
+				</row>
+			</rows>
+		</grid>
+		<box orient="horizontal">
+			<button id="priskirtiDarbuotojaButton" width="150px"
+				label="Priskirti kreipinį">
+
+
+
+			</button>
+
+		</box>
+
+
+
+
+	</window>
+</zk>
