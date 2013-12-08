@@ -93,8 +93,8 @@ public class TaskRegistrationController extends
 						"yyyy/MM/dd HH:mm");
 				SimpleDateFormat issprestiIkiDate = new SimpleDateFormat(
 						"yyyy/MM/dd HH:mm");
+				AuthenticationService authService = new AuthenticationServiceImpl();
 				Authentication cre = authService.getUserCredential();
-
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = Clasifiers.getConnection();
 				System.out.println("INSERT INTO task values (" + "default,"
@@ -181,7 +181,7 @@ public class TaskRegistrationController extends
 								+ "null"
 								+ "',"
 								+ " '"
-								+ 0
+								+ cre.getEmployeeId()
 								+ "',"
 								+ // " '"+uC.getId()+"'," + //AssigneeID
 								" '"
@@ -192,7 +192,7 @@ public class TaskRegistrationController extends
 								+ " '"
 								+ Integer.parseInt(Clasifiers
 										.getClientIdByName(klientas.getValue()))
-								+ "');");
+								+ "',null );");
 
 				preparedStatement.executeUpdate();
 				System.out.println("pakomkitinau");

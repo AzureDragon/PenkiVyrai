@@ -50,7 +50,7 @@ public class AppelationServiceImpl implements AppelationService {
 					Clasifiers.getClientNameById(resultSet.getInt("ClientID")),
 					resultSet.getDate("Registered"), resultSet
 							.getInt("ReceiverId"), resultSet
-							.getDate("SolveUntil")));
+							.getDate("SolveUntil"), resultSet.getInt("AssigneeId")));
 
 		}
 	}
@@ -83,20 +83,20 @@ public class AppelationServiceImpl implements AppelationService {
 								.getInt("Status")), Clasifiers
 								.getClientNameById(rs.getInt("ClientID")), rs
 								.getDate("Registered"),
-						rs.getInt("ReceiverId"), rs.getDate("SolveUntil")));
+						rs.getInt("ReceiverId"), rs.getDate("SolveUntil"), rs.getInt("AssigneeId")));
 			}
 		}
 
 		return result;
 	}
 
-	public void startTaskProgress(Task task) throws Exception {
+	public void startTaskProgress(String taskId) throws Exception {
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
 		preparedStatement = connect.prepareStatement("UPDATE task SET Status ="
-				+ 2 + " WHERE ID=" + task.getId() + ";");
+				+ 2 + " WHERE ID=" + taskId + ";");
 		preparedStatement.executeUpdate();
 
 	}

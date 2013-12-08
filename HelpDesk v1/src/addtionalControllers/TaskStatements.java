@@ -11,15 +11,81 @@ import model.Task;
 public class TaskStatements {
 
 	// Task
-	public String getTaskName(int Id) throws Exception {
+	public String getTaskName(String Id) throws Exception {
 
 		String tekstas = "";
 		tekstas = sql("SELECT Subject FROM task WHERE id=" + Id + ";");
 
 		return tekstas;
 	}
+	
+	public String getTaskSolution(String taskId) throws Exception {
 
-	public String getTaskDescription(int Id) throws Exception {
+		String tekstas = "";
+		tekstas = sql("SELECT Solution FROM task WHERE id=" + taskId + ";");
+
+		return tekstas;
+
+	}
+	
+	public String getTaskResolver(String taskId) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT Resolver FROM task WHERE id=" + taskId + ";");
+		return tekstas;
+
+	}
+	public String getTaskStatus(String Id) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT Status FROM task WHERE id=" + Id + ";");
+
+		return tekstas;
+	}
+	public String getTaskregisteredDate(String Id) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT Registered FROM task WHERE id=" + Id + ";");
+
+		return tekstas;
+	}
+	public String getTaskType(String Id) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT Type FROM task WHERE id=" + Id + ";");
+
+		return tekstas;
+	}
+	public String getTaskSolveUntil(String Id) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT SolveUntil FROM task WHERE id=" + Id + ";");
+
+		return tekstas;
+	}
+	public String getTaskAssigneeId(String Id) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT AssigneeId FROM task WHERE id=" + Id + ";");
+
+		return tekstas;
+	}
+	
+	public String getTaskReceiverId(String Id) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT ReceiverId FROM task WHERE id=" + Id + ";");
+		return tekstas;
+	}
+	public String getTaskClientId(String Id) throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT ClientID FROM task WHERE id=" + Id + ";");
+		return tekstas;
+	}
+
+
+	public String getTaskDescription(String Id) throws Exception {
 
 		String tekstas = "";
 		tekstas = sql("SELECT Description FROM task WHERE id=" + Id + ";");
@@ -27,13 +93,7 @@ public class TaskStatements {
 		return tekstas;
 	}
 
-	public String getTaskSolution(int Id) throws Exception {
 
-		String tekstas = "";
-		tekstas = sql("SELECT Solution FROM task WHERE id=" + Id + ";");
-
-		return tekstas;
-	}
 
 	// Service
 	public String getServiceName(int Id) throws Exception {
@@ -162,7 +222,7 @@ public class TaskStatements {
 		}
 	}
 
-	public void changeAssignee(Task task, String name) throws Exception {
+	public void changeAssignee(String taskId, String name) throws Exception {
 
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -172,12 +232,27 @@ public class TaskStatements {
 		preparedStatement = connect
 				.prepareStatement("UPDATE task SET ReceiverId ="
 						+ Clasifiers.getEmployeeIdByNameAndSurname(name)
-						+ " WHERE ID =" + task.getId() + ";");
+						+ " WHERE ID =" + taskId + ";");
+		preparedStatement.executeUpdate();
+
+	}
+	
+	public void setSolution(String taskId, String solution, int resolver) throws Exception {
+
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+
+		Class.forName("com.mysql.jdbc.Driver");
+		connect = Clasifiers.getConnection();
+		preparedStatement = connect
+				.prepareStatement("UPDATE task SET Solution ='"
+						+ solution
+						+ "', Resolver='"+ resolver +"' WHERE ID =" + taskId + ";");
 		preparedStatement.executeUpdate();
 
 	}
 
-	public void changeStatus(Task task, String status) throws Exception {
+	public void changeStatus(String taskId, String status) throws Exception {
 
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
@@ -186,11 +261,13 @@ public class TaskStatements {
 		connect = Clasifiers.getConnection();
 		preparedStatement = connect.prepareStatement("UPDATE task SET Status ="
 				+ Clasifiers.getStatusCode(status) + " WHERE ID ="
-				+ task.getId() + ";");
+				+ taskId + ";");
 
 		preparedStatement.executeUpdate();
 
 	}
+	
+
 
 	public static void main(String args[]) throws Exception {
 

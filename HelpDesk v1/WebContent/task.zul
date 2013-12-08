@@ -1,11 +1,173 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window title="new page title" border="normal">
+<?page  title="new page title" contentType="text/html;charset=UTF-8"?>
+
+<groupbox apply="addtionalControllers.TaskViewController">
+
+	<style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; } .cg-title { font-weight: normal; color: #008DB7;
+		margin-bottom: 0; padding-bottom: 0; } .cg-desc { margin-top: 0;
+		font-family: arial,sans-serif; font-size: small; font-weight:
+		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+		div.status { border: 0 none; } .status tr.z-grid-odd
+		td.z-row-inner, .status tr.z-grid-odd .z-cell, .status
+		tr.z-grid-odd { background: none; border: 0 none; }
+
+		.status .head { text-align : right; } .status .head span {
+		font-weight : bold; } .subject { font-weight: normal;
+		font-size:24px; color: #008DB7; margin-bottom: 0;
+		padding-bottom: 0; } .info { font-weight: normal;
+		font-size:21px; color: #787878 ; }
+	</style>
+	<include src="index.zul" />
+	<hlayout spacing="10px">
+		<groupbox mold="3d" width="100%">
+			<caption label="Pagrindinė informacija" />
+			<hlayout>
+				<vbox>
+					<box orient="horizontal" sclass="info">
+						Tipas:
+						<label style="font-weight:bold" id="typeLabel" />
+					</box>
+					<box orient="horizontal">
+						Būsena:
+						<label style="color:red" id="statusLabel" />
+					</box>
+				</vbox>
+				<vbox>
+					<box orient="horizontal" sclass="info">
+						Užregistruota:
+						<label style="font-weight:bold"
+							id="registeredLabel" />
+					</box>
+					<box orient="horizontal" sclass="info">
+						Išspręsti iki:
+						<label style="font-weight:bold"
+							id="solveUntilLabel" />
+					</box>
+				</vbox>
+			</hlayout>
+		</groupbox>
 
 
+		<groupbox mold="3d" width="100%">
+			<caption label="Žmonės" />
+			<box orient="horizontal">
+				Sukūrė:
+				<label style="font-weight:bold" id="createdLabel" />
+			</box>
+			<box orient="horizontal" sclass="info">
+				Priskirta:
+				<label style="font-weight:bold" id="assignedLabel" />
+				<!-- <button id="priskirtiKreipiniDarbuotojuiButton" width="200px" 
+					label="Priskirti kreipinį"> </button> -->
+			</box>
+			<box orient="horizontal" sclass="info">
+				Klientas:
+				<label style="font-weight:bold" id="clientLabel" />
+				<!-- <button id="priskirtiKreipiniDarbuotojuiButton" width="200px" 
+					label="Priskirti kreipinį"> </button> -->
+			</box>
+		</groupbox>
+
+	</hlayout>
+	<vlayout spacing="100px">
+	<groupbox>
+		<box style="margin-top:20px">
+			<vbox>
+				<combobutton autodrop="true" disabled="false"
+					width="200px" label="Veiksmai">
 
 
+					<menupopup id="actionsGroup">
+						<menuitem id="startProgress" width="200px"
+							label="Pradėti spręsti kreipinį" />
+						<menuitem id="solve" width="200px"
+							label="Spręsti kreipinį">
+
+						</menuitem>
+					</menupopup>
+
+				</combobutton>
+				<box orient="horizontal">
+					<label sclass="subject" id="subjectLabel"></label>
+				</box>
+
+				<groupbox droppable="true">
+					<caption label="Aprašymas" />
+					<box orient="horizontal" sclass="info">
+						<label
+							style="font-weight:italic; font-size: 16px;"
+							id="descriptionLabel" />
+					</box>
+				</groupbox>
+			</vbox>
+		</box>
+	</groupbox>
 
 
-</window>
-</zk>
+	<tabbox id="detailBoxas" visible="true">
+		<tabs>
+
+			<tab id="taskComments" label="Komentarai"
+				image="/img/comments.png" closable="true" />
+			<tab label="Istorija" image="/img/history.png"
+				closable="true" />
+			<tab id="solutionInfo" label="Sprendimas" image="/img/history.png"
+				closable="true" />
+
+		</tabs>
+		<tabpanels>
+			<tabpanel>
+				<button id="addComment" label="Pridėti komentarą" />
+				<grid id="commentsGrid"
+					rowRenderer="addtionalControllers.CommentRowRenderer">
+
+				</grid>
+
+
+			</tabpanel>
+			<tabpanel>service unavailable</tabpanel>
+			<tabpanel>
+				<vbox>
+				<box orient="horizontal">
+					
+					<label id="solutionAuthor" />
+					<label id="isSolution" value="rašo:"/>
+					</box>
+					<label id="solution"  style="font-weight: bold; font-size: 15px" >
+
+					</label>
+				</vbox>
+			</tabpanel>
+		</tabpanels>
+
+	</tabbox>
+	</vlayout>
+	<window visible="false" id="commentPopup">
+		<vlayout>
+			<textbox id="commentText" rows="10" cols="100" />
+			<box orient="horizontal">
+				<button id="addCommentText" label="Pridėti">
+					<attribute name="onClick">
+	{
+		mainControllers.CommentsController commentsController = new mainControllers.CommentsController();
+		commentsController.addComment(invisibleLabelId.getValue(),
+				commentText.getValue());
+		commentText.setValue("");
+		commentPopup.setVisible(false);
+		Executions.getCurrent().sendRedirect("");
+
+	}
+</attribute>
+
+				</button>
+				<button id="cancelComment" label="Atšaukti"
+					onClick="commentPopup.setVisible(false)">
+				</button>
+			</box>
+		</vlayout>
+	</window>
+	<label id="invisibleLabelId" visible="false" />
+
+
+</groupbox>

@@ -48,7 +48,7 @@ public class Task {
 
 	public Task(int id, String subject, String description, String type,
 			String status, String clientId, Date registered, int receiverId,
-			Date solveUntil) {
+			Date solveUntil, int assigneeId) {
 				
 			this.id=id;
 			this.subject=subject;
@@ -59,6 +59,7 @@ public class Task {
 			this.registered =registered;
 			this.receiverId = receiverId;
 			this.solveUntil=solveUntil;
+			this.assigneeId = assigneeId;
 		
 		// TODO Auto-generated constructor stub
 	}

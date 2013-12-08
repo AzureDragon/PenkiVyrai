@@ -25,7 +25,7 @@ import model.Task;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 
-	public boolean addComment(Task task, String comment) throws Exception {
+	public boolean addComment(String taskId, String comment) throws Exception {
 		
 		Date date = new Date();
 		SimpleDateFormat todayDate = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -37,7 +37,7 @@ import model.Task;
 		connect = Clasifiers.getConnection();
 		preparedStatement = connect
 				.prepareStatement("INSERT INTO comment values (" + "default,"
-						+ " '" + task.getId() + "'," + " " + " '"
+						+ " '" + taskId + "'," + " " + " '"
 						+ cre.getEmployeeId() + "'," + " '" + comment + "',"
 						+ " '" + todayDate.format(date) + "');");
 
@@ -47,7 +47,7 @@ import model.Task;
 
 	}
 
-	public List<Comment> getTaskComments(Task task) throws Exception {
+	public List<Comment> getTaskComments(String taskId) throws Exception {
 		
 		ResultSet resultSet;
 		Class.forName("com.mysql.jdbc.Driver");
@@ -55,7 +55,7 @@ import model.Task;
 		statement = connect.createStatement();
 		resultSet = statement
 				.executeQuery("SELECT * from comment WHERE TaskId='"
-						+ task.getId() + "'");
+						+ taskId + "'");
 
 		return writeResultSet(resultSet);
 

@@ -21,7 +21,7 @@
     
     <rule>
         <from>/task/([0-9]+)$</from>
-        <to type="redirect">%{context-path}/task.zul</to>
+        <to type="redirect">%{context-path}/task.zul?id=$1</to>
     </rule>
 
 

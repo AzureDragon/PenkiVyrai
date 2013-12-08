@@ -3,7 +3,7 @@
   encoding="UTF-8""
 contentType="text/html;charset=UTF-8"
 ?>
-<window id="solveWindow" height="450px" width="600px" closable="true" contentStyle="overflow:auto" title="Kreipinio išsprendimas" border="normal"
+<window id="solveTaskWindow" height="450px" width="600px" closable="true" contentStyle="overflow:auto" title="Kreipinio išsprendimas" border="normal"
   apply="mainControllers.SolveTaskController, mainControllers.InitSolveTaskController">
 
 
@@ -12,7 +12,7 @@ contentType="text/html;charset=UTF-8"
       <vbox>
         <label height="30px" value="Būsena" />
 
-        <combobox id="status" height="30px" width="280px" onSelect="">
+        <combobox id="status" height="30px" width="280px" value="Išspręsta">
           <comboitem label="Išspręsta" />
           <comboitem id="second" label="Atsisakyta spręsti" />
         </combobox>
@@ -26,8 +26,8 @@ contentType="text/html;charset=UTF-8"
         </combobox>
       </vbox>
     </box>
-
-    <label value="Komentaras" style="font-weight:bold; font-size:20px;"></label>
+	
+    <label value="Sprendimas" style="font-weight:bold; font-size:20px;"></label>
   </vbox>
 
 
@@ -41,7 +41,7 @@ contentType="text/html;charset=UTF-8"
     <textbox id="comment" rows="8" cols="83" type="text"></textbox>
   </box>
   <button height="25px" width="120px" id="solveButton" label="Patvirtinti" popup="taskSolved, x=50,y=50" />
-  <button height="25px" width="100px" id="cancelButton" label="Atšaukti" popup="taskSolved" onClick="solveWindow.onClose()" />
+  <button height="25px" width="100px" id="cancelButton" label="Atšaukti" popup="taskSolved" onClick="solveTaskWindow.onClose()" />
 
 
 </window>

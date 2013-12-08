@@ -17,6 +17,8 @@ import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Menuitem;
+import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.Textbox;
 
 import services.AppelationService;
@@ -33,8 +35,7 @@ public class SearchController extends SelectorComposer<Component> {
 	private static final long serialVersionUID = 1L;
 	public EmployeeService employeeService = new EmployeeServiceImpl();
 
-	@Wire
-	public Button solve;
+	
 	@Wire
 	private Textbox keywordBox;
 	@Wire
@@ -50,7 +51,7 @@ public class SearchController extends SelectorComposer<Component> {
 	@Wire
 	private Label issprestiIkiLabel;
 	@Wire
-	private Label klientasLabel;
+	private Label reporter;
 	@Wire
 	private Component detailBox;
 	@Wire
@@ -61,6 +62,10 @@ public class SearchController extends SelectorComposer<Component> {
 	Grid commentsGrid;
 	@Wire
 	Button startProgress;
+	@Wire
+	Menuitem edit;
+	@Wire 
+	Menupopup msg;
 	
 	@SuppressWarnings("unused")
 	private Connection connect = null;
@@ -76,6 +81,8 @@ public class SearchController extends SelectorComposer<Component> {
 		List<Task> result = appelationService.search(keyword);
 		taskListbox.setModel(new ListModelList<Task>(result));
 	}
+
+	
 
 	@Listen("onClick = #connectButton")
 	public void connectToDatabase() throws Exception {
@@ -115,7 +122,7 @@ public class SearchController extends SelectorComposer<Component> {
 			tipasLabel.setValue(Clasifiers.getTypeName(selected.getType()));
 			dataLabel.setValue(selected.getRegistered().toString());
 			issprestiIkiLabel.setValue(selected.getSolveUntil().toString());
-			klientasLabel.setValue(selected.getDelegateId() + "");
+			reporter.setValue(Clasifiers.getEmployeeNameById(selected.getAssigneeId()) +" " +Clasifiers.getEmployeeSurnameById(selected.getAssigneeId()));
 		}	
 
 	@Listen("onSelect = #comments")
@@ -124,20 +131,11 @@ public class SearchController extends SelectorComposer<Component> {
 		selected = taskListbox.getSelectedItem().getValue();
 		CommentsController commentsController = new CommentsController();
 		commentsGrid.setModel(new ListModelList<Comment>(commentsController
-				.getTaskComments(selected)));
+				.getTaskComments(selected.getId().toString())));
 
 	}
 
-	@Listen("onClick = #startProgress")
-	@NotifyChange("taskListbox")
-	public void startProgress() throws Exception {
-		
-		selected = taskListbox.getSelectedItem().getValue();
-		AppelationServiceImpl taskService = new AppelationServiceImpl();
-		taskService.startTaskProgress(selected);
-		List<Task> result = appelationService.search(keywordBox.getValue());
-		taskListbox.setModel(new ListModelList<Task>(result));
-	}
+	
 
 	public void setSelected(Task selected) {
 		this.selected = selected;
