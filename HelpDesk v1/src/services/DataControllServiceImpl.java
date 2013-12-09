@@ -40,9 +40,13 @@ public class DataControllServiceImpl implements DataControllService{
 	    {
 			HSSFSheet sheet = wb.getSheetAt(i);
 			if(sheet.getSheetName().toString().equals(name))
+			{
+				System.out.println("Rado");
 				return sheet;				
+			}
 
 	    }
+		System.out.println("neRado");
 		return null;
 	}
 	
@@ -55,7 +59,10 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
+		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
+				   			" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
+				   			" LH_INC: "+sheet.getRow(j).getCell(2).getNumericCellValue()+
+				   			" LH_REQ: "+sheet.getRow(j).getCell(3).getNumericCellValue()+" \n");
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Paslaugas!\n");
@@ -69,7 +76,12 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
+		   System.out.print("DarboId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
+				   			" Vardas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
+				   			" Pavarde: "+sheet.getRow(j).getCell(2).getStringCellValue()+
+				   			" Pareigos: "+sheet.getRow(j).getCell(3).getStringCellValue()+
+				   			" Telefonas: "+sheet.getRow(j).getCell(4).getStringCellValue()+
+				   			" Mail: "+sheet.getRow(j).getCell(5).getStringCellValue()+" \n");
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Darbuotojus!\n");
@@ -83,7 +95,9 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
+		   System.out.print("KlientoId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
+				    		" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
+				    		" Adresas: "+sheet.getRow(j).getCell(2).getStringCellValue()+" \n");
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Klientus!\n");
@@ -97,7 +111,13 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
+			   System.out.print("AtstovoId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
+					   			" AtstovaujaKlienta: "+sheet.getRow(j).getCell(1).getStringCellValue()+
+					   			" Vardas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
+					   			" Pavarde: "+sheet.getRow(j).getCell(3).getStringCellValue()+
+					   			" ElPastas: "+sheet.getRow(j).getCell(4).getStringCellValue()+
+					   			" Telefonas: "+sheet.getRow(j).getCell(5).getStringCellValue()+
+					   			" Aktyvus: "+sheet.getRow(j).getCell(6).getBooleanCellValue()+" \n");
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Atstovus!\n");
@@ -109,9 +129,20 @@ public class DataControllServiceImpl implements DataControllService{
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
-
+		System.out.println(rows+" "+(sheet.getRow(1).getCell(0).getNumericCellValue()+
+				sheet.getRow(1).getCell(1).getStringCellValue()+
+				sheet.getRow(1).getCell(2).getStringCellValue()+
+				sheet.getRow(1).getCell(3).getStringCellValue()+
+				sheet.getRow(1).getCell(4).getDateCellValue()+
+				sheet.getRow(1).getCell(5).getDateCellValue()));
+		
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
+		   System.out.print("SutartiesId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
+				   			" SutartiesNr: "+sheet.getRow(j).getCell(1).getStringCellValue()+
+				   			" Pavadinimas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
+				   			" KlientoId: "+sheet.getRow(j).getCell(3).getStringCellValue()+
+				   			" DataNuo: "+sheet.getRow(j).getCell(4).getDateCellValue()+
+				   			" DataIki: "+sheet.getRow(j).getCell(5).getDateCellValue()+" \n");
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Sutartis!\n");
@@ -125,8 +156,8 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
-		}
+			   System.out.print("SutartiesId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
+			   			" paslaugosId: "+sheet.getRow(j).getCell(1).getStringCellValue()+" \n");		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Pasirašytas sutartis!\n");
 	}
@@ -139,7 +170,16 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
+		   System.out.print("PaskyrimoId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
+				   			" Kreipinys: "+sheet.getRow(j).getCell(1).getNumericCellValue()+
+				   			" Kas: "+sheet.getRow(j).getCell(2).getNumericCellValue()+
+				   			" Kam: "+sheet.getRow(j).getCell(3).getNumericCellValue()+
+				   			" Skirtas: "+sheet.getRow(j).getCell(4).getDateCellValue()+
+				   			" Grazintas: "+sheet.getRow(j).getCell(5).getDateCellValue()+
+				   			" Tekstas: "+sheet.getRow(j).getCell(6).getStringCellValue()+
+				   			" Rezultatas: "+sheet.getRow(j).getCell(7).getStringCellValue()+
+				   			" SanaudosMin: "+sheet.getRow(j).getCell(8).getNumericCellValue()+
+				   			" \n");
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Paskyrimus!\n");
@@ -153,7 +193,16 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+" LH_INC: "+sheet.getRow(j).getCell(2)+" LH_REQ: "+sheet.getRow(j).getCell(3)+" \n");
+		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
+				   			" Tipas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
+				   			" Kanalas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
+				   			" KreipinioTekstas: "+sheet.getRow(j).getCell(3).getStringCellValue()+
+				   			" Gauta: "+sheet.getRow(j).getCell(4).getDateCellValue()+
+				   			" Baigta: "+sheet.getRow(j).getCell(5).getDateCellValue()+
+				   			" Busena: "+sheet.getRow(j).getCell(6).getStringCellValue()+
+				   			" Ivertinimas: "+sheet.getRow(j).getCell(7).getNumericCellValue()+
+				   			" AnkstesnisKreipinys: "+sheet.getRow(j).getCell(8).getStringCellValue()+
+				   			" \n");
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Kreipinius!\n");
