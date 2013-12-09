@@ -6,6 +6,7 @@ contentType="text/html;charset=UTF-8"
 
 <zk xmlns:n="native">
 
+
 	<!-- Begin Menu -->
 	<menubar apply="mainControllers.IndexController" id="menubar"
 		autodrop="true">
@@ -48,6 +49,15 @@ contentType="text/html;charset=UTF-8"
 						src="/img/sistema.png" /> 
 			
 		</vlayout>
-		
+  <button label="Upload Image" upload="true,maxsize=300">
+      <attribute name="onUpload">
+        <![CDATA[
+          org.zkoss.util.media.Media media = event.getMedia();
+          java.io.File myFile = new java.io.File(media.getName());
+          mainControllers.IndexController ic = new mainControllers.IndexController();          
+          ic.UploadFile(myFile.getAbsolutePath());
+        ]]>
+      </attribute>
+    </button>
 	</div>
 </zk>

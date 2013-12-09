@@ -22,7 +22,12 @@ import addtionalControllers.TaskStatements;
 import addtionalControllers.TaskViewController;
 
 public class SolveTaskController extends SearchController {
-	private static Task solvingTask;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Task solvingTask;
 	
 	
 

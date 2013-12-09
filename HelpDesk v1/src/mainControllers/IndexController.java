@@ -1,17 +1,33 @@
 package mainControllers;
 
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import model.Authentication;
 
 import org.jfree.text.TextBox;
+import org.zkoss.bind.BindContext;
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Path;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 
 import services.AuthenticationService;
 import services.AuthenticationServiceImpl;
+import services.DataControllService;
+import services.DataControllServiceImpl;
 
 
 
@@ -28,6 +44,10 @@ public class IndexController extends SelectorComposer<Component> {
 	Label timer;
 	@Wire
 	TextBox name;
+	@Wire
+	Button importFile;
+
+	Media media;
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -35,6 +55,13 @@ public class IndexController extends SelectorComposer<Component> {
 		super.doAfterCompose(comp);
 		if (!authService.isLoggedIn())
 			Executions.sendRedirect("login.zul");
+	}
+
+	public void UploadFile(String name)
+	{
+		DataControllService DCS = new DataControllServiceImpl();
+		
+		DCS.importData(name);
 	}
 
 	@Listen("onClick = #logOut")
