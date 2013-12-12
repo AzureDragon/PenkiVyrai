@@ -2,6 +2,11 @@ package services;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+
+import model.Clasifiers;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -11,6 +16,10 @@ import org.zkoss.zk.ui.util.Clients;
 
 public class DataControllServiceImpl implements DataControllService{
 
+	private Connection connect = null;
+	private Statement statement = null;
+	private PreparedStatement preparedStatement = null;
+	
 	public void importData(String name)
 	{
 		File file = new File(".");
@@ -59,6 +68,8 @@ public class DataControllServiceImpl implements DataControllService{
 		int rows = sheet.getPhysicalNumberOfRows();
 
 		for(int j = 1; j < rows; j++)
+			
+			
 		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
 				   			" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
 				   			" LH_INC: "+sheet.getRow(j).getCell(2).getNumericCellValue()+
@@ -68,20 +79,43 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Paslaugas!\n");
 	}
 	
-	public void readEmployees(HSSFSheet sheet)
+	public void readEmployees(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
-
-		for(int j = 1; j < rows; j++)
+        String pareigos = "";
+		for(int j = 1; j < rows; j++){
 		   System.out.print("DarboId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
 				   			" Vardas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
 				   			" Pavarde: "+sheet.getRow(j).getCell(2).getStringCellValue()+
 				   			" Pareigos: "+sheet.getRow(j).getCell(3).getStringCellValue()+
 				   			" Telefonas: "+sheet.getRow(j).getCell(4).getStringCellValue()+
 				   			" Mail: "+sheet.getRow(j).getCell(5).getStringCellValue()+" \n");
+		
+		    if(sheet.getRow(j).getCell(3).getStringCellValue().equalsIgnoreCase("A")){
+		    	pareigos = "2";
+		    }
+		    if(sheet.getRow(j).getCell(3).getStringCellValue().equalsIgnoreCase("V")){
+		    	pareigos = "3";
+		    }
+		    else{
+		    	pareigos = "1"; // Kai I - inžinierius 
+		    }
+		    Class.forName("com.mysql.jdbc.Driver");
+			connect = Clasifiers.getConnection();
+			preparedStatement = connect
+					.prepareStatement("INSERT INTO employee values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ pareigos +"','"
+							+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"+ sheet.getRow(j).getCell(2).getStringCellValue() +"','"
+							+ sheet.getRow(j).getCell(5).getStringCellValue() +"','"+ sheet.getRow(j).getCell(4).getStringCellValue() +"');");
+
+			preparedStatement.executeUpdate();  
+		   
+		 
+		}
+		
+		
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Darbuotojus!\n");
