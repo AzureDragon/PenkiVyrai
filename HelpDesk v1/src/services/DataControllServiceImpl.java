@@ -60,20 +60,32 @@ public class DataControllServiceImpl implements DataControllService{
 	}
 	
 	@SuppressWarnings("null")
-	public void readServices(HSSFSheet sheet)
+	public void readServices(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
-
-		for(int j = 1; j < rows; j++)
+        String ID = "";
+		for(int j = 1; j < rows; j++){
 			
 			
 		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
 				   			" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
 				   			" LH_INC: "+sheet.getRow(j).getCell(2).getNumericCellValue()+
 				   			" LH_REQ: "+sheet.getRow(j).getCell(3).getNumericCellValue()+" \n");
+		   
+		   ID = sheet.getRow(j).getCell(0).getStringCellValue().substring(sheet.getRow(j).getCell(0).getStringCellValue().lastIndexOf("P") + 1);
+		   Class.forName("com.mysql.jdbc.Driver");
+		   connect = Clasifiers.getConnection();
+		   preparedStatement = connect
+					.prepareStatement("INSERT INTO employee values ('"+ ID +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
+							+ sheet.getRow(j).getCell(0).getStringCellValue() +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
+							+ sheet.getRow(j).getCell(2).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(3).getNumericCellValue() +"');");
+
+		   preparedStatement.executeUpdate();    
+		   
+		}
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Paslaugas!\n");
