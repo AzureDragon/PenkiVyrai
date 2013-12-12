@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.Clasifiers;
@@ -79,7 +80,7 @@ public class DataControllServiceImpl implements DataControllService{
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
 		   preparedStatement = connect
-					.prepareStatement("INSERT INTO employee values ('"+ ID +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
+					.prepareStatement("INSERT INTO service values ('"+ ID +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
 							+ sheet.getRow(j).getCell(0).getStringCellValue() +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
 							+ sheet.getRow(j).getCell(2).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(3).getNumericCellValue() +"');");
 
@@ -133,17 +134,27 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Darbuotojus!\n");
 	}
 	
-	public void readClients(HSSFSheet sheet)
+	public void readClients(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
 
-		for(int j = 1; j < rows; j++)
+		for(int j = 1; j < rows; j++){
 		   System.out.print("KlientoId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
 				    		" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
 				    		" Adresas: "+sheet.getRow(j).getCell(2).getStringCellValue()+" \n");
+		   
+		   String ID = sheet.getRow(j).getCell(0).getStringCellValue().substring(sheet.getRow(j).getCell(0).getStringCellValue().lastIndexOf("K") + 1);
+		   Class.forName("com.mysql.jdbc.Driver");
+		   connect = Clasifiers.getConnection();
+		   preparedStatement = connect
+					.prepareStatement("INSERT INTO client values ('"+ ID +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','0000000" +
+							"','"+ sheet.getRow(j).getCell(2).getStringCellValue() +"','','');");
+           // Traktuokim, kad kai im. k. 0000000 - mes neturim duomenu.
+		   preparedStatement.executeUpdate();
+		}
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Klientus!\n");
@@ -169,7 +180,7 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Atstovus!\n");
 	}
 	
-	public void readContracts(HSSFSheet sheet)
+	public void readContracts(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
@@ -182,28 +193,49 @@ public class DataControllServiceImpl implements DataControllService{
 				sheet.getRow(1).getCell(4).getDateCellValue()+
 				sheet.getRow(1).getCell(5).getDateCellValue()));
 		
-		for(int j = 1; j < rows; j++)
+		for(int j = 1; j < rows; j++){
 		   System.out.print("SutartiesId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
 				   			" SutartiesNr: "+sheet.getRow(j).getCell(1).getStringCellValue()+
 				   			" Pavadinimas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
 				   			" KlientoId: "+sheet.getRow(j).getCell(3).getStringCellValue()+
 				   			" DataNuo: "+sheet.getRow(j).getCell(4).getDateCellValue()+
 				   			" DataIki: "+sheet.getRow(j).getCell(5).getDateCellValue()+" \n");
+		 
+		   String clientId = sheet.getRow(j).getCell(3).getStringCellValue().substring(sheet.getRow(j).getCell(3).getStringCellValue().lastIndexOf("K") + 1);
+		   Class.forName("com.mysql.jdbc.Driver");
+		   connect = Clasifiers.getConnection();
+		   preparedStatement = connect
+					.prepareStatement("INSERT INTO contract values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
+							+ sheet.getRow(j).getCell(2).getStringCellValue() +"','0','"+ clientId +"','"
+							+ sheet.getRow(j).getCell(4).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(5).getNumericCellValue() +"');");
+           //Nebepamenu, kam mes groupId naudojam. Tai statinį nulį palikau
+		   //Ištryniau serviceId, nes nesueis taip mums.
+		   //Sukūriau lentelę ContractsServices, kuriuoje nurodoma sutartis ir paslaugos - viena sutartis gali turėti daug paslaugų (sakiau, kad reiks)
+		   preparedStatement.executeUpdate();
+		}
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Sutartis!\n");
 	}
 	
-	public void readServiceContracts(HSSFSheet sheet)
+	public void readServiceContracts(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
 
-		for(int j = 1; j < rows; j++)
+		for(int j = 1; j < rows; j++){
 			   System.out.print("SutartiesId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
-			   			" paslaugosId: "+sheet.getRow(j).getCell(1).getStringCellValue()+" \n");		}
+			   			" paslaugosId: "+sheet.getRow(j).getCell(1).getStringCellValue()+" \n");
+			   String serviceId = sheet.getRow(j).getCell(1).getStringCellValue().substring(sheet.getRow(j).getCell(1).getStringCellValue().lastIndexOf("P") + 1);
+			   Class.forName("com.mysql.jdbc.Driver");
+			   connect = Clasifiers.getConnection();
+			   preparedStatement = connect
+						.prepareStatement("INSERT INTO contractsServices values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ serviceId +"');");
+	           preparedStatement.executeUpdate();
+		}	   
+		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Pasirašytas sutartis!\n");
 	}
@@ -231,24 +263,60 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Paskyrimus!\n");
 	}
 	
-	public void readAppelations(HSSFSheet sheet)
+	public void readAppelations(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
-
-		for(int j = 1; j < rows; j++)
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
-				   			" Tipas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
-				   			" Kanalas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
-				   			" KreipinioTekstas: "+sheet.getRow(j).getCell(3).getStringCellValue()+
-				   			" Gauta: "+sheet.getRow(j).getCell(4).getDateCellValue()+
-				   			" Baigta: "+sheet.getRow(j).getCell(5).getDateCellValue()+
-				   			" Busena: "+sheet.getRow(j).getCell(6).getStringCellValue()+
-				   			" Ivertinimas: "+sheet.getRow(j).getCell(7).getNumericCellValue()+
-				   			" AnkstesnisKreipinys: "+sheet.getRow(j).getCell(8).getStringCellValue()+
+		String type="";
+		String status="";
+		for(int j = 1; j < rows; j++){
+		   System.out.print("KreipinioId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
+				   			" Klientas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
+				   			" Paslauga: "+sheet.getRow(j).getCell(2).getStringCellValue()+
+				   			" Tipas: "+sheet.getRow(j).getCell(3).getStringCellValue()+
+				   			" Kanalas: "+sheet.getRow(j).getCell(4).getDateCellValue()+
+				   			" Aprašymas: "+sheet.getRow(j).getCell(5).getDateCellValue()+
+				   			" Gautas: "+sheet.getRow(j).getCell(6).getStringCellValue()+
+				   			" Baigtas: "+sheet.getRow(j).getCell(7).getNumericCellValue()+
+				   			" Busena: "+sheet.getRow(j).getCell(8).getStringCellValue()+
+				   			" Ivertinimas: "+sheet.getRow(j).getCell(9).getStringCellValue()+
+				   			" Ankstesnis kreipinys: "+sheet.getRow(j).getCell(10).getStringCellValue()+
 				   			" \n");
+		   String clientId = sheet.getRow(j).getCell(1).getStringCellValue().substring(sheet.getRow(j).getCell(1).getStringCellValue().lastIndexOf("K") + 1);
+		   String serviceId = sheet.getRow(j).getCell(2).getStringCellValue().substring(sheet.getRow(j).getCell(2).getStringCellValue().lastIndexOf("P") + 1);
+		   if(sheet.getRow(j).getCell(3).getStringCellValue().equals("INC")){
+			   type = "1";
+		   }else{
+			   type = "2";
+		   }
+		   
+		   if(sheet.getRow(j).getCell(8).getStringCellValue().equals("I")){
+			   status = "1";
+		   }
+		   if(sheet.getRow(j).getCell(8).getStringCellValue().equals("P")){
+			   status = "2";
+		   }
+		   if(sheet.getRow(j).getCell(8).getStringCellValue().equals("A")){
+			   status = "3";
+		   }else{
+			   status = "4";
+		   }
+		   Class.forName("com.mysql.jdbc.Driver");
+		   connect = Clasifiers.getConnection();
+		   preparedStatement = connect
+					.prepareStatement("INSERT INTO task values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ status +
+							"','"+ type +"','"+ sheet.getRow(j).getCell(6).getStringCellValue() +"','"+ sheet.getRow(j).getCell(7).getStringCellValue() +
+							"','','"+ sheet.getRow(j).getCell(9).getStringCellValue() +"','"+ serviceId +"','"+ sheet.getRow(j).getCell(10).getStringCellValue() +
+							"','','"+ sheet.getRow(j).getCell(5).getDateCellValue() +"','"+ sheet.getRow(j).getCell(5).getDateCellValue() + 
+							"','','','','"+ clientId +"','');");
+		   
+		   //Kas čia bl per kanalas?
+		   //Nežinau, kokie tipų skaičiai, tai random parašiau - patikrinkit
+		   //Statusu ir nezinau musu skaiciu, tai is lempos - patikrinkit
+           preparedStatement.executeUpdate();
+		}   
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Kreipinius!\n");
