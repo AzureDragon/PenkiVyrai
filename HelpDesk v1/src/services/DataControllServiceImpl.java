@@ -160,14 +160,14 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Klientus!\n");
 	}
 	
-	public void readRepresentatives(HSSFSheet sheet)
+	public void readRepresentatives(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
 
-		for(int j = 1; j < rows; j++)
+		for(int j = 1; j < rows; j++){
 			   System.out.print("AtstovoId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
 					   			" AtstovaujaKlienta: "+sheet.getRow(j).getCell(1).getStringCellValue()+
 					   			" Vardas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
@@ -175,6 +175,21 @@ public class DataControllServiceImpl implements DataControllService{
 					   			" ElPastas: "+sheet.getRow(j).getCell(4).getStringCellValue()+
 					   			" Telefonas: "+sheet.getRow(j).getCell(5).getStringCellValue()+
 					   			" Aktyvus: "+sheet.getRow(j).getCell(6).getBooleanCellValue()+" \n");
+			   
+			   String clientId = sheet.getRow(j).getCell(1).getStringCellValue().substring(sheet.getRow(j).getCell(1).getStringCellValue().lastIndexOf("K") + 1);
+			   
+			   Class.forName("com.mysql.jdbc.Driver");
+			   connect = Clasifiers.getConnection();
+			   preparedStatement = connect
+						.prepareStatement("INSERT INTO taskAssignments values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ clientId +
+								"','"+ sheet.getRow(j).getCell(2).getStringCellValue() +"','"+sheet.getRow(j).getCell(3).getStringCellValue()+
+								"','"+sheet.getRow(j).getCell(5).getStringCellValue()+"','"+sheet.getRow(j).getCell(4).getStringCellValue()+
+								"','"+sheet.getRow(j).getCell(6).getStringCellValue()+"');");
+			   
+			  
+	           preparedStatement.executeUpdate();		   
+			   
+			}			   
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Atstovus!\n");
@@ -240,14 +255,14 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Pasirašytas sutartis!\n");
 	}
 	
-	public void readAssigments(HSSFSheet sheet)
+	public void readAssigments(HSSFSheet sheet) throws Exception
 	{
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
-
-		for(int j = 1; j < rows; j++)
+		String status = "";
+		for(int j = 1; j < rows; j++){
 		   System.out.print("PaskyrimoId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
 				   			" Kreipinys: "+sheet.getRow(j).getCell(1).getNumericCellValue()+
 				   			" Kas: "+sheet.getRow(j).getCell(2).getNumericCellValue()+
@@ -258,6 +273,26 @@ public class DataControllServiceImpl implements DataControllService{
 				   			" Rezultatas: "+sheet.getRow(j).getCell(7).getStringCellValue()+
 				   			" SanaudosMin: "+sheet.getRow(j).getCell(8).getNumericCellValue()+
 				   			" \n");
+
+		   if(sheet.getRow(j).getCell(7).getStringCellValue().equals("G")){
+			   status = "1";
+		   }else{
+			   status = "2";
+		   }
+		   
+		   Class.forName("com.mysql.jdbc.Driver");
+		   connect = Clasifiers.getConnection();
+		   preparedStatement = connect
+					.prepareStatement("INSERT INTO taskAssignments values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(1).getNumericCellValue() +
+							"','"+sheet.getRow(j).getCell(2).getNumericCellValue()+"','"+ sheet.getRow(j).getCell(3).getNumericCellValue() +
+							"','"+sheet.getRow(j).getCell(4).getDateCellValue()+"','"+sheet.getRow(j).getCell(5).getDateCellValue()+
+							"','"+ sheet.getRow(j).getCell(6).getStringCellValue() +"','"+ status +
+							"','"+sheet.getRow(j).getCell(8).getStringCellValue()+"');");
+		   
+		  
+           preparedStatement.executeUpdate();		   
+		   
+		}
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Paskyrimus!\n");
@@ -265,12 +300,14 @@ public class DataControllServiceImpl implements DataControllService{
 	
 	public void readAppelations(HSSFSheet sheet) throws Exception
 	{
+		//Task
 		if(sheet != null)
 		{
 	    HSSFRow row = null;
 		int rows = sheet.getPhysicalNumberOfRows();
 		String type="";
 		String status="";
+		String source="";
 		for(int j = 1; j < rows; j++){
 		   System.out.print("KreipinioId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
 				   			" Klientas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
@@ -295,26 +332,33 @@ public class DataControllServiceImpl implements DataControllService{
 		   if(sheet.getRow(j).getCell(8).getStringCellValue().equals("I")){
 			   status = "1";
 		   }
-		   if(sheet.getRow(j).getCell(8).getStringCellValue().equals("P")){
+		   else if(sheet.getRow(j).getCell(8).getStringCellValue().equals("P")){
 			   status = "2";
 		   }
-		   if(sheet.getRow(j).getCell(8).getStringCellValue().equals("A")){
+		   else if(sheet.getRow(j).getCell(8).getStringCellValue().equals("A")){
 			   status = "3";
 		   }else{
 			   status = "4";
 		   }
+		   if(sheet.getRow(j).getCell(4).getDateCellValue().equals("T")){
+			   source = "1";
+		   }
+		   else if(sheet.getRow(j).getCell(4).getDateCellValue().equals("S")){
+			   source = "2";
+		   }else{
+			   source = "3";
+		   }
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
 		   preparedStatement = connect
-					.prepareStatement("INSERT INTO task values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ status +
-							"','"+ type +"','"+ sheet.getRow(j).getCell(6).getStringCellValue() +"','"+ sheet.getRow(j).getCell(7).getStringCellValue() +
-							"','','"+ sheet.getRow(j).getCell(9).getStringCellValue() +"','"+ serviceId +"','"+ sheet.getRow(j).getCell(10).getStringCellValue() +
-							"','','"+ sheet.getRow(j).getCell(5).getDateCellValue() +"','"+ sheet.getRow(j).getCell(5).getDateCellValue() + 
-							"','','','','"+ clientId +"','');");
+					.prepareStatement("INSERT INTO task values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ clientId +
+							"','"+sheet.getRow(j).getCell(8).getStringCellValue()+"','"+ type +
+							"','"+sheet.getRow(j).getCell(6).getStringCellValue()+"','"+sheet.getRow(j).getCell(6).getStringCellValue()+
+							"','','"+ sheet.getRow(j).getCell(10).getStringCellValue() +"','"+ serviceId +
+							"','"+sheet.getRow(j).getCell(9).getStringCellValue()+"','"+source+"','"+sheet.getRow(j).getCell(5).getDateCellValue()+
+							"','"+sheet.getRow(j).getCell(5).getDateCellValue()+"');");
 		   
-		   //Kas čia bl per kanalas?
-		   //Nežinau, kokie tipų skaičiai, tai random parašiau - patikrinkit
-		   //Statusu ir nezinau musu skaiciu, tai is lempos - patikrinkit
+		  
            preparedStatement.executeUpdate();
 		}   
 		}
