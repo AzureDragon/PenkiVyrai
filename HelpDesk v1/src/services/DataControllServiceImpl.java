@@ -181,7 +181,7 @@ public class DataControllServiceImpl implements DataControllService{
 			   Class.forName("com.mysql.jdbc.Driver");
 			   connect = Clasifiers.getConnection();
 			   preparedStatement = connect
-						.prepareStatement("INSERT INTO taskAssignments values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ clientId +
+						.prepareStatement("INSERT INTO delegates values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ clientId +
 								"','"+ sheet.getRow(j).getCell(2).getStringCellValue() +"','"+sheet.getRow(j).getCell(3).getStringCellValue()+
 								"','"+sheet.getRow(j).getCell(5).getStringCellValue()+"','"+sheet.getRow(j).getCell(4).getStringCellValue()+
 								"','"+sheet.getRow(j).getCell(6).getStringCellValue()+"');");
