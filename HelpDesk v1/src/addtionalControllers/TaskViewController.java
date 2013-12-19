@@ -6,7 +6,6 @@ import java.util.HashMap;
 import mainControllers.CommentsController;
 import model.Clasifiers;
 import model.Comment;
-import model.Task;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -29,6 +28,10 @@ import services.AppelationServiceImpl;
 import services.EmployeeService;
 
 public class TaskViewController extends SelectorComposer<Component> {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	EventQueue eq;
 	@Wire
 	Label subjectLabel;
@@ -146,13 +149,13 @@ public class TaskViewController extends SelectorComposer<Component> {
 		Executions.getCurrent().sendRedirect("");
 
 	}
-
-	private static Task solvingTask;
-
+	
 	public EmployeeService darbuotojasService;
 
+	@SuppressWarnings("unchecked")
 	@Listen("onClick=#solve")
 	public void acceptSolving() throws WrongValueException, Exception {
+		@SuppressWarnings("rawtypes")
 		HashMap map = new HashMap();
 		map.put("TaskId", invisibleLabelId.getValue());
 		Window solveTask = (Window) Executions.createComponents(

@@ -16,7 +16,6 @@ import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
 
 import com.lowagie.text.DocumentException;
-import com.lowagie.text.pdf.PdfWriter;
 
 import services.AuthenticationService;
 import services.AuthenticationServiceImpl;

@@ -59,9 +59,6 @@ public class SolveTaskController extends SearchController {
 		Authentication cre = authService.getUserCredential();
 
 		String solvingTask = solveTaskWindow.getAttribute("taskId").toString();
-	
-		CommentsController comments = new CommentsController();
-		System.out.println("comment" + comment.getValue());
 		
 		TaskStatements ts = new TaskStatements();
 		ts.changeStatus(solvingTask, status.getValue());

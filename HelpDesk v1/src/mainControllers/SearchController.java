@@ -7,7 +7,6 @@ import model.Clasifiers;
 import model.Comment;
 import model.Task;
 
-import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;

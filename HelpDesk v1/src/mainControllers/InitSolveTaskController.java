@@ -14,12 +14,13 @@ import org.zkoss.zul.ListModelList;
 import services.AuthenticationService;
 import services.AuthenticationServiceImpl;
 import services.EmployeeServiceImpl;
-import addtionalControllers.TaskViewController;
-
-
 
 public class InitSolveTaskController extends SelectorComposer<Component> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */

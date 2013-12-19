@@ -15,9 +15,6 @@ import services.AuthenticationServiceImpl;
 import model.Authentication;
 import model.Clasifiers;
 import model.Comment;
-import model.Task;
-
-
 
 	public class CommentsController {
 		
