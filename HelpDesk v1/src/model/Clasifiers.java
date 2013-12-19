@@ -28,15 +28,17 @@ public class Clasifiers {
 				conn = DriverManager
 						.getConnection("jdbc:mysql://5.199.172.135/psi?"
 								+ "user=PSI&password=gl59lmkis8&characterEncoding=utf8");
-				
+				//conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/phpmyadmin/psi?"+"user=root&characterEncoding=utf8");
 				System.out.println("Prisijungiau prie duomenu bazes");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				throw new Exception("Nepavyko prisijungti");
+				throw e;
 			}
 			return conn;
 		} else {
 			if (conn.isClosed()){
+				//conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/phpmyadmin/psi?"+"user=root&characterEncoding=utf8");
+
 				conn = DriverManager
 						.getConnection("jdbc:mysql://5.199.172.135/psi?"
 								+ "user=PSI&password=gl59lmkis8&characterEncoding=utf8");

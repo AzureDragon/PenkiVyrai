@@ -33,24 +33,24 @@ public class LoginController extends SelectorComposer<Component> {
 	// services
 	AuthenticationService authService = new AuthenticationServiceImpl();
 
-	@Listen("onClick = #password, #account")
-	public void clear() {
-		if (stat == 3) {
-			password.setValue("");
-			message.setValue("įveskite slaptažodį!");
-		}
-		if (stat == 2)
-			password.setValue("");
-		message.setValue("Blogai ivestas slaptažodis!");
-		if (stat == 1)
-			message.setValue("Tokio vartotojo nėra!");
-		account.setValue("");
-		if (stat == 0) {
-			password.setValue("");
-			account.setValue("");
-			message.setValue("norėdami prisijungti suveskite prisijungimo duomenis");
-		}
-	}
+//	@Listen("onClick = #password, #account")
+//	public void clear() {
+//		if (stat == 3) {
+//			password.setValue("");
+//			message.setValue("įveskite slaptažodį!");
+//		}
+//		if (stat == 2)
+//			password.setValue("");
+//		message.setValue("Blogai ivestas slaptažodis!");
+//		if (stat == 1)
+//			message.setValue("Tokio vartotojo nėra!");
+//		account.setValue("");
+//		if (stat == 0) {
+//			password.setValue("");
+//			account.setValue("");
+//			message.setValue("norėdami prisijungti suveskite prisijungimo duomenis");
+//		}
+//	}
 
 	@Listen("onClick=#login")
 	public void doLogin() throws Exception {

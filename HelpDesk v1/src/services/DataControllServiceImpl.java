@@ -2,9 +2,10 @@ package services;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 import model.Clasifiers;
@@ -15,16 +16,52 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.zkoss.zk.ui.util.Clients;
 
+import com.lowagie.text.Anchor;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.CMYKColor;
+import com.lowagie.text.pdf.PdfWriter;
+
 public class DataControllServiceImpl implements DataControllService{
 
 	private Connection connect = null;
 	private Statement statement = null;
 	private PreparedStatement preparedStatement = null;
 	
+	public File exportData() throws FileNotFoundException, DocumentException
+	{
+		Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+
+		String tempPath = System.getProperty("java.io.tmpdir")+"informacija.pdf";
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(tempPath));
+
+				document.open();
+				
+				Anchor anchorTarget = new Anchor("First page of the document.");
+			      anchorTarget.setName("BackToTop");
+			      Paragraph paragraph1 = new Paragraph();
+
+			      paragraph1.setSpacingBefore(50);
+
+			      paragraph1.add(anchorTarget);
+			      document.add(paragraph1);
+
+			document.add(new Paragraph("Some more text on the \first page with different color and font type.", 
+
+			FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD,	new CMYKColor(0, 255, 0, 0))));
+			
+			document.close();
+			File f = new File(tempPath);
+			return f;
+}
 	public void importData(String name)
 	{
-		File file = new File(".");
-		for(String fileNames : file.list()) System.out.println(fileNames);
+//		File file = new File(".");
+//		for(String fileNames : file.list()) System.out.println(fileNames);
 		
 		try {
 		    POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(name));
@@ -286,7 +323,7 @@ public class DataControllServiceImpl implements DataControllService{
 					.prepareStatement("INSERT INTO taskAssignments values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(1).getNumericCellValue() +
 							"','"+sheet.getRow(j).getCell(2).getNumericCellValue()+"','"+ sheet.getRow(j).getCell(3).getNumericCellValue() +
 							"','"+sheet.getRow(j).getCell(4).getDateCellValue()+"','"+sheet.getRow(j).getCell(5).getDateCellValue()+
-							"','"+ sheet.getRow(j).getCell(6).getStringCellValue() +"','"+ status +
+							"','"+sheet.getRow(j).getCell(6).getStringCellValue() +"','"+ status+
 							"','"+sheet.getRow(j).getCell(8).getStringCellValue()+"');");
 		   
 		  
@@ -354,7 +391,7 @@ public class DataControllServiceImpl implements DataControllService{
 					.prepareStatement("INSERT INTO task values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ clientId +
 							"','"+sheet.getRow(j).getCell(8).getStringCellValue()+"','"+ type +
 							"','"+sheet.getRow(j).getCell(6).getStringCellValue()+"','"+sheet.getRow(j).getCell(6).getStringCellValue()+
-							"','','"+ sheet.getRow(j).getCell(10).getStringCellValue() +"','"+ serviceId +
+							"','','"+sheet.getRow(j).getCell(10).getStringCellValue() +"','"+ serviceId +
 							"','"+sheet.getRow(j).getCell(9).getStringCellValue()+"','"+source+"','"+sheet.getRow(j).getCell(5).getDateCellValue()+
 							"','"+sheet.getRow(j).getCell(5).getDateCellValue()+"');");
 		   
@@ -364,10 +401,5 @@ public class DataControllServiceImpl implements DataControllService{
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Kreipinius!\n");
-	}
-
-	public void exportData()
-	{
-		
 	}
 }

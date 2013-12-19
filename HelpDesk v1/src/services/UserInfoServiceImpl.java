@@ -44,8 +44,11 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 				return u;
 			}
 		}
-
-		return null;
+		
+		new Employee(1, "annonymous", "annonymous", 4 , "example@mail.com", "88888888"); 
+		return new Authentication("", "Guest", 0,
+				1, 0);
+		//return null;
 	}
 
 	public synchronized Employee findEmployee(Authentication u)
@@ -135,7 +138,7 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 	public String rightsValue(int index) {
 		
 		List<String> RightsValues = Arrays.asList("Administratorius",
-				"Darbuotojas", "Klientas", "Inžinierius");
+				"Darbuotojas", "Klientas", "Inžinierius", "Svečias");
 		
 		return (RightsValues).get(index);
 	}

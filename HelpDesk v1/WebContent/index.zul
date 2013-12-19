@@ -44,18 +44,31 @@ contentType="text/html;charset=UTF-8"
 	<div id="container" sclass="container" width="570px">
 <vlayout id="product_list" width="100%">
 
-			<!--  <n:h1 class="mo_head">HD kreipinių valdymo sistema</n:h1> -->
+		<!--  <n:h1 class="mo_head">HD kreipinių valdymo sistema</n:h1> -->
             <image
 						src="/img/sistema.png" /> 
 			
 		</vlayout>
-  <button label="Upload Image" upload="true,maxsize=300">
+  <button label="Importuoti duombaze" upload="true,maxsize=300">
       <attribute name="onUpload">
         <![CDATA[
           org.zkoss.util.media.Media media = event.getMedia();
           java.io.File myFile = new java.io.File(media.getName());
           mainControllers.IndexController ic = new mainControllers.IndexController();          
-          ic.UploadFile(myFile.getAbsolutePath());
+          ic.ImportDataBase(myFile.getAbsolutePath());
+        ]]>
+      </attribute>
+    </button>
+    
+      <button label="eksportuoti">
+      <attribute name="onClick">
+        <![CDATA[	
+          mainControllers.IndexController ic = new mainControllers.IndexController();  
+
+          if(ic.Export().exists()) { Filedownload.save(ic.Export() ,"null"); }
+          else
+          	System.out.print("Neegzistuoja\n");
+		  
         ]]>
       </attribute>
     </button>

@@ -1,28 +1,22 @@
 package mainControllers;
 
 import java.io.File;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.FileNotFoundException;
 
 import model.Authentication;
 
 import org.jfree.text.TextBox;
-import org.zkoss.bind.BindContext;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Path;
-import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
-import org.zkoss.zul.Messagebox;
+
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfWriter;
 
 import services.AuthenticationService;
 import services.AuthenticationServiceImpl;
@@ -57,13 +51,20 @@ public class IndexController extends SelectorComposer<Component> {
 			Executions.sendRedirect("login.zul");
 	}
 
-	public void UploadFile(String name)
+	public void ImportDataBase(String name)
 	{
 		DataControllService DCS = new DataControllServiceImpl();
 		
 		DCS.importData(name);
 	}
-
+	
+	public File Export() throws FileNotFoundException, DocumentException
+	{
+		DataControllService DCS = new DataControllServiceImpl();
+		
+		return DCS.exportData();
+	}
+	
 	@Listen("onClick = #logOut")
 	public void logOut() {
 
