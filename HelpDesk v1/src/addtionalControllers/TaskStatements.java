@@ -59,7 +59,7 @@ public class TaskStatements {
 	public String getTaskAssigneeId(String Id) throws Exception {
 
 		String tekstas = "";
-		tekstas = sql("SELECT AssigneeId FROM task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE t.id=" + Id + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id;");
+		tekstas = sql("SELECT AssigneeId FROM task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE t.id=" + Id + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id);");
 
 		return tekstas;
 	}
