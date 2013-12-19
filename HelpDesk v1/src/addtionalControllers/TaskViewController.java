@@ -165,12 +165,12 @@ public class TaskViewController extends SelectorComposer<Component> {
 	@Listen("onSelect=#solutionInfo")
 	public void showSolutionInfo() throws Exception {
 		TaskStatements ts = new TaskStatements();
-		if (ts.getTaskResolver(invisibleLabelId.getValue()) !=null){
+		if (ts.getTaskReceiverId(invisibleLabelId.getValue()) !=null){
 		solutionAuthor.setValue(Clasifiers.getEmployeeNameById(Integer
-				.parseInt(ts.getTaskResolver(invisibleLabelId.getValue())))
+				.parseInt(ts.getTaskReceiverId(invisibleLabelId.getValue())))
 				+ " "
 				+ Clasifiers.getEmployeeSurnameById(Integer.parseInt(ts
-						.getTaskResolver(invisibleLabelId.getValue()))));
+						.getTaskReceiverId(invisibleLabelId.getValue()))));
 		
 		solution.setValue(ts.getTaskSolution(invisibleLabelId.getValue()));
 		} else {

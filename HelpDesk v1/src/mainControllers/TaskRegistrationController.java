@@ -142,60 +142,40 @@ public class TaskRegistrationController extends
 
 				preparedStatement = connect
 						.prepareStatement("INSERT INTO task values ("
-								+ "default," + " '" + "1" + "'," + " " + " '"
-								+ Clasifiers.getTypeCode(tipas.getValue())
-								+ "',"
-								+ " '"
-								+ todayDate.format(date)
-								+ "',"
-								+ " '"
-								+ issprestiIkiDate.format(issprestiIkiDateBox
-										.getValue())
-								+ "',"
-								+ " '"
-								+ "0000-00-00"
-								+ "',"
-								+ " '"
-								+ 0
-								+ "',"
+								+ "default," 
+								+ " '"+ Integer.parseInt(Clasifiers.getClientIdByName(klientas.getValue())) + "',"
+								+ "'1'," 
+								+ " '"+ Clasifiers.getTypeCode(tipas.getValue()) + "',"
+								+ " '"+ todayDate.format(date)+ "',"
+								+ " '"+ issprestiIkiDate.format(issprestiIkiDateBox.getValue())+ "',"
+								+ " '"+ "0000-00-00"+ "',"
+								+ " '"+ 0 + "',"
 								+ // Previous task
-								" '"
-								+ 0
-								+ "',"
+								" '"+ 0 + "',"
 								+ // Service type
-								" '"
-								+ 0
-								+ "',"
+								" '"+ 0 + "',"
 								+ // Task Evaluation
-								" '"
-								+ Clasifiers.getReceiveSourceCode(gavimoBudas
-										.getValue())
-								+ "',"
-								+ " '"
-								+ aprasymas.getValue()
-								+ "',"
-								+ " '"
-								+ tema.getValue()
-								+ "',"
-								+ " '"
-								+ "null"
-								+ "',"
-								+ " '"
-								+ cre.getEmployeeId()
-								+ "',"
-								+ // " '"+uC.getId()+"'," + //AssigneeID
-								" '"
-								+ Integer.parseInt(Clasifiers
-										.getEmployeeIdByNameAndSurname(priskirti
-												.getValue()))
-								+ "',"
-								+ " '"
-								+ Integer.parseInt(Clasifiers
-										.getClientIdByName(klientas.getValue()))
-								+ "',null );");
+								" '"+ Clasifiers.getReceiveSourceCode(gavimoBudas.getValue())+ "',"
+								+ " '"+ aprasymas.getValue() + "',"
+								+ " '"+ tema.getValue()+ "');");
+				
+				preparedStatement.executeUpdate();
+				System.out.println("Ikeliau TASK");
+				
+				preparedStatement = connect
+						.prepareStatement("INSERT INTO taskAssignments values ("
+								+ "default," 
+								+ " LAST_INSERT_ID(),"
+								+ " '"+ cre.getEmployeeId() + "',"
+								+ " '"+ Integer.parseInt(Clasifiers.getEmployeeIdByNameAndSurname(priskirti.getValue()))+ "',"
+								+ " '"+ todayDate.format(date)+ "',"
+								+ " '"+ "0000-00-00"+ "',"
+								+ " null,"
+								+ "'1',"
+								+ " null);");
 
 				preparedStatement.executeUpdate();
-				System.out.println("pakomkitinau");
+				System.out.println("IKELIAU TASK ASSIGNMENTS");
 			} catch (Exception e) {
 				throw e;
 			} finally {

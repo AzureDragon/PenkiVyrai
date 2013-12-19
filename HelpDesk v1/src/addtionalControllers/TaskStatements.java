@@ -22,19 +22,12 @@ public class TaskStatements {
 	public String getTaskSolution(String taskId) throws Exception {
 
 		String tekstas = "";
-		tekstas = sql("SELECT Solution FROM task WHERE id=" + taskId + ";");
+		tekstas = sql("SELECT Solution task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE id=" + taskId + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id;");
 
 		return tekstas;
 
 	}
 	
-	public String getTaskResolver(String taskId) throws Exception {
-
-		String tekstas = "";
-		tekstas = sql("SELECT Resolver FROM task WHERE id=" + taskId + ";");
-		return tekstas;
-
-	}
 	public String getTaskStatus(String Id) throws Exception {
 
 		String tekstas = "";
@@ -66,7 +59,7 @@ public class TaskStatements {
 	public String getTaskAssigneeId(String Id) throws Exception {
 
 		String tekstas = "";
-		tekstas = sql("SELECT AssigneeId FROM task WHERE id=" + Id + ";");
+		tekstas = sql("SELECT AssigneeId FROM task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE t.id=" + Id + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id;");
 
 		return tekstas;
 	}
@@ -74,7 +67,7 @@ public class TaskStatements {
 	public String getTaskReceiverId(String Id) throws Exception {
 
 		String tekstas = "";
-		tekstas = sql("SELECT ReceiverId FROM task WHERE id=" + Id + ";");
+		tekstas = sql("SELECT ReceiverId FROM task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE t.id=" + Id + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id);");
 		return tekstas;
 	}
 	public String getTaskClientId(String Id) throws Exception {
