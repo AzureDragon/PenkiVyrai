@@ -38,7 +38,7 @@ contentType="text/html;charset=UTF-8"
 						<attribute name="onClick">
 	{
 		final Window klientoRegistracija = (Window) Executions
-				.createComponents("klientoRegistracijaForma.zul", null, null);
+				.createComponents("clientRegistrationForm.zul", null, null);
 		klientoRegistracija.setMaximizable(true);
 		klientoRegistracija.doModal();
 	}
@@ -138,7 +138,6 @@ contentType="text/html;charset=UTF-8"
 				<tabpanel>Service unavailable</tabpanel>
 				<tabpanel>Service unavailable</tabpanel>
 			</tabpanels>
-
 		</tabbox>
 	</groupbox>
 
