@@ -63,7 +63,7 @@ contentType="text/html;charset=UTF-8"
 					<attribute name="onClick">
 	{
 		final Window win = (Window) Executions.createComponents(
-				"priskirtiDarbuotoja.zul", null, null);
+				"assignEmployee.zul", null, null);
 		win.setMaximizable(true);
 		win.doModal();
 	}

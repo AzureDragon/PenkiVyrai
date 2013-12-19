@@ -25,7 +25,7 @@ public class AppelationServiceImpl implements AppelationService {
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
-		resultSet = statement.executeQuery("select * from task");
+		resultSet = statement.executeQuery("select DISTINCT *, COUNT(*) from task INNER JOIN taskAssignments ON task.Id = taskAssignments.TaskId GROUP BY taskAssignments.ReceiverId DESC");
 		writeResultSet(resultSet);
 
 	}
@@ -73,8 +73,8 @@ public class AppelationServiceImpl implements AppelationService {
 			conn = Clasifiers.getConnection();
 			// Do something with the Connection
 			stmt = conn
-					.prepareStatement("SELECT * FROM task WHERE Subject LIKE '%"
-							+ keyword + "%'");
+					.prepareStatement("SELECT DISTINCT *, COUNT(*) FROM task INNER JOIN taskAssignments ON task.Id = taskAssignments.TaskId WHERE Subject LIKE '%"
+							+ keyword + "%' GROUP BY taskAssignments.ReceiverId DESC");
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				result.add(new Task(rs.getInt("Id"), rs.getString("Subject"),
