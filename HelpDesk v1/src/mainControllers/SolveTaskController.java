@@ -65,8 +65,7 @@ public class SolveTaskController extends SearchController {
 		
 		TaskStatements ts = new TaskStatements();
 		ts.changeStatus(solvingTask, status.getValue());
-		ts.changeAssignee(solvingTask, priskirti.getValue());
-		ts.setSolution(solvingTask, comment.getValue(), cre.getEmployeeId());
+		ts.setSolution(solvingTask, comment.getValue(), status.getValue());
 		Event closeEvent = new Event("onClose", this.getSelf(), null);
 		Events.postEvent(closeEvent);
 		Executions.getCurrent().sendRedirect("");

@@ -3,7 +3,13 @@ package addtionalControllers;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
+import services.AuthenticationService;
+import services.AuthenticationServiceImpl;
+
+import model.Authentication;
 import model.Clasifiers;
 import model.Task;
 
@@ -219,28 +225,46 @@ public class TaskStatements {
 
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
-
+		AuthenticationService authService = new AuthenticationServiceImpl();
+		Date date = new Date();
+		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
+		Authentication cre = authService.getUserCredential();
+		TaskStatements ts = new TaskStatements();
+		String surname = name.substring(name.lastIndexOf(" ") + 1);
+		name = name.substring(0, name.lastIndexOf(" ") - 1);
+		
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
+		
 		preparedStatement = connect
-				.prepareStatement("UPDATE task SET ReceiverId ="
-						+ Clasifiers.getEmployeeIdByNameAndSurname(name)
-						+ " WHERE ID =" + taskId + ";");
+				.prepareStatement("INSERT INTO taskAssignments values ("
+						+ "default," 
+						+ " '"+ taskId+ "',"
+						+ " '"+ cre.getEmployeeId() + "',"
+						+ " '"+ ts.getEmployeeId(name, surname)+ "',"
+						+ " '"+ formatedDate.format(date)+ "',"
+						+ " '"+ "0000-00-00"+ "',"
+						+ " null,"
+						+ "'2',"
+						+ " null);");
 		preparedStatement.executeUpdate();
 
 	}
 	
-	public void setSolution(String taskId, String solution, int resolver) throws Exception {
+	public void setSolution(String taskId, String solution, String status) throws Exception {
 
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
-
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
 		preparedStatement = connect
-				.prepareStatement("UPDATE task SET Solution ='"
+				.prepareStatement("UPDATE taskAssignments SET Solution ='"
 						+ solution
-						+ "', Resolver='"+ resolver +"' WHERE ID =" + taskId + ";");
+						+ "', Status="+ Clasifiers.getStatusCode(status) +" WHERE TaskId =" + taskId + "  and Id = (SELECT * FROM (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = "+ taskId +") AS test);");
+		preparedStatement.executeUpdate();
+		preparedStatement = connect.prepareStatement("UPDATE task SET Status ="
+				+ Clasifiers.getStatusCode(status) + " WHERE Id ="
+				+ taskId + ";");
 		preparedStatement.executeUpdate();
 
 	}
@@ -252,11 +276,15 @@ public class TaskStatements {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
-		preparedStatement = connect.prepareStatement("UPDATE task SET Status ="
-				+ Clasifiers.getStatusCode(status) + " WHERE ID ="
-				+ taskId + ";");
-
+		preparedStatement = connect
+				.prepareStatement("UPDATE taskAssignments SET Status='"+ Clasifiers.getStatusCode(status)+"' WHERE TaskId =" + taskId + " and Id = (SELECT * FROM (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = "+ taskId +") AS test);");
 		preparedStatement.executeUpdate();
+		preparedStatement = connect.prepareStatement("UPDATE task SET Status ="
+				+ Clasifiers.getStatusCode(status) + " WHERE Id ="
+				+ taskId + ";");
+		preparedStatement.executeUpdate();
+
+
 
 	}
 	
