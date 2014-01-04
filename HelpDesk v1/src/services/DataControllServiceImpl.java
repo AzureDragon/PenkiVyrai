@@ -108,26 +108,55 @@ public class DataControllServiceImpl implements DataControllService{
 	
 	public void readServices(HSSFSheet sheet) throws Exception
 	{
+		String ServiceId;
+		String ServiceName;
+		Integer LH_INC;
+		Integer LH_REQ;
+		
 		if(sheet != null)
 		{
-		int rows = sheet.getPhysicalNumberOfRows();
         String ID = "";
-		for(int j = 1; j < rows; j++){
+		for(int j = 1; j < sheet.getPhysicalNumberOfRows(); j++){
+			 
+			ServiceId = sheet.getRow(j).getCell(0).getStringCellValue();
 			
+			try {
+				 	ServiceName = sheet.getRow(j).getCell(1).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					ServiceName = "Nežinoma";
+				}
 			
-		   System.out.print("PaslaugosId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
-				   			" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
-				   			" LH_INC: "+sheet.getRow(j).getCell(2).getNumericCellValue()+
-				   			" LH_REQ: "+sheet.getRow(j).getCell(3).getNumericCellValue()+" \n");
+			 try {
+				 	LH_INC = (int)sheet.getRow(j).getCell(2).getNumericCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					LH_INC = null;
+				}	
+			 
+			 try {
+				 	LH_REQ = (int)sheet.getRow(j).getCell(3).getNumericCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					LH_REQ = null;
+				}	
+
+		//   System.out.print("PaslaugosId: "+ServiceId+" Pavadinimas: "+ServiceName+" LH_INC: "+LH_INC+" LH_REQ: "+LH_REQ+" \n");
 		   
-		   ID = sheet.getRow(j).getCell(0).getStringCellValue().substring(sheet.getRow(j).getCell(0).getStringCellValue().lastIndexOf("P") + 1);
+		   ID = ServiceId.substring(ServiceId.lastIndexOf("P") + 1);
 		   System.out.print(ID);
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
 		   preparedStatement = connect
-					.prepareStatement("INSERT INTO service values ('"+ Integer.parseInt(ID) +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
-							+ sheet.getRow(j).getCell(0).getStringCellValue() +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
-							+ sheet.getRow(j).getCell(2).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(3).getNumericCellValue() +"');");
+					.prepareStatement("INSERT INTO service values ('"+ Integer.parseInt(ID) +"','"+ ServiceName +"','"
+							+ ID +"','"+ ServiceName +"','"
+							+ LH_INC +"','"+ LH_REQ +"');");
 
 		   preparedStatement.executeUpdate();    
 		   
@@ -139,40 +168,91 @@ public class DataControllServiceImpl implements DataControllService{
 	
 	public void readEmployees(HSSFSheet sheet) throws Exception
 	{
+		int ID;
+		String firstName;
+		String surName;
+		String position;
+		String phone;
+		String mail;
+		
 		if(sheet != null)
 		{
-		int rows = sheet.getPhysicalNumberOfRows();
         String pareigos = "";
-		for(int j = 1; j < rows; j++){
-		   System.out.print("DarboId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
-				   			" Vardas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
-				   			" Pavarde: "+sheet.getRow(j).getCell(2).getStringCellValue()+
-				   			" Pareigos: "+sheet.getRow(j).getCell(3).getStringCellValue()+
-				   			" Telefonas: "+sheet.getRow(j).getCell(4).getStringCellValue()+
-				   			" Mail: "+sheet.getRow(j).getCell(5).getStringCellValue()+" \n");
+		for(int j = 1; j < sheet.getPhysicalNumberOfRows(); j++){
+			
+			ID = (int) sheet.getRow(j).getCell(0).getNumericCellValue();
+			
+			 try {
+				 firstName = sheet.getRow(j).getCell(1).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					firstName = null;
+				}	
+			 
+			 try {
+				 surName = sheet.getRow(j).getCell(2).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					surName = null;
+				}	
+			 
+			 try {
+				 position = sheet.getRow(j).getCell(3).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					position = "I";
+				}
+			 
+			 try {
+				 phone = sheet.getRow(j).getCell(4).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					phone = null;
+				}
+			 
+			 try {
+				 mail = sheet.getRow(j).getCell(5).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					mail = null;
+				}
+
+		//   System.out.print("DarboId: "+ID+" Vardas: "+firstName+" Pavarde: "+surName+" Pareigos: "+position+" Telefonas: "+phone+" Mail: "+mail+" \n");
 		
-		    if(sheet.getRow(j).getCell(3).getStringCellValue().equalsIgnoreCase("A")){
+		    if(position.equalsIgnoreCase("A")){
 		    	pareigos = "2";
 		    }
-		    if(sheet.getRow(j).getCell(3).getStringCellValue().equalsIgnoreCase("V")){
+		    if(position.equalsIgnoreCase("V")){
 		    	pareigos = "3";
 		    }
 		    else{
 		    	pareigos = "1"; // Kai I - inžinierius 
 		    }
+		    
 		    Class.forName("com.mysql.jdbc.Driver");
 			connect = Clasifiers.getConnection();
 			preparedStatement = connect
-					.prepareStatement("INSERT INTO employee values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ pareigos +"','"
-							+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"+ sheet.getRow(j).getCell(2).getStringCellValue() +"','"
-							+ sheet.getRow(j).getCell(5).getStringCellValue() +"','"+ sheet.getRow(j).getCell(4).getStringCellValue() +"');");
+					.prepareStatement("INSERT INTO employee values ('"+ ID +"','"
+							+ pareigos +"','"
+							+ firstName +"','"
+							+ surName +"','"
+							+ mail +"','"
+							+ phone +"');");
 
 			preparedStatement.executeUpdate();  
 		   
 		 
 		}
-		
-		
 		}
 		else
 			Clients.showNotification("Nerasta Duomenu apie Darbuotojus!\n");
@@ -180,21 +260,44 @@ public class DataControllServiceImpl implements DataControllService{
 	
 	public void readClients(HSSFSheet sheet) throws Exception
 	{
+		String clientID;
+		String name;
+		String address;
+		
 		if(sheet != null)
 		{
-		int rows = sheet.getPhysicalNumberOfRows();
 
-		for(int j = 1; j < rows; j++){
-		   System.out.print("KlientoId: "+sheet.getRow(j).getCell(0).getStringCellValue()+
-				    		" Pavadinimas: "+sheet.getRow(j).getCell(1).getStringCellValue()+
-				    		" Adresas: "+sheet.getRow(j).getCell(2).getStringCellValue()+" \n");
+		for(int j = 1; j < sheet.getPhysicalNumberOfRows(); j++){
+			
+			clientID = sheet.getRow(j).getCell(0).getStringCellValue();
+
+			 try {
+					name = sheet.getRow(j).getCell(1).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					name = null;
+				}
+
+			 try {
+				 address = sheet.getRow(j).getCell(2).getStringCellValue();
+		        	
+				} catch (Exception  e) {
+					// TODO Auto-generated catch block
+					//e.printStackTrace();
+					address = null;
+				}
+			
+		   //System.out.print("KlientoId: "+clientID+" Pavadinimas: "+name+" Adresas: "+address+" \n");
 		   
-		   String ID = sheet.getRow(j).getCell(0).getStringCellValue().substring(sheet.getRow(j).getCell(0).getStringCellValue().lastIndexOf("K") + 1);
+		   String ID = clientID.substring(clientID.lastIndexOf("K") + 1);
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
 		   preparedStatement = connect
-					.prepareStatement("INSERT INTO client values ('"+ Integer.parseInt(ID) +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','0000000" +
-							"','"+ sheet.getRow(j).getCell(2).getStringCellValue() +"','','');");
+					.prepareStatement("INSERT INTO client values ('"+ Integer.parseInt(ID) +"','"
+							+ name +"','0000000" +"','"
+							+ address +"','','');");
            // Traktuokim, kad kai im. k. 0000000 - mes neturim duomenu.
 		   preparedStatement.executeUpdate();
 		}
@@ -205,28 +308,81 @@ public class DataControllServiceImpl implements DataControllService{
 	
 	public void readRepresentatives(HSSFSheet sheet) throws Exception
 	{
+		int ID;
+		String repClient;
+		String firstName;
+		String lastName;
+		String mail;
+		String phone;
+		boolean active;
+		
 		if(sheet != null)
 		{
-		int rows = sheet.getPhysicalNumberOfRows();
 
-		for(int j = 1; j < rows; j++){
-			   System.out.print("AtstovoId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
-					   			" AtstovaujaKlienta: "+sheet.getRow(j).getCell(1).getStringCellValue()+
-					   			" Vardas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
-					   			" Pavarde: "+sheet.getRow(j).getCell(3).getStringCellValue()+
-					   			" ElPastas: "+sheet.getRow(j).getCell(4).getStringCellValue()+
-					   			" Telefonas: "+sheet.getRow(j).getCell(5).getStringCellValue()+
-					   			" Aktyvus: "+sheet.getRow(j).getCell(6).getBooleanCellValue()+" \n");
+		for(int j = 1; j < sheet.getPhysicalNumberOfRows(); j++){
+			
+				ID = (int) sheet.getRow(j).getCell(0).getNumericCellValue();
+				repClient = sheet.getRow(j).getCell(1).getStringCellValue();
+				
+				 try {
+					 firstName = sheet.getRow(j).getCell(2).getStringCellValue();
+			        	
+					} catch (Exception  e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+						firstName = null;
+					}
+				
+				 try {
+					 lastName = sheet.getRow(j).getCell(3).getStringCellValue();
+			        	
+					} catch (Exception  e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+						lastName = null;
+					}
+				
+				 try {
+					 mail = sheet.getRow(j).getCell(4).getStringCellValue();
+			        	
+					} catch (Exception  e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+						mail = null;
+					}
+				
+				 try {
+					 phone = sheet.getRow(j).getCell(5).getStringCellValue();
+			        	
+					} catch (Exception  e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+						phone = null;
+					}
+				
+				 try {
+					 active = sheet.getRow(j).getCell(6).getBooleanCellValue();
+			        	
+					} catch (Exception  e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+						active = false;
+					}
+			    
+				//System.out.print("AtstovoId: "+ID+" AtstovaujaKlienta: "+repClient+" Vardas: "+firstName+" Pavarde: "+lastName+" ElPastas: "+mail+" Telefonas: "+phone+" Aktyvus: "+active+" \n");
 			   
-			   String clientId = sheet.getRow(j).getCell(1).getStringCellValue().substring(sheet.getRow(j).getCell(1).getStringCellValue().lastIndexOf("K") + 1);
+			   String clientId = repClient.substring(repClient.lastIndexOf("K") + 1);
 			   
 			   Class.forName("com.mysql.jdbc.Driver");
 			   connect = Clasifiers.getConnection();
 			   preparedStatement = connect
-						.prepareStatement("INSERT INTO delegates values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ clientId +
-								"','"+ sheet.getRow(j).getCell(2).getStringCellValue() +"','"+sheet.getRow(j).getCell(3).getStringCellValue()+
-								"','"+sheet.getRow(j).getCell(5).getStringCellValue()+"','"+sheet.getRow(j).getCell(4).getStringCellValue()+
-								"','"+sheet.getRow(j).getCell(6).getBooleanCellValue()+"');");
+						.prepareStatement("INSERT INTO delegates values ('"+ ID +"','"
+								+ Integer.parseInt(clientId) + "','"
+								+ firstName + "','"
+								+ lastName + "','"
+								+ phone + "','"
+								+ mail + "','"
+								+ active + "');");
 			   
 			  
 	           preparedStatement.executeUpdate();		   
@@ -240,14 +396,38 @@ public class DataControllServiceImpl implements DataControllService{
 	public void readContracts(HSSFSheet sheet) throws Exception
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date from;
+		Date to;
+		int ID;
+		String contractID;
+		String name;
+		String clientID;
+		
 		if(sheet != null)
 		{
-		int rows = sheet.getPhysicalNumberOfRows();
+		
+		for(int j = 1; j < sheet.getPhysicalNumberOfRows(); j++){
 
-		for(int j = 1; j < rows; j++){
+			ID = (int) sheet.getRow(j).getCell(0).getNumericCellValue();
 
-		   System.out.print("priejo");
-		   Date from;
+	        try {
+	        	contractID = sheet.getRow(j).getCell(1).getStringCellValue();
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				contractID = null;
+			}	
+			
+	        try {
+	        	name = sheet.getRow(j).getCell(2).getStringCellValue();
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				name = "Nežinoma";
+			}	
+	        
+			clientID = sheet.getRow(j).getCell(3).getStringCellValue();
+			
 	        try {
 	        	from = sheet.getRow(j).getCell(4).getDateCellValue();
 			} catch (Exception  e) {
@@ -256,7 +436,7 @@ public class DataControllServiceImpl implements DataControllService{
 				from = new Date(0);
 			}	
 
-			   Date to;
+			  
 		        try {
 		        	to = sheet.getRow(j).getCell(5).getDateCellValue();
 				} catch (Exception  e) {
@@ -265,24 +445,20 @@ public class DataControllServiceImpl implements DataControllService{
 					to = new Date(0);
 				}	
 		        
-		    		   System.out.print("SutartiesId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
-		    				   			" SutartiesNr: "+sheet.getRow(j).getCell(1).getStringCellValue()+
-		    				   			" Pavadinimas: "+sheet.getRow(j).getCell(2).getStringCellValue()+
-		    				   			" KlientoId: "+sheet.getRow(j).getCell(3).getStringCellValue()+
-		    				   			" DataNuo: "+sdf.format(from)+
-		    				   			" DataIki: "+sdf.format(to)+" \n");
+		    		   //System.out.print("SutartiesId: "+ ID +" SutartiesNr: "+ contractID +" Pavadinimas: "+ name +" KlientoId: "+ clientID +" DataNuo: "+ sdf.format(from) +" DataIki: "+ sdf.format(to) +" \n");
 		    		   
 
-		   String clientId = sheet.getRow(j).getCell(3).getStringCellValue().substring(sheet.getRow(j).getCell(3).getStringCellValue().lastIndexOf("K") + 1);
+		   String clientId = clientID.substring(clientID.lastIndexOf("K") + 1);
+		   
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
 		   preparedStatement = connect
-					.prepareStatement("INSERT INTO contract values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ sheet.getRow(j).getCell(1).getStringCellValue() +"','"
-							+ sheet.getRow(j).getCell(2).getStringCellValue() +"','0','"+ Integer.parseInt(clientId) +"','"
+					.prepareStatement("INSERT INTO contract values ('"+ ID +"','"
+							+ contractID +"','"
+							+ name +"','"
+							+ Integer.parseInt(clientId) +"','"
 							+ sdf.format(from) +"','"+ sdf.format(to) +"');");
-           //Nebepamenu, kam mes groupId naudojam. Tai statinį nulį palikau
-		   //Ištryniau serviceId, nes nesueis taip mums.
-		   //Sukūriau lentelę ContractsServices, kuriuoje nurodoma sutartis ir paslaugos - viena sutartis gali turėti daug paslaugų (sakiau, kad reiks)
+         
 		   preparedStatement.executeUpdate();
 		}
 		}
@@ -292,18 +468,25 @@ public class DataControllServiceImpl implements DataControllService{
 	
 	public void readServiceContracts(HSSFSheet sheet) throws Exception
 	{
+		int serviceID;
+		String contractID;
+		
 		if(sheet != null)
 		{
-		int rows = sheet.getPhysicalNumberOfRows();
 
-		for(int j = 1; j < rows; j++){
-			   System.out.print("SutartiesId: "+sheet.getRow(j).getCell(0).getNumericCellValue()+
-			   			" paslaugosId: "+sheet.getRow(j).getCell(1).getStringCellValue()+" \n");
-			   String serviceId = sheet.getRow(j).getCell(1).getStringCellValue().substring(sheet.getRow(j).getCell(1).getStringCellValue().lastIndexOf("P") + 1);
-			   Class.forName("com.mysql.jdbc.Driver");
+		for(int j = 1; j < sheet.getPhysicalNumberOfRows(); j++){
+			
+			serviceID = (int) sheet.getRow(j).getCell(0).getNumericCellValue();
+			contractID = sheet.getRow(j).getCell(1).getStringCellValue();
+			
+			   //System.out.print("SutartiesId: "+serviceID+" paslaugosId: "+contractID+" \n");
+			 
+			String contractId = contractID.substring(contractID.lastIndexOf("P") + 1);
+			   
+			Class.forName("com.mysql.jdbc.Driver");
 			   connect = Clasifiers.getConnection();
 			   preparedStatement = connect
-						.prepareStatement("INSERT INTO contractsServices values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +"','"+ Integer.parseInt(serviceId)+"');");
+						.prepareStatement("INSERT INTO contractsServices values ('"+ serviceID +"','"+ Integer.parseInt(contractId)+"');");
 	           preparedStatement.executeUpdate();
 		}	   
 		}
@@ -313,120 +496,160 @@ public class DataControllServiceImpl implements DataControllService{
 	
 	public void readAppelations(HSSFSheet sheet) throws Exception
 	{
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		int ID;
+		String clientID;
+		String serviceID;
+		String type;
+		String source;
+		String data;
+		Date received;
+		Date completed;
+		String status;
+		Integer rank;
+		Integer previous;
 		
 		//Task
 		if(sheet != null)
 		{
 		int rows = sheet.getPhysicalNumberOfRows();
-		String type="";
-		int status=-1;
-		String source="";
 		for(int j = 1; j < rows; j++){
 	
-			   Date received;
-		        try {
-		        	received = sheet.getRow(j).getCell(6).getDateCellValue();
-		        	
-				} catch (Exception  e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-					received = new Date(0);
-				}	
+			ID = (int) sheet.getRow(j).getCell(0).getNumericCellValue();
+			clientID = sheet.getRow(j).getCell(1).getStringCellValue();
+			serviceID = sheet.getRow(j).getCell(2).getStringCellValue();		
 			
-			   Date completed;
-		        try {
-		        	completed = sheet.getRow(j).getCell(7).getDateCellValue();
-		        	
-				} catch (Exception  e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-					completed = new Date(0);
-				}	
-		        
-		        String c;
-		        try {
-		        	c = sheet.getRow(j).getCell(10).getStringCellValue();
-		        	
-				} catch (Exception  e) {
-					// TODO Auto-generated catch block
-					//e.printStackTrace();
-					c = "-1";
-				}	
-		        
-				   int rank;
-			        try {
-			        	rank = (int)sheet.getRow(j).getCell(9).getNumericCellValue();
-			        	
-					} catch (Exception  e) {
-						// TODO Auto-generated catch block
-						//e.printStackTrace();
-						rank = -1;
-					}	
+	        try {
+	        	type = sheet.getRow(j).getCell(3).getStringCellValue();
+	 		   if(type.equals("INC")){
+				   type = "1";
+			   }else{
+				   type = "2";
+			   }
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				type = null;
+			}	
+			
+	        try {
+	        	source = sheet.getRow(j).getCell(4).getStringCellValue();
+	 		   if(source.equals("T")){
+				   source = "1";
+			   }
+			   else if(source.equals("S")){
+				   source = "2";
+			   }else{
+				   source = "3";
+			   }
+	 		   
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				source = null;
+			}	
+			
+	        try {
+	        	data = sheet.getRow(j).getCell(5).getStringCellValue();
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				data = null;
+			}	
+			
+	        try {
+	        	received = sheet.getRow(j).getCell(6).getDateCellValue();
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				received = new Date(0);
+			}	
+			
+	        try {
+	        	completed = sheet.getRow(j).getCell(7).getDateCellValue();
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				completed = new Date(0);
+			}	
+			
+	        try {
+	        	status = sheet.getRow(j).getCell(8).getStringCellValue();
+	 		   if(status.equals("I")){
+				   status = "1";
+			   }
+			   else if(status.equals("P")){
+				   status = "2";
+			   }
+			   else if(status.equals("A")){
+				   status = "3";
+			   }
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				status = null;
+			}	
+			
+	        try {
+	        	rank = (int)sheet.getRow(j).getCell(9).getNumericCellValue();
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				rank = null;
+			}	
+			
+	        try {
+	        	previous = (int)sheet.getRow(j).getCell(10).getNumericCellValue();
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				System.out.print("eksec\n");
+				previous = null;
+			}	
+				
 			        
 			        if(rank > 5 && rank <= 10)
 			        	rank = rank / 2 + rank % 2;
 			        else
-			        	rank = -1;
-			
-		   String clientId = sheet.getRow(j).getCell(1).getStringCellValue().substring(sheet.getRow(j).getCell(1).getStringCellValue().lastIndexOf("K") + 1);
-		   String serviceId = sheet.getRow(j).getCell(2).getStringCellValue().substring(sheet.getRow(j).getCell(2).getStringCellValue().lastIndexOf("P") + 1);
-		   if(sheet.getRow(j).getCell(3).getStringCellValue().equals("INC")){
-			   type = "1";
-		   }else{
-			   type = "2";
-		   }
+			        	rank = null;
+	
+		   String clientId = clientID.substring(clientID.lastIndexOf("K") + 1);
+		   String serviceId = serviceID.substring(serviceID.lastIndexOf("P") + 1);
 		   
-		   if(sheet.getRow(j).getCell(8).getStringCellValue().equals("I")){
-			   status = 1;
-		   }
-		   else if(sheet.getRow(j).getCell(8).getStringCellValue().equals("P")){
-			   status = 2;
-		   }
-		   else if(sheet.getRow(j).getCell(8).getStringCellValue().equals("A")){
-			   status = 3;
-		   }
-		   
-		   if(sheet.getRow(j).getCell(4).getStringCellValue().equals("T")){
-			   source = "1";
-		   }
-		   else if(sheet.getRow(j).getCell(4).getStringCellValue().equals("S")){
-			   source = "2";
-		   }else{
-			   source = "3";
-		   }
-		   
-		   System.out.print("'"+ sheet.getRow(j).getCell(0).getNumericCellValue() +
-					"','"+ Integer.parseInt(clientId) +
-					"','"+ status +
-					"','"+ type +
-					"','"+sdf.format(received)+
-					"','"+"0000-00-00 00:00:00"+
-					"','"+sdf.format(completed)+
-					"','"+c+
-					"','"+Integer.parseInt(serviceId) +
-					"','"+rank+
-					"','"+source+
-					"','"+sheet.getRow(j).getCell(5).getStringCellValue()+
-					"','"+sheet.getRow(j).getCell(3).getStringCellValue()+"');\n");
-		   
+//		   System.out.print("'Id: "+ ID +"','"+ Integer.parseInt(clientId) +"','"+ status +"','"+ type +"','"+sdf.format(received)+"','"+"0000-00-00 00:00:00"+
+//					"','"+sdf.format(completed)+
+//					"','"+c+
+//					"','"+Integer.parseInt(serviceId) +
+//					"','"+rank+
+//					"','"+source+
+//					"','"+sheet.getRow(j).getCell(5).getStringCellValue()+
+//					"','"+sheet.getRow(j).getCell(3).getStringCellValue()+"');\n");
+//		   
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
+		   System.out.print(status +"\n");
 		   preparedStatement = connect
-					.prepareStatement("INSERT INTO task values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +
+					.prepareStatement("INSERT INTO task values ('"+ ID +
 							"','"+ Integer.parseInt(clientId) +
-							"','"+ status +
-							"','"+ type +
+							"','"+ Integer.parseInt(status) +
+							"','"+ Integer.parseInt(type) +
 							"','"+sdf.format(received)+
 							"','"+"0000-00-00 00:00:00"+
 							"','"+sdf.format(completed)+
-							"','"+c+
+							"','"+previous+
 							"','"+Integer.parseInt(serviceId) +
 							"','"+rank+
-							"','"+source+
-							"','"+sheet.getRow(j).getCell(5).getStringCellValue()+
-							"','"+sheet.getRow(j).getCell(3).getStringCellValue()+"');");
-		   
+							"','"+Integer.parseInt(source)+
+							"','"+data+
+							"','"+null+"');");
+
 		  
            preparedStatement.executeUpdate();
 		}   

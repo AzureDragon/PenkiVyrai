@@ -1,6 +1,5 @@
 package mainControllers;
 
-import model.Authentication;
 import model.Task;
 
 import org.zkoss.zk.ui.Executions;
@@ -15,8 +14,6 @@ import org.zkoss.zul.Popup;
 import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
-import services.AuthenticationService;
-import services.AuthenticationServiceImpl;
 import services.EmployeeService;
 import addtionalControllers.TaskStatements;
 import addtionalControllers.TaskViewController;
@@ -55,8 +52,6 @@ public class SolveTaskController extends SearchController {
 
 	@Listen("onClick=#solveButton")
 	public void acceptSolving() throws WrongValueException, Exception {
-		AuthenticationService authService = new AuthenticationServiceImpl();
-		Authentication cre = authService.getUserCredential();
 
 		String solvingTask = solveTaskWindow.getAttribute("taskId").toString();
 		

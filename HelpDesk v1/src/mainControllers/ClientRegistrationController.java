@@ -10,6 +10,10 @@ import org.zkoss.zul.Textbox;
 
 public class ClientRegistrationController extends SelectorComposer<Component> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Wire
 	Textbox id, clientName, clientCode, clientAddress;
 	@Wire

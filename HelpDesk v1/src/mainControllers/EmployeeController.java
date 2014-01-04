@@ -20,7 +20,6 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Combobox;
-import org.zkoss.zul.Datebox;
 import org.zkoss.zul.ListModelList;
 
 import services.AuthenticationService;
@@ -42,9 +41,6 @@ public class EmployeeController extends SelectorComposer<Component> {
 	private EventQueue eq;
 	@Wire
 	private Combobox darbuotojas;
-	@Wire
-	private Datebox isprestiIkiDateBox;
-
 	Task kreipinys;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
