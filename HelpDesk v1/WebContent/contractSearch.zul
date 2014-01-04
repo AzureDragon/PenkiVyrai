@@ -1,8 +1,5 @@
-<?page 
-  xml="version="1.0" 
-  encoding="UTF-8""
-contentType="text/html;charset=UTF-8"
-?>
+<?page title="Sutartys" contentType="text/html;charset=UTF-8"?>
+
 <zk xmlns:n="native">
 	<include src="index.zul" />
 	<style>
@@ -18,23 +15,23 @@ contentType="text/html;charset=UTF-8"
 		.status .head { text-align : right; } .status .head span {
 		font-weight : bold; }
 	</style>
-	<groupbox sclass="main z-demo-config">
-		<caption label="Klientai" />
+	<groupbox sclass="main z-demo-config"
+		apply="mainControllers.ContractsSearchController">
+		<caption label="Sutartys" />
 		<hlayout spacing="40px" style="padding-left: 10px;">
 			<image src="/img/client2.png"></image>
-			<n:h1 class="cg-title">Klientų administravimas</n:h1>
+			<n:h1 class="cg-title">Sutarčių administravimas</n:h1>
 		</hlayout>
 		<vlayout spacing="15px">
-			<hbox
-			apply="mainControllers.ClientsController">
+			<hbox>
 				<toolbar>
-					Pavadinimas:
+					Sutartis:
 					<textbox id="keywordBox" />
 					<button id="searchButton" label="Ieškoti"
 						image="/img/search.png" />
 
-					<button id="uzregistruotiKlientaButton"
-						label="Užregistruoti klientą">
+					<button id="registerContract"
+						label="Užregistruoti sutartį">
 						<attribute name="onClick">
 	{
 		final Window klientoRegistracija = (Window) Executions
@@ -45,36 +42,45 @@ contentType="text/html;charset=UTF-8"
 </attribute>
 					</button>
 				</toolbar>
-				</hbox>
+			</hbox>
 		</vlayout>
 		<vlayout spacing="15px">
-			<listbox maxlength="8" id="clientsListbox"
+			<listbox maxlength="8" id="contractsListbox"
 				sclass="z-listbox-autopaging" height="300px"
-				emptyMessage="Klientų nerasta">
+				emptyMessage="Sutarčių nerasta">
 
 				<listhead sizable="true">
-					<listheader label="Nr" width="4%" />
+
 					<listheader label="Pavadinimas" width="40%" />
 					<listheader label="Kodas" />
-					<listheader label="Adresas" />
+					<listheader label="Klientas" />
+					<listheader label="Galioja nuo" />
+					<listheader label="Galioja iki" />
 				</listhead>
 
 				<template name="model">
 					<listitem context="msg" height="5px"
 						sclass="z-listbox-autopaging">
-						<listcell label="${each.id}"></listcell>
 						<listcell height="20px" label="${each.name}"></listcell>
-						<listcell height="20px" label="${each.code}"></listcell>
+						<listcell label="${each.contractNumber}"></listcell>
+
 						<listcell height="20px"
-							label="${each.address}">
+							label="${each.clientId}">
 						</listcell>
-						
+						<listcell height="20px"
+							label="${each.beginTime}">
+						</listcell>
+						<listcell height="20px"
+							label="${each.endTime}">
+						</listcell>
+
+
 
 					</listitem>
 				</template>
 			</listbox>
 		</vlayout>
-		
+
 	</groupbox>
 
 
