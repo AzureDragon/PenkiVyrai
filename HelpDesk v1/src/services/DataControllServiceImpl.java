@@ -813,4 +813,20 @@ setKey(0);
 		}	
 	}
 	
+	void clearDB() throws Exception
+	{
+		clearTableData("service");
+		clearTableData("activities");
+		clearTableData("authentificationservice");
+    	clearTableData("employee");
+    	clearTableData("client");
+    	clearTableData("delegates");
+    	clearTableData("contract");
+    	clearTableData("contractsServices");
+    	clearTableData("task");
+    	clearTableData("taskAssignments");
+    	clearTableData("taskhistory");
+    	clearTableData("comment");
+	}
+	
 }
