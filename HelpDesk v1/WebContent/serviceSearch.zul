@@ -2,7 +2,7 @@
 <zk xmlns:n="native">
 <?page title="Sutartys" contentType="text/html;charset=UTF-8"?>
 
-	<include src="index.zul" />
+	<include src="menu.zul" />
 	<style>
 		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
 		hidden; } .cg-title { font-weight: normal; color: #008DB7;
@@ -74,5 +74,5 @@
 
 	</groupbox>
 
-
+<include src="footer.zul"/>
 </zk>

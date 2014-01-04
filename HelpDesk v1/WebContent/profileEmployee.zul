@@ -1,6 +1,6 @@
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <window apply="mainControllers.EmployeeProfileViewController">
-<include src="index.zul" />
+<include src="menu.zul" />
     <vlayout>
         <grid width="500px">
             <columns>
@@ -70,4 +70,5 @@
             <button id="reloadProfile" label="Atnaujinti"/>
         </hlayout>
     </vlayout>
+    <include src="footer.zul"/>
 </window>

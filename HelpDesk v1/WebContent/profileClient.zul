@@ -6,7 +6,7 @@ contentType="text/html;charset=UTF-8"
 
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <window apply="mainControllers.ClientProfileViewController">
-<include src="index.zul" />
+<include src="menu.zul" />
     <vlayout>
         <grid width="500px">
             <columns>
@@ -80,4 +80,5 @@ contentType="text/html;charset=UTF-8"
             <button id="reloadProfile" label="Atnaujinti"/>
         </hlayout>
     </vlayout>
+    <include src="footer.zul"/>
 </window>

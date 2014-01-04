@@ -32,7 +32,7 @@ padding-bottom: 0;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fcfcfc', EndColorStr='#f1f1f1');
 }
 </style>
-<include src="index.zul" />
+<include src="menu.zul" />
 	        <groupbox sclass="footerUp">
 	        <hbox>
                 <image src="/img/client2.png"></image>
