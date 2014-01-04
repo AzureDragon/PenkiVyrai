@@ -1,0 +1,78 @@
+<?page title="Paslaugos" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
+<?page title="Sutartys" contentType="text/html;charset=UTF-8"?>
+
+	<include src="index.zul" />
+	<style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; } .cg-title { font-weight: normal; color: #008DB7;
+		margin-bottom: 0; padding-bottom: 0; } .cg-desc { margin-top: 0;
+		font-family: arial,sans-serif; font-size: small; font-weight:
+		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+		div.status { border: 0 none; } .status tr.z-grid-odd
+		td.z-row-inner, .status tr.z-grid-odd .z-cell, .status
+		tr.z-grid-odd { background: none; border: 0 none; }
+
+		.status .head { text-align : right; } .status .head span {
+		font-weight : bold; }
+	</style>
+	<groupbox sclass="main z-demo-config"
+		apply="mainControllers.ServiceSearchController">
+		<caption label="Paslaugos" />
+		<hlayout spacing="40px" style="padding-left: 10px;">
+			<image src="/img/client2.png"></image>
+			<n:h1 class="cg-title">Paslaugų administravimas</n:h1>
+		</hlayout>
+		<vlayout spacing="15px">
+			<hbox>
+				<toolbar>
+					Sutartis:
+					<textbox id="keywordBox" />
+					<button id="searchButton" label="Ieškoti"
+						image="/img/search.png" />
+
+					<button id="registerService"
+						label="Sukurti paslaugą">
+						<attribute name="onClick">
+	{
+		final Window klientoRegistracija = (Window) Executions
+				.createComponents("clientRegistrationForm.zul", null, null);
+		klientoRegistracija.setMaximizable(true);
+		klientoRegistracija.doModal();
+	}
+</attribute>
+					</button>
+				</toolbar>
+			</hbox>
+		</vlayout>
+		<vlayout spacing="15px">
+			<listbox maxlength="8" id="serviceListbox"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Paslaugų nerasta">
+
+				<listhead sizable="true">
+					
+					<listheader label="Pavadinimas" width="40%" />
+					<listheader label="Kodas" />
+					<listheader label="Incidento išsprendimo laikas" />
+					<listheader label="Užklausimo išsprendimo laikas" />
+					
+				</listhead>
+	
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell height="20px" label="${each.name}"></listcell>
+						<listcell label="${each.serviceCode}"></listcell>
+						<listcell label="${each.incidentTime}"></listcell>
+						<listcell label="${each.requestTime}"></listcell>
+					</listitem>
+				</template>
+				
+			</listbox>
+		</vlayout>
+
+	</groupbox>
+
+
+</zk>
