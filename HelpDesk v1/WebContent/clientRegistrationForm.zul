@@ -26,7 +26,14 @@ contentType="text/html;charset=UTF-8"
 		}
 	}
 	public void deleteComponent(Row row, Class clazz) {
-
+		
+	
+		
+		if (dynamicEmails.getRows().getChildren().size() == 0) 
+			deleteEmailButton.setDisabled(true); 
+		}
+		if (dynamicPhones.getRows().getChildren().size() == 0) 
+			deleteEmailButton.setDisabled(true); 
 		row.detach();
 
 	}
@@ -83,7 +90,8 @@ contentType="text/html;charset=UTF-8"
 							<button id="addEmailButton"
 								label="Pridėti el. pašto adresą"
 								onClick="addTextbox(dynamicEmails);" />
-							<button label="Ištrinti el pašto adresą"
+							<button id="deleteEmailButton" label="Ištrinti el pašto adresą"
+						
 								onClick="deleteTextbox(dynamicEmails)" />
 						</box>
 					</vbox>
@@ -103,7 +111,7 @@ contentType="text/html;charset=UTF-8"
 							<button id="addPhoneButton"
 								label="Pridėti telefono numerį"
 								onClick="addTextbox(dynamicPhones);" />
-							<button label="Ištrinti telefono numerį"
+							<button id="deletePhoneButton" label="Ištrinti telefono numerį"
 								onClick="deleteTextbox(dynamicPhones)" />
 						</box>
 					</vbox>

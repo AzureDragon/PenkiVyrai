@@ -5,6 +5,7 @@ import java.util.List;
 import model.Client;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -30,6 +31,14 @@ public class ClientsController extends SelectorComposer<Component>{
 		String keyword = keywordBox.getValue();
 		List<Client> result = clients.search(keyword);
 		clientsListbox.setModel(new ListModelList<Client>(result));
+	}
+	
+	@Listen("onSelect = #clientsListbox")
+	public void openClientView() throws Exception {
+		
+			Client selectedClient =  clientsListbox.getSelectedItem().getValue();
+			Executions.sendRedirect("client.zul?id=" + selectedClient.getId());
+
 	}
 
 	

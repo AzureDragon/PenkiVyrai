@@ -26,7 +26,8 @@ public class TaskStatements {
 	public String getTaskSolution(String taskId) throws Exception {
 
 		String tekstas = "";
-		tekstas = sql("SELECT Solution task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE id=" + taskId + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id;");
+		System.out.println("SELECT Solution FROM task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE id=" + taskId + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id");
+		tekstas = sql("SELECT Solution FROM task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE t.id=" + taskId + " and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id)");
 
 		return tekstas;
 

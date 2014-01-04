@@ -11,7 +11,7 @@ public class Task {
 	private String type;
 	private String status;
 	private Date registered;
-	private Date solveUntil;
+	private String solveUntil;
 	private Date solved; // i�spr�sta
 	private int previousTask;
 	private int serviceType; // paslaugos tipas
@@ -23,7 +23,7 @@ public class Task {
 	private int receiverId; // priskirtas darbuotojas
 
 	public Task(Integer id, String subject, String description,
-			String type, String status, Date registered, Date solveUntil,
+			String type, String status, Date registered, String solveUntil,
 			Date solved, int previousTask, int serviceType, int taskEvaluation,
 			int receiveSource, int delegateId, String solution, int assigneeId,
 			int receiverId) {
@@ -48,9 +48,9 @@ public class Task {
 
 	public Task(int id, String subject, String description, String type,
 			String status, String clientId, Date registered, int receiverId,
-			Date solveUntil, int assigneeId) {
+			String solveUntil, int assigneeId) {
 				
-			this.id=id;
+			this.id=id; 
 			this.subject=subject;
 			this.description = description;
 			this.type=type;
@@ -63,6 +63,8 @@ public class Task {
 		
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 	public Integer getId() {
 		return id;
@@ -113,11 +115,11 @@ public class Task {
 		this.registered = registered;
 	}
 
-	public Date getSolveUntil() {
+	public String getSolveUntil() {
 		return solveUntil;
 	}
 
-	public void setSolveUntil(Date solveUntil) {
+	public void setSolveUntil(String solveUntil) {
 		this.solveUntil = solveUntil;
 	}
 

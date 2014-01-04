@@ -41,7 +41,7 @@ public class AppelationServiceImpl implements AppelationService {
 					+ resultSet.getInt("ClientID")
 					+ resultSet.getDate("Registered")
 					+ resultSet.getInt("ReceiverId")
-					+ resultSet.getDate("SolveUntil"));
+					+ resultSet.getString("SolveUntil"));
 
 			taskList.add(new Task(resultSet.getInt("Id"), resultSet
 					.getString("Subject"), resultSet.getString("Description"),
@@ -50,7 +50,7 @@ public class AppelationServiceImpl implements AppelationService {
 					Clasifiers.getClientNameById(resultSet.getInt("ClientID")),
 					resultSet.getDate("Registered"), resultSet
 							.getInt("ReceiverId"), resultSet
-							.getDate("SolveUntil"), resultSet.getInt("AssigneeId")));
+							.getString("SolveUntil"), resultSet.getInt("AssigneeId")));
 
 		}
 	}
@@ -83,7 +83,7 @@ public class AppelationServiceImpl implements AppelationService {
 								.getInt("Status")), Clasifiers
 								.getClientNameById(rs.getInt("ClientID")), rs
 								.getDate("Registered"),
-						rs.getInt("ReceiverId"), rs.getDate("SolveUntil"), rs.getInt("AssigneeId")));
+						rs.getInt("ReceiverId"), rs.getString("SolveUntil"), rs.getInt("AssigneeId")));
 			}
 		}
 

@@ -13,7 +13,7 @@ contentType="text/html;charset=UTF-8"
 		<menuitem label="Pagrindinis" href="index.zul" />
 		<menuitem label="Paslaugos" onClick="alert(self.label)" />
 		<menuitem label="Sutartys" onClick="alert(self.label)" />
-		<menuitem label="Klientai" href="client.zul" />
+		<menuitem label="Klientai" href="clientSearch.zul" />
 		<menuitem label="Kreipiniai" href="appelationSearch.zul" />
 	</menubar>
 	<!-- End Menu -->

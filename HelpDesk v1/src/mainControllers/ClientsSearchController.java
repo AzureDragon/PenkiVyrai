@@ -26,8 +26,9 @@ public class ClientsSearchController {
 	}
 
 	private void writeResultSet(ResultSet resultSet) throws Exception {
+		clientList = new LinkedList<Client>();
 		  while (resultSet.next()) {
-			  	clientList = new LinkedList<Client>();
+			  
 		    	System.out.println(resultSet.getInt("Id")+ resultSet
 						.getString("Name") + resultSet. getString("Code")+ resultSet.getString("Address"));
 		    	
