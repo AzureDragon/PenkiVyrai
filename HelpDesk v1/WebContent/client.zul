@@ -1,27 +1,86 @@
 <?page title="Klientas" contentType="text/html;charset=UTF-8"?>
-<zk>
-
-
+<zk xmlns:n="native">
+<style>
+.footer {
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #f1f1f1;
+	background-image: -webkit-gradient(linear, top, left, from(#f1f1f1), to(#fcfcfc));
+	background-image: -webkit-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:    -moz-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:     -ms-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:      -o-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:         linear-gradient(top, #f1f1f1, #fcfcfc);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f1f1f1', EndColorStr='#fcfcfc');
+}
+.cg-title { 
+font-weight: normal; 
+color: #008DB7;
+margin-bottom: 0; 
+padding-bottom: 0; 
+}
+.footerUp {
+	height: 75px;
+	background-color: #f1f1f1;
+	background-image: -webkit-gradient(linear, top, left, from(#f1f1f1), to(#fcfcfc));
+	background-image: -webkit-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:    -moz-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:     -ms-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:      -o-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:         linear-gradient(top, #f1f1f1, #fcfcfc);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fcfcfc', EndColorStr='#f1f1f1');
+}
+</style>
+<include src="index.zul" />
+	        <groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/client2.png"></image>
+			     <n:h1 class="cg-title">Kliento administravimas</n:h1>
+			</hbox>     
+            </groupbox>
+<n:div align="center">            
 	<groupbox mold="3d" apply="mainControllers.ClientViewController">
-
-		<label id="name" style="font-size:30px" />
-
-		<groupbox title="Informacija">
+    <caption label="Kliento informacija"></caption>
+		<hbox align="start">
+		<groupbox title="Pagrindinė informacija" width="390px">
 			<vbox>
+				<hbox>
+					<label value="Įmonės pavadinimas:" style="font-size:16px" />
+					<label id="name" style="font-size:18px" />
+				</hbox>			
 				<hbox>
 					<label value="Įmonės kodas:" style="font-size:16px" />
 					<label id="code" style="font-size:18px" />
 				</hbox>
+			</vbox>
+		</groupbox>	
+			<groupbox width="390px" title="Kontaktinė informacija">
+				
 				<hbox>
-					<label value="Įmonės adresas:"
+					<label value="Adresas:"
 						style="font-size:16px" />
 					<label id="address" style="font-size:18px" />
 				</hbox>
-			</vbox>
-			<groupbox width="50%" title="Kontaktai">
-				
+				<hbox>
+					<label value="El. paštas:"
+						style="font-size:16px" />
+					<label id="mails" style="font-size:18px" />
+				</hbox>
+				<hbox>
+					<label value="Tel. Nr.:"
+						style="font-size:16px" />
+					<label id="telephones" style="font-size:18px" />
+				</hbox>
 			</groupbox>
-		</groupbox>
+		</hbox>
 	</groupbox>
-
+	<groupbox mold="3d" apply="mainControllers.ClientViewController">
+    <caption label="Kliento kreipiniai"></caption>
+	</groupbox>	
+		<groupbox mold="3d" apply="mainControllers.ClientViewController">
+    <caption label="Kliento atstovai"></caption>
+	</groupbox>
+	<include src="footer.zul" />	
+</n:div>
 </zk>

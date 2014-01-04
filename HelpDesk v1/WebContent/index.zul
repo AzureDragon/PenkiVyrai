@@ -38,10 +38,10 @@ contentType="text/html;charset=UTF-8"
             <toolbarbutton label="Pagrindinis" href="index.zul" />
             <toolbarbutton label="Paslaugos" onClick="alert(self.label)"  />            
             <toolbarbutton label="Sutartys" onClick="alert(self.label)" />
-            <toolbarbutton label="Klientai" href="clientSearch.zul" />
+            <toolbarbutton image="/img/client3.png" label="Klientai" href="clientSearch.zul" />
             <toolbarbutton label="Kreipiniai" href="appelationSearch.zul" />            
 </toolbar>
-<toolbar align="end" style="float:right; border-style: none;">
+<toolbar apply="mainControllers.LogOutController" align="end" style="float:right; border-style: none;">
    
  <cell>
 			<label id="timer" width="33%" />
@@ -59,13 +59,8 @@ contentType="text/html;charset=UTF-8"
 		</cell>
        
            
-		<cell>
-			<label id="profile"
-				value="${sessionScope.Authentication.loginName}" />
-		</cell>
-		<cell>
-			<label value="logOut" id="logOut" />
-		</cell>
+		<toolbarbutton image="/img/profile.png" href="profileUser.zul" label="Prisijungęs: ${sessionScope.Authentication.loginName}" id="profile" />
+		<toolbarbutton image="/img/logout.png" label="Atsijungti" id="LogOut" />
 </toolbar>
 </hbox>
 </div>
