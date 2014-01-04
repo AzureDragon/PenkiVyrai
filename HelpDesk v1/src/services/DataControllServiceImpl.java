@@ -508,7 +508,7 @@ public class DataControllServiceImpl implements DataControllService{
 		Date completed;
 		String status;
 		Integer rank;
-		Integer previous;
+		int previous;
 		
 		//Task
 		if(sheet != null)
@@ -611,7 +611,7 @@ public class DataControllServiceImpl implements DataControllService{
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				System.out.print("eksec\n");
-				previous = null;
+				previous = 0;
 			}	
 				
 			        
