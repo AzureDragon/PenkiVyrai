@@ -14,8 +14,14 @@ import model.Clasifiers;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.zkoss.zk.ui.util.Clients;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.lowagie.text.Anchor;
 import com.lowagie.text.Document;
@@ -64,9 +70,17 @@ public class DataControllServiceImpl implements DataControllService{
 //		File file = new File(".");
 //		for(String fileNames : file.list()) System.out.println(fileNames);
 		
+	//	InputStream ExcelFileToRead = new FileInputStream("C:/Test.xlsx");
+		//XSSFWorkbook  wb2 = new XSSFWorkbook(ExcelFileToRead);
+		
 		try {
-		    POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(name));
-		    HSSFWorkbook wb = new HSSFWorkbook(fs);
+			System.out.print("atejo\n");
+		   // OPCPackage fs = new POIFSFileSystem(new FileInputStream(name));
+			FileInputStream file = new FileInputStream(new File("C:/Users/Osvaldas/Desktop/eclipse-jee-indigo-SR2-win32-x86_64/eclipse/Testiniai_duomenys.xlsx"));
+            
+			//Get the workbook instance for XLS file 
+			XSSFWorkbook wb = new XSSFWorkbook (file);
+		    System.out.print("atejo4\n");
 			clearTableData("service");
 	    	readServices(getSheet(wb, "Paslaugos"));
 	    	clearTableData("employee");
@@ -89,15 +103,15 @@ public class DataControllServiceImpl implements DataControllService{
 		}
 	}
 	
-	private HSSFSheet getSheet(HSSFWorkbook wb, String name)
+	private XSSFSheet getSheet(XSSFWorkbook wb, String name)
 	{
 		
 		for(int i = 0; i < wb.getNumberOfSheets(); i++)
 	    {
-			HSSFSheet sheet = wb.getSheetAt(i);
+			XSSFSheet sheet = wb.getSheetAt(i);
 			if(sheet.getSheetName().toString().equals(name))
 			{
-				System.out.println("Rado");
+				System.out.println("Rado"+name);
 				return sheet;				
 			}
 
@@ -106,12 +120,12 @@ public class DataControllServiceImpl implements DataControllService{
 		return null;
 	}
 	
-	public void readServices(HSSFSheet sheet) throws Exception
+	public void readServices(XSSFSheet sheet) throws Exception
 	{
 		String ServiceId;
 		String ServiceName;
-		Integer LH_INC;
-		Integer LH_REQ;
+		int LH_INC;
+		int LH_REQ;
 		
 		if(sheet != null)
 		{
@@ -135,7 +149,7 @@ public class DataControllServiceImpl implements DataControllService{
 				} catch (Exception  e) {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
-					LH_INC = null;
+					LH_INC = 0;
 				}	
 			 
 			 try {
@@ -144,13 +158,13 @@ public class DataControllServiceImpl implements DataControllService{
 				} catch (Exception  e) {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
-					LH_REQ = null;
+					LH_REQ = 0;
 				}	
 
 		//   System.out.print("PaslaugosId: "+ServiceId+" Pavadinimas: "+ServiceName+" LH_INC: "+LH_INC+" LH_REQ: "+LH_REQ+" \n");
 		   
 		   ID = ServiceId.substring(ServiceId.lastIndexOf("P") + 1);
-		   System.out.print(ID);
+
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
 		   preparedStatement = connect
@@ -166,7 +180,7 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Paslaugas!\n");
 	}
 	
-	public void readEmployees(HSSFSheet sheet) throws Exception
+	public void readEmployees(XSSFSheet sheet) throws Exception
 	{
 		int ID;
 		String firstName;
@@ -258,7 +272,7 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Darbuotojus!\n");
 	}
 	
-	public void readClients(HSSFSheet sheet) throws Exception
+	public void readClients(XSSFSheet sheet) throws Exception
 	{
 		String clientID;
 		String name;
@@ -306,7 +320,7 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Klientus!\n");
 	}
 	
-	public void readRepresentatives(HSSFSheet sheet) throws Exception
+	public void readRepresentatives(XSSFSheet sheet) throws Exception
 	{
 		int ID;
 		String repClient;
@@ -343,7 +357,7 @@ public class DataControllServiceImpl implements DataControllService{
 					}
 				
 				 try {
-					 mail = sheet.getRow(j).getCell(4).getStringCellValue();
+					 mail = sheet.getRow(j).getCell(5).getStringCellValue();
 			        	
 					} catch (Exception  e) {
 						// TODO Auto-generated catch block
@@ -352,7 +366,7 @@ public class DataControllServiceImpl implements DataControllService{
 					}
 				
 				 try {
-					 phone = sheet.getRow(j).getCell(5).getStringCellValue();
+					 phone = sheet.getRow(j).getCell(4).getStringCellValue();
 			        	
 					} catch (Exception  e) {
 						// TODO Auto-generated catch block
@@ -393,7 +407,7 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Atstovus!\n");
 	}
 	
-	public void readContracts(HSSFSheet sheet) throws Exception
+	public void readContracts(XSSFSheet sheet) throws Exception
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date from;
@@ -402,6 +416,8 @@ public class DataControllServiceImpl implements DataControllService{
 		String contractID;
 		String name;
 		String clientID;
+		
+		String till = null, fr = null;
 		
 		if(sheet != null)
 		{
@@ -430,6 +446,7 @@ public class DataControllServiceImpl implements DataControllService{
 			
 	        try {
 	        	from = sheet.getRow(j).getCell(4).getDateCellValue();
+	        	fr = sdf.format(from);
 			} catch (Exception  e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
@@ -439,6 +456,7 @@ public class DataControllServiceImpl implements DataControllService{
 			  
 		        try {
 		        	to = sheet.getRow(j).getCell(5).getDateCellValue();
+		        	till = sdf.format(from);
 				} catch (Exception  e) {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
@@ -457,7 +475,7 @@ public class DataControllServiceImpl implements DataControllService{
 							+ contractID +"','"
 							+ name +"','"
 							+ Integer.parseInt(clientId) +"','"
-							+ sdf.format(from) +"','"+ sdf.format(to) +"');");
+							+ fr +"','"+ till +"');");
          
 		   preparedStatement.executeUpdate();
 		}
@@ -466,7 +484,7 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Sutartis!\n");
 	}
 	
-	public void readServiceContracts(HSSFSheet sheet) throws Exception
+	public void readServiceContracts(XSSFSheet sheet) throws Exception
 	{
 		int serviceID;
 		String contractID;
@@ -494,7 +512,7 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Pasirašytas sutartis!\n");
 	}
 	
-	public void readAppelations(HSSFSheet sheet) throws Exception
+	public void readAppelations(XSSFSheet sheet) throws Exception
 	{
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -507,8 +525,11 @@ public class DataControllServiceImpl implements DataControllService{
 		Date received;
 		Date completed;
 		String status;
-		Integer rank;
+		int rank;
 		int previous;
+		
+		String recv = null;
+		String comp = null;
 		
 		//Task
 		if(sheet != null)
@@ -562,20 +583,20 @@ public class DataControllServiceImpl implements DataControllService{
 			
 	        try {
 	        	received = sheet.getRow(j).getCell(6).getDateCellValue();
-	        	
+	        	recv = sdf.format(received);
 			} catch (Exception  e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
-				received = new Date(0);
+				received = null;
 			}	
 			
 	        try {
 	        	completed = sheet.getRow(j).getCell(7).getDateCellValue();
-	        	
+	        	comp = sdf.format(completed);
 			} catch (Exception  e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
-				completed = new Date(0);
+				completed = null;
 			}	
 			
 	        try {
@@ -589,6 +610,8 @@ public class DataControllServiceImpl implements DataControllService{
 			   else if(status.equals("A")){
 				   status = "3";
 			   }
+			   else
+				   status = "4";
 			} catch (Exception  e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
@@ -598,10 +621,13 @@ public class DataControllServiceImpl implements DataControllService{
 	        try {
 	        	rank = (int)sheet.getRow(j).getCell(9).getNumericCellValue();
 	        	
+		        if(rank > 5 && rank <= 10)
+		        	rank = rank / 2 + rank % 2;
+	        	
 			} catch (Exception  e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
-				rank = null;
+				rank = 0;
 			}	
 			
 	        try {
@@ -610,16 +636,9 @@ public class DataControllServiceImpl implements DataControllService{
 			} catch (Exception  e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
-				System.out.print("eksec\n");
 				previous = 0;
 			}	
-				
-			        
-			        if(rank > 5 && rank <= 10)
-			        	rank = rank / 2 + rank % 2;
-			        else
-			        	rank = null;
-	
+			
 		   String clientId = clientID.substring(clientID.lastIndexOf("K") + 1);
 		   String serviceId = serviceID.substring(serviceID.lastIndexOf("P") + 1);
 		   
@@ -634,21 +653,20 @@ public class DataControllServiceImpl implements DataControllService{
 //		   
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
-		   System.out.print(status +"\n");
 		   preparedStatement = connect
-					.prepareStatement("INSERT INTO task values ('"+ ID +
-							"','"+ Integer.parseInt(clientId) +
-							"','"+ Integer.parseInt(status) +
-							"','"+ Integer.parseInt(type) +
-							"','"+sdf.format(received)+
-							"','"+"0000-00-00 00:00:00"+
-							"','"+sdf.format(completed)+
-							"','"+previous+
-							"','"+Integer.parseInt(serviceId) +
-							"','"+rank+
-							"','"+Integer.parseInt(source)+
-							"','"+data+
-							"','"+null+"');");
+					.prepareStatement("INSERT INTO task values ('"+ ID +"','"
+							+ Integer.parseInt(clientId) +"','"
+							+ Integer.parseInt(status) +"','"
+							+ Integer.parseInt(type) +"','"
+							+recv+"','"
+							+"1970-01-01 00:00:00"+"','"
+							+comp+"','"
+							+previous+"','"
+							+Integer.parseInt(serviceId) +"','"
+							+rank+"','"
+							+Integer.parseInt(source)+"','"
+							+data+"','"
+							+null+"');");
 
 		  
            preparedStatement.executeUpdate();
@@ -658,87 +676,100 @@ public class DataControllServiceImpl implements DataControllService{
 			Clients.showNotification("Nerasta Duomenu apie Kreipinius!\n");
 	}
 	
-	public void readAssigments(HSSFSheet sheet) throws Exception
+	public void readAssigments(XSSFSheet sheet) throws Exception
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		int ID;
+		int taskID;
+		int source;
+		int destination;
+		Date assigned;
+		Date returned;
+		String data;
+		String result;
+		int time;
+		
+		int status = 0;
+		String ret = null;
+		String assig = null;
 		
 		if(sheet != null)
 		{
 		int rows = sheet.getPhysicalNumberOfRows();
-		int status = -1;
 		for(int j = 1; j < rows; j++){
-		   Date assigned;
+
+			ID = (int) sheet.getRow(j).getCell(0).getNumericCellValue();
+			taskID = (int) sheet.getRow(j).getCell(1).getNumericCellValue();
+			source = (int) sheet.getRow(j).getCell(2).getNumericCellValue();
+			destination = (int) sheet.getRow(j).getCell(3).getNumericCellValue();
+
+	        try {
+	        	data = sheet.getRow(j).getCell(6).getStringCellValue();
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				data = null;
+			}	
+			
+	        try {
+	        	result = sheet.getRow(j).getCell(7).getStringCellValue();
+	 		   if(result.equals("G")){
+				   status = 1;
+			   }else
+				   if(result.equals("I")){
+				   status = 2;
+			   }
+	        	
+			} catch (Exception  e) {
+				// TODO Auto-generated catch block
+				//e.printStackTrace();
+				result = null;
+			}	
+	        
+			time = (int) sheet.getRow(j).getCell(8).getNumericCellValue();
+			
 	        try {
 	        	assigned = sheet.getRow(j).getCell(4).getDateCellValue();
-	        	
+	        	assig = sdf.format(assigned);
 			} catch (Exception  e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				assigned = new Date(0);
 			}	
 
-			   Date returned;
 		        try {
 		        	returned = sheet.getRow(j).getCell(5).getDateCellValue();
-		        	
+		        	ret = sdf.format(returned);
 				} catch (Exception  e) {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
 					returned = new Date(0);
 				}	
 
-	        String c;
-	        try {
-	        	c = sheet.getRow(j).getCell(7).getStringCellValue();
-	        	
-			} catch (Exception  e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
-				c = "N";
-			}	
-
-	        String t;
-	        try {
-	        	t = sheet.getRow(j).getCell(6).getStringCellValue();
-	        	
-			} catch (Exception  e) {
-				// TODO Auto-generated catch block
-				//e.printStackTrace();
-				t = "-";
-			}	
-
-		   if(c.equals("G")){
-			   status = 1;
-		   }else
-			   if(c.equals("I")){
-			   status = 2;
-		   }
-			   else
-				   status = -1;
-
-		   System.out.print("IPaskyrimoId: "+ sheet.getRow(j).getCell(0).getNumericCellValue() +
-							"Kreipinys: "+ sheet.getRow(j).getCell(1).getNumericCellValue() +
-							"Kas: "+sheet.getRow(j).getCell(2).getNumericCellValue()+
-							"Kam: "+ sheet.getRow(j).getCell(3).getNumericCellValue() +
-							"Skirtas: "+sdf.format(assigned)+
-							"Grazintas: "+sdf.format(returned)+
-							"Tekstas: "+t+
-							"Rezultatas: "+status+
-							"SanaudosMin: "+sheet.getRow(j).getCell(8).getNumericCellValue()+"');\n");
+//		   System.out.print("IPaskyrimoId: "+  +
+//							"Kreipinys: "+  +
+//							"Kas: "++
+//							"Kam: "+  +
+//							"Skirtas: "+sdf.format(assigned)+
+//							"Grazintas: "+sdf.format(returned)+
+//							"Tekstas: "+t+
+//							"Rezultatas: "+status+
+//							"SanaudosMin: "+sheet.getRow(j).getCell(8).getNumericCellValue()+"');\n");
 		   
 		   Class.forName("com.mysql.jdbc.Driver");
 		   connect = Clasifiers.getConnection();
 		   preparedStatement = connect             
-					.prepareStatement("INSERT INTO taskAssignments values ('"+ sheet.getRow(j).getCell(0).getNumericCellValue() +
-							"','"+ sheet.getRow(j).getCell(1).getNumericCellValue() +
-							"','"+sheet.getRow(j).getCell(2).getNumericCellValue()+
-							"','"+ sheet.getRow(j).getCell(3).getNumericCellValue() +
-							"','"+sdf.format(assigned)+
-							"','"+sdf.format(returned)+
-							"','"+t+
-							"','"+status+
-							"','"+sheet.getRow(j).getCell(8).getNumericCellValue()+"');");
-		  
+					.prepareStatement("INSERT INTO taskAssignments values ('"+ ID +"','"
+							+ taskID +"','"
+							+source+"','"
+							+ destination +"','"
+							+assig+"','"
+							+ret+"','"
+							+data+"','"
+							+status+"','"
+							+time+"');");
+
            preparedStatement.executeUpdate();
 		}
 		}

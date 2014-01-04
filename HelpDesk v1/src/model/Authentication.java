@@ -8,15 +8,23 @@ public class Authentication {
 	int id;
 	int EmployeeId;
 	int clientId;
+	int delegateId;
 	
 
 	public Authentication(String password, String loginName, int id,
-			int employeeId, int clientId) {
+			int employeeId, int clientId, int delegateId) {
 		Password = password;
 		LoginName = loginName;
 		this.id = id;
 		EmployeeId = employeeId;
 		this.clientId = clientId;
+		this.delegateId = delegateId;
+	}
+	public int getDelegateId() {
+		return delegateId;
+	}
+	public void setDelegateId(int delegateId) {
+		this.delegateId = delegateId;
 	}
 	public String getPassword() {
 		return Password;

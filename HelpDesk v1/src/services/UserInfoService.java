@@ -2,6 +2,7 @@ package services;
 
 import model.Authentication;
 import model.Client;
+import model.Delegate;
 import model.Employee;
 
 public interface UserInfoService {
@@ -27,6 +28,16 @@ public interface UserInfoService {
 	 **/
 	public Client findClient(Authentication u) throws Exception;
 
+	/***
+	 * 
+	 * find and return delegate
+	 * 
+	 * @param u authentification
+	 * @return delegate
+	 * @throws Exception
+	 */
+	public Delegate findDelegate(Authentication u) throws Exception;
+	
 	/** find rights by id **/
 	public String rightsValue(int index);
 }

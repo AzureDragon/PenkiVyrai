@@ -13,6 +13,7 @@ import java.util.Vector;
 import model.Authentication;
 import model.Clasifiers;
 import model.Client;
+import model.Delegate;
 import model.Employee;
 
 
@@ -47,7 +48,7 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 		
 		new Employee(1, "annonymous", "annonymous", 4 , "example@mail.com", "88888888"); 
 		return new Authentication("", "Guest", 0,
-				1, 0);
+				1, 0, 0);
 		//return null;
 	}
 
@@ -68,6 +69,23 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 							.getString("TelephoneNumber")));
 		}
 
+		return null;
+	}
+	
+	public synchronized Delegate findDelegate(Authentication u)
+			throws Exception {
+
+		connect = Clasifiers.getConnection();
+		statement = connect.createStatement();
+		resultSet2 = statement
+				.executeQuery("SELECT delegates.Id, delegates.ClientId, delegates.Name, delegates.Surname, delegates.Telephone , delegates.Mail, delegates.Active FROM employee WHERE employee.id="
+						+ u.getEmployeeId());
+
+		while (resultSet2.next()) {
+			return Delegate.clone(new Delegate(u.getDelegateId(), resultSet2.getInt("ClientId"), resultSet
+					.getString("Name"), resultSet.getString("Surname"), resultSet.getString("Telephone"), 
+					resultSet.getString("Mail"), resultSet.getBoolean("Active")));
+		}
 		return null;
 	}
 
@@ -131,7 +149,8 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 			userList.add(new Authentication(resultSet.getString("Password"),
 					resultSet.getString("UserName"), resultSet.getInt("Id"),
 					resultSet.getInt("EmployeeId"), resultSet
-							.getInt("ClientId")));
+							.getInt("ClientId"), resultSet
+							.getInt("DelegateId")));
 		}
 	}
 
