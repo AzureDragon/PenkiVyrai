@@ -1,0 +1,21 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
+<style>
+.footer {
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	background-color: #f1f1f1;
+	background-image: -webkit-gradient(linear, top, left, from(#f1f1f1), to(#fcfcfc));
+	background-image: -webkit-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:    -moz-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:     -ms-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:      -o-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:         linear-gradient(top, #f1f1f1, #fcfcfc);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f1f1f1', EndColorStr='#fcfcfc');
+}
+</style>
+<div sclass="footer">
+                Copyright © 2013-2014 Penki Vyrai. All rights reserved.
+ </div>
+</zk>
