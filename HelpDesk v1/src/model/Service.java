@@ -2,6 +2,14 @@ package model;
 
 public class Service {
 	
+	public Service(String name, String serviceCode, int incidentTime,
+			int requestTime) {
+		super();
+		this.name = name;
+		this.serviceCode = serviceCode;
+		this.incidentTime = incidentTime;
+		this.requestTime = requestTime;
+	}
 	int id;
 	String name;
 	String serviceCode;
