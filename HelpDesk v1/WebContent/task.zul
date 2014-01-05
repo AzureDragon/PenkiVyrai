@@ -1,6 +1,5 @@
-<?page  title="new page title" contentType="text/html;charset=UTF-8"?>
-
-<groupbox apply="addtionalControllers.TaskViewController">
+<?page  title="Kreipinys" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
 
 	<style>
 		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
@@ -19,62 +18,29 @@
 		font-size:21px; color: #787878 ; }
 	</style>
 	<include src="index.zul" />
-	<hlayout spacing="10px">
-		<groupbox mold="3d" width="100%">
-			<caption label="Pagrindinė informacija" />
-			<hlayout>
-				<vbox>
-					<box orient="horizontal" sclass="info">
-						Tipas:
-						<label style="font-weight:bold" id="typeLabel" />
-					</box>
-					<box orient="horizontal">
-						Būsena:
-						<label style="color:red" id="statusLabel" />
-					</box>
+	<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/task3.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Kreipinys</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="clientSearch.zul"
+					label="Kreipiniai" class="cg-down-title" />
+				»
+				<a href="">
+				<label id="taskRef" class="cg-down-title" value="Kreipinys">
+				</label>
+				</a>
+				</hbox>
 				</vbox>
-				<vbox>
-					<box orient="horizontal" sclass="info">
-						Užregistruota:
-						<label style="font-weight:bold"
-							id="registeredLabel" />
-					</box>
-					<box orient="horizontal" sclass="info">
-						Išspręsti iki:
-						<label style="font-weight:bold"
-							id="solveUntilLabel" />
-					</box>
-				</vbox>
-			</hlayout>
-		</groupbox>
-
-
-		<groupbox mold="3d" width="100%">
-			<caption label="Žmonės" />
-			<box orient="horizontal">
-				Sukūrė:
-				<label style="font-weight:bold" id="createdLabel" />
-			</box>
-			<box orient="horizontal" sclass="info">
-				Priskirta:
-				<label style="font-weight:bold" id="assignedLabel" />
-				<!-- <button id="priskirtiKreipiniDarbuotojuiButton" width="200px" 
-					label="Priskirti kreipinį"> </button> -->
-			</box>
-			<box orient="horizontal" sclass="info">
-				Klientas:
-				<label style="font-weight:bold" id="clientLabel" />
-				<!-- <button id="priskirtiKreipiniDarbuotojuiButton" width="200px" 
-					label="Priskirti kreipinį"> </button> -->
-			</box>
-		</groupbox>
-
-	</hlayout>
-	<vlayout spacing="100px">
-	<groupbox>
-		<box style="margin-top:20px">
-			<vbox>
-				<combobutton autodrop="true" disabled="false"
+			</hbox>     
+            </groupbox>
+	<groupbox apply="addtionalControllers.TaskViewController" mold="3d">
+    <caption label="Kreipinio informacija"><combobutton autodrop="true" disabled="false"
 					width="200px" label="Veiksmai">
 
 
@@ -87,34 +53,79 @@
 						</menuitem>
 					</menupopup>
 
-				</combobutton>
-				<box orient="horizontal">
-					<label sclass="subject" id="subjectLabel"></label>
-				</box>
-
-				<groupbox droppable="true">
-					<caption label="Aprašymas" />
+				</combobutton></caption>
+        <vbox widths="100%">
+		<groupbox title="Pagrindinė informacija">
+				<label sclass="subject" id="subjectLabel"></label>
 					<box orient="horizontal" sclass="info">
-						<label
-							style="font-weight:italic; font-size: 16px;"
-							id="descriptionLabel" />
+						Būsena:
+						<label style="color:red; font-weight:bold" id="statusLabel" />
+					</box>				
+					<box orient="horizontal" sclass="info">
+						Tipas:
+						<label style="font-weight:bold" id="typeLabel" />
 					</box>
-				</groupbox>
-			</vbox>
-		</box>
-	</groupbox>
+                    <box orient="horizontal" sclass="info">
+						Aprašymas:
+					<label style="font-weight:normal;" id="descriptionLabel" />
+					</box>
+		</groupbox>
+		<hbox>
+		<groupbox title="Sprendimas" width="100%">
+				<vbox>
+					<box orient="horizontal" sclass="info">
+						Sprendėjas:
+					<label id="solutionAuthor" />
+					<label id="isSolution"/>
+					</box>
+					<box orient="horizontal" sclass="info">
+						<n:br/>
+					<label id="solution" style="font-weight: bold"/>
+					</box>
+				</vbox>
+		</groupbox>
+		<groupbox title="Terminas" width="100%">
+				<vbox>
+					<box orient="horizontal" sclass="info">
+						Užregistruota:
+						<label style="font-weight:bold"
+							id="registeredLabel" />
+					</box>
+					<box orient="horizontal" sclass="info">
+						Išspręsti iki:
+						<label style="font-weight:bold"
+							id="solveUntilLabel" />
+					</box>
+				</vbox>
+		</groupbox>
+
+		<groupbox title="Žmonės" width="100%">
+			<box orient="horizontal" sclass="info">
+				Sukūrė:
+				<label style="font-weight:bold" id="createdLabel" />
+			</box>
+			<box orient="horizontal" sclass="info">
+				Priskirta:
+				<label style="font-weight:bold" id="assignedLabel" />
+			</box>
+			<box orient="horizontal" sclass="info">
+				Klientas:
+				<label style="font-weight:bold" id="clientLabel" />
+			</box>
+		</groupbox>
+		</hbox>
+		</vbox>
+
+	<vlayout spacing="100px">
+
 
 
 	<tabbox id="detailBoxas" visible="true">
 		<tabs>
-
 			<tab id="taskComments" label="Komentarai"
 				image="/img/comments.png" closable="true" />
 			<tab label="Istorija" image="/img/history.png"
 				closable="true" />
-			<tab id="solutionInfo" label="Sprendimas" image="/img/history.png"
-				closable="true" />
-
 		</tabs>
 		<tabpanels>
 			<tabpanel>
@@ -127,20 +138,7 @@
 
 			</tabpanel>
 			<tabpanel>service unavailable</tabpanel>
-			<tabpanel>
-				<vbox>
-				<box orient="horizontal">
-					
-					<label id="solutionAuthor" />
-					<label id="isSolution" value="rašo:"/>
-					</box>
-					<label id="solution"  style="font-weight: bold; font-size: 15px" >
-
-					</label>
-				</vbox>
-			</tabpanel>
 		</tabpanels>
-
 	</tabbox>
 	</vlayout>
 	<window visible="false" id="commentPopup">
@@ -168,6 +166,6 @@
 		</vlayout>
 	</window>
 	<label id="invisibleLabelId" visible="false" />
-
-
 </groupbox>
+
+</zk>

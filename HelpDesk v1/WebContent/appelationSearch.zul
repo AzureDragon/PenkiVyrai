@@ -1,7 +1,7 @@
 <?page 
   xml="version="1.0" 
   encoding="UTF-8""
-contentType="text/html;charset=UTF-8"
+contentType="text/html;charset=UTF-8" title="Kreipiniai"
 ?>
 <zk xmlns:n="native" xmlns:x="xhtml">
 	<include src="menu.zul" />
@@ -24,12 +24,24 @@ contentType="text/html;charset=UTF-8"
 		font-size:21px; color: #787878 ; margin-bottom: 0;
 		padding-bottom: 0; }
 	</style>
+	<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/task.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Kreipiniai</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="appelationSearch.zul"
+					label="Kreipiniai" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>   
+	</groupbox>		
 	<groupbox sclass="main z-demo-config">
 		<caption label="Kreipiniai" />
-		<hlayout spacing="40px" style="padding-left: 10px;">
-			<image src="/img/task.png"></image>
-			<n:h1 class="cg-title">Kreipinių administravimas</n:h1>
-		</hlayout>
 		<vlayout spacing="15px">
 			<hbox align="center"
 				apply="mainControllers.SearchController, mainControllers.AssignEmployeeController">
