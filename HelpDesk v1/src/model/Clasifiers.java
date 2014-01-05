@@ -27,9 +27,9 @@ public class Clasifiers {
 			try {
 				conn = DriverManager
 						.getConnection("jdbc:mysql://5.199.172.135/psi?"
-								+ "user=PSI&password=gl59lmkis8&characterEncoding=utf8");
+								+ "user=PSI&password=gl59lmkis8&characterEncoding=utf8&zeroDateBehavior=convertToNull");
 				//conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/phpmyadmin/psi?"+"user=root&characterEncoding=utf8");
-				System.out.println("Prisijungiau prie duomenu bazes");
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				throw e;
@@ -42,7 +42,7 @@ public class Clasifiers {
 				conn = DriverManager
 						.getConnection("jdbc:mysql://5.199.172.135/psi?"
 								+ "user=PSI&password=gl59lmkis8&characterEncoding=utf8");
-				System.out.println("Prisijungiau prie duomenu bazes, nes conn buvo uzdaryta");
+			
 			return conn;
 			} else return conn;
 		}
@@ -127,7 +127,7 @@ public class Clasifiers {
 	public static String getEmployeeIdByNameAndSurname(String value) throws Exception {
 		
 		String [] vardasPavarde = value.split("\\ ");
-		System.out.println("GAvosi toks" + vardasPavarde[0] + " " + vardasPavarde[1]);
+
 		TaskStatements ts = new TaskStatements();
 		String id = ts.getEmployeeId(vardasPavarde[0], vardasPavarde[1]);
 		
@@ -171,7 +171,7 @@ public class Clasifiers {
 		TaskStatements ts = new TaskStatements();
 		
 		try {
-			System.out.println( "ID"+id+"Kliento vardas "+ts.getClientName(id));
+			
 			return ts.getClientName(id);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

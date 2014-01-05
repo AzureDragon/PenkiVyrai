@@ -18,7 +18,7 @@
 		padding-bottom: 0; } .info { font-weight: normal;
 		font-size:21px; color: #787878 ; }
 	</style>
-	<include src="menu.zul" />
+	<include src="index.zul" />
 	<hlayout spacing="10px">
 		<groupbox mold="3d" width="100%">
 			<caption label="Pagrindinė informacija" />
@@ -169,5 +169,5 @@
 	</window>
 	<label id="invisibleLabelId" visible="false" />
 
-<include src="footer.zul"/>
+
 </groupbox>

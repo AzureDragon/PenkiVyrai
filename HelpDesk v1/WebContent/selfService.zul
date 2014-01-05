@@ -1,0 +1,121 @@
+<?page title="Savitarna" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
+<include src="menu.zul"></include>
+
+
+Jūs turite išspręstų naujų kreipinių: 
+www.helpdeks.lt...
+<zscript><![CDATA[
+	public void addComponent(int num, Class clazz, Grid grid) {
+		Textbox tb = clazz.newInstance();
+		tb.setWidth("100%");
+		Row row = new Row();
+
+		row.appendChild(new Label(""
+				+ (grid.getRows().getChildren().size() + 1)));
+		row.appendChild(tb);
+		grid.getRows().appendChild(row);
+
+		if (dynamicEmails.getRows().getChildren().size() == 5) {
+			addEmailButton.setDisabled(true);
+		}
+		if (dynamicPhones.getRows().getChildren().size() == 5) {
+			addPhoneButton.setDisabled(true);
+		}
+	}
+
+]]></zscript>
+
+
+	<style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; } .cg-title { font-weight: normal; color: #008DB7;
+		margin-bottom: 0; padding-bottom: 0; } .cg-desc { margin-top: 0;
+		font-family: arial,sans-serif; font-size: small; font-weight:
+		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+		div.status { border: 0 none; } .status tr.z-grid-odd
+		td.z-row-inner, .status tr.z-grid-odd .z-cell, .status
+		tr.z-grid-odd { background: none; border: 0 none; }
+
+		.status .head { text-align : right; } .status .head span {
+		font-weight : bold; }
+	</style>
+	<groupbox sclass="main z-demo-config"
+		apply="mainControllers.SelfServiceController">
+		<caption label="Kreipiniai" />
+		<hlayout spacing="40px" style="padding-left: 10px;">
+			<image src="/img/client2.png"></image>
+			<n:h1 class="cg-title">Savitarnos modulis</n:h1>
+		</hlayout>
+		<vlayout spacing="15px">
+			<hbox>
+				<toolbar>
+					Kreipinys:
+					<textbox id="keywordBox" />
+					<button id="searchButton" label="Ieškoti"
+						image="/img/search.png" />
+
+					<button id="registerTask"
+						label="Užregistruoti kreipinį">
+						<attribute name="onClick">
+	{
+		final Window kreipinioRegistracija = (Window) Executions
+				.createComponents("taskRegistrationForm.zul", null, null);
+		kreipinioRegistracija.setMaximizable(true);
+		kreipinioRegistracija.doModal();
+	}
+</attribute>
+					</button>
+				</toolbar>
+			</hbox>
+		</vlayout>
+		<checkbox id="showDelegate" label="Rodyti tik mano kreipinius"></checkbox>
+		<checkbox id="showClient" label="Rodyti tik kliento kreipinius"></checkbox>
+		<vlayout spacing="15px">
+			<listbox maxlength="8" id="taskListbox"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Sutarčių nerasta">
+
+				<listhead sizable="true">
+
+					<listheader label="Kreipinys" width="40%" />
+					<listheader label="Tipas" />
+					<listheader label="Būsena" />
+					<listheader label="Klientas" />
+					<listheader label="Užregistruota" />
+					<listheader label="Išspręsti iki" />
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell height="20px"
+							label="${each.subject}">
+						</listcell>
+						<listcell height="20px" label="${each.type}"></listcell>
+						<listcell height="20px"
+							label="${each.status}">
+						</listcell>
+						<listcell height="20px"
+							label="${each.clientId}">
+						</listcell>
+						<listcell height="20px"
+							label="${each.registered}">
+						</listcell>
+						<listcell height="20px"
+							label="${each.solveUntil}">
+						</listcell>
+
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+
+	</groupbox>
+
+
+
+
+
+
+</zk>

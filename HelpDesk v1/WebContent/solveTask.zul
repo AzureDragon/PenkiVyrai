@@ -15,6 +15,7 @@ contentType="text/html;charset=UTF-8"
         <combobox id="status" height="30px" width="280px" value="Išspręsta">
           <comboitem label="Išspręsta" />
           <comboitem id="second" label="Atsisakyta spręsti" />
+          <comboitem id="third" label="Grąžintas neišspręstas" />
         </combobox>
       </vbox>
       <vbox>

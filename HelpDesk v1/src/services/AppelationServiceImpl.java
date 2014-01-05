@@ -20,30 +20,22 @@ public class AppelationServiceImpl implements AppelationService {
 	private LinkedList<Task> taskList = new LinkedList<Task>();
 
 	// initialize book data
-	public AppelationServiceImpl() throws Exception {
+	public AppelationServiceImpl(String taskStatement) throws Exception {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
-		resultSet = statement.executeQuery("select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");
+		resultSet = statement.executeQuery(taskStatement);
 		writeResultSet(resultSet);
+
 
 	}
 
 	private void writeResultSet(ResultSet resultSet) throws Exception {
 		// ResultSet is initially before the first data set
-		while (resultSet.next()) {
-			System.out.println(resultSet.getInt("Id")
-					+ resultSet.getString("Subject")
-					+ resultSet.getString("Description")
-					+ resultSet.getString("Type")
-					+ resultSet.getString("Status")
-					+ resultSet.getInt("ClientID")
-					+ resultSet.getDate("Registered")
-					+ resultSet.getInt("ReceiverId")
-					+ resultSet.getString("SolveUntil"));
-
-			taskList.add(new Task(resultSet.getInt("Id"), resultSet
+		for (R t: resulSet){ 
+			resultSet.getRow();
+			taskList.add(new Task(resultSet.getInt("TaskId"), resultSet
 					.getString("Subject"), resultSet.getString("Description"),
 					Clasifiers.getTypeName(resultSet.getInt("Type")),
 					Clasifiers.getStatusName(resultSet.getInt("Status")),
@@ -51,9 +43,10 @@ public class AppelationServiceImpl implements AppelationService {
 					resultSet.getDate("Registered"), resultSet
 							.getInt("ReceiverId"), resultSet
 							.getString("SolveUntil"), resultSet.getInt("AssigneeId")));
-
 		}
 	}
+	
+	
 
 	public List<Task> findAll() {
 		return taskList;

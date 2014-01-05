@@ -211,7 +211,7 @@ public class TaskStatements {
 			rs = stmt.executeQuery(SQL);
 			while (rs.next()) {
 				received = rs.getString(1);
-				System.out.println("Receivedbb  " + received);
+				
 			}
 			return received;
 

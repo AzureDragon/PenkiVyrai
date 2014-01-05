@@ -71,6 +71,7 @@ public class TaskRegistrationController extends
 
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
+		AuthenticationService authService = new AuthenticationServiceImpl()
 		employeeService = new EmployeeServiceImpl();
 		priskirti.setModel(new ListModelList<Employee>(employeeService
 				.getEmployeeList()));

@@ -25,17 +25,15 @@ public class InitSolveTaskController extends SelectorComposer<Component> {
 	 * 
 	 */
 	
-	@Wire
-	Combobox priskirti;
+	
 
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 		EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
-		priskirti.setModel(new ListModelList<>(new ListModelList<Employee>(
-				employeeService.getEmployeeList())));
+	
 		AuthenticationService authService = new AuthenticationServiceImpl();
 		Authentication cre = authService.getUserCredential();
-		priskirti.setValue(Clasifiers.getEmployeeNameById(cre.getEmployeeId()) +" "+Clasifiers.getEmployeeSurnameById(cre.getEmployeeId()));
+		
 		System.out.println(Executions.getCurrent().getDesktop().getAttribute("Id"));
 
 	}

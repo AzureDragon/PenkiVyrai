@@ -17,6 +17,7 @@ contentType="text/html;charset=UTF-8"
                     <cell sclass="row-title">Prisijungimo vardas :</cell>
                     <cell><label id="account"/></cell>
                 </row>
+                
                                 <row>
                     <cell sclass="row-title">Senas slaptažodis :</cell>
                     <cell>

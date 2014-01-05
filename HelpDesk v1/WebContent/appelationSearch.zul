@@ -84,7 +84,7 @@ contentType="text/html;charset=UTF-8"
 
 			<listbox maxlength="8" id="taskListbox"
 				sclass="z-listbox-autopaging" height="300px"
-				emptyMessage="Kreipinių nerasta">
+				emptyMessage="Kreipinių nerasta" mold="paging" pageSize="15">
 
 				<listhead sizable="true">
 					<listheader label="Nr" width="4%" />
@@ -227,4 +227,5 @@ contentType="text/html;charset=UTF-8"
 		</tabbox>
 	</groupbox>
 	<include src="footer.zul"/>
+
 </zk>

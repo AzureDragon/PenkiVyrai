@@ -11,6 +11,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
@@ -25,8 +26,6 @@ import services.AppelationServiceImpl;
 import services.EmployeeService;
 import services.EmployeeServiceImpl;
 
-
-
 public class SearchController extends SelectorComposer<Component> {
 
 	public Task selected;
@@ -34,7 +33,6 @@ public class SearchController extends SelectorComposer<Component> {
 	private static final long serialVersionUID = 1L;
 	public EmployeeService employeeService = new EmployeeServiceImpl();
 
-	
 	@Wire
 	private Textbox keywordBox;
 	@Wire
@@ -63,9 +61,9 @@ public class SearchController extends SelectorComposer<Component> {
 	Button startProgress;
 	@Wire
 	Menuitem edit;
-	@Wire 
+	@Wire
 	Menupopup msg;
-	
+
 	@SuppressWarnings("unused")
 	private Connection connect = null;
 
@@ -73,19 +71,19 @@ public class SearchController extends SelectorComposer<Component> {
 
 	@Listen("onClick = #searchButton")
 	public void search() throws Exception {
-		
-		appelationService = new AppelationServiceImpl();
+		Clients.showBusy(taskListbox, "Ieškoma kreipinių");
+		appelationService = new AppelationServiceImpl(
+				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");
 		detailBox.setVisible(false);
 		String keyword = keywordBox.getValue();
 		List<Task> result = appelationService.search(keyword);
 		taskListbox.setModel(new ListModelList<Task>(result));
+		Clients.clearBusy(taskListbox);
 	}
-
-	
 
 	@Listen("onClick = #connectButton")
 	public void connectToDatabase() throws Exception {
-		
+
 		Class.forName("com.mysql.jdbc.Driver");
 		// Setup the connection with the DB
 
@@ -93,36 +91,38 @@ public class SearchController extends SelectorComposer<Component> {
 	}
 
 	public Task getSelectedTask() {
-		
+
 		return selected;
 	}
 
 	@Listen("onSelect = #taskListbox")
 	public void showTaskInfo() throws Exception {
-		
+
 		showDetail();
 		showComments();
 
 	}
 
 	public void showDetail() throws Exception {
-		
+
 		detailBox.setVisible(true);
-		
-			selected = taskListbox.getSelectedItem().getValue();
-			temaLabel.setValue(selected.getSubject());
-			busenaLabel.setValue(selected.getStatus() + "");
-			aprasymasLabel.setValue(selected.getDescription());
-			priskirtaLabel.setValue(Clasifiers.getEmployeeNameById(selected
-					.getReceiverId())
-					+ " "
-					+ Clasifiers.getEmployeeSurnameById(selected
-							.getReceiverId()));
-			tipasLabel.setValue(Clasifiers.getTypeName(selected.getType()));
-			dataLabel.setValue(selected.getRegistered().toString());
-			issprestiIkiLabel.setValue(selected.getSolveUntil().toString());
-			reporter.setValue(Clasifiers.getEmployeeNameById(selected.getAssigneeId()) +" " +Clasifiers.getEmployeeSurnameById(selected.getAssigneeId()));
-		}	
+
+		selected = taskListbox.getSelectedItem().getValue();
+		temaLabel.setValue(selected.getSubject());
+		busenaLabel.setValue(selected.getStatus() + "");
+		aprasymasLabel.setValue(selected.getDescription());
+		priskirtaLabel.setValue(Clasifiers.getEmployeeNameById(selected
+				.getReceiverId())
+				+ " "
+				+ Clasifiers.getEmployeeSurnameById(selected.getReceiverId()));
+		tipasLabel.setValue(Clasifiers.getTypeName(selected.getType()));
+		dataLabel.setValue(selected.getRegistered().toString());
+		issprestiIkiLabel.setValue(selected.getSolveUntil().toString());
+		reporter.setValue(Clasifiers.getEmployeeNameById(selected
+				.getAssigneeId())
+				+ " "
+				+ Clasifiers.getEmployeeSurnameById(selected.getAssigneeId()));
+	}
 
 	@Listen("onSelect = #comments")
 	public void showComments() throws Exception {
@@ -133,8 +133,6 @@ public class SearchController extends SelectorComposer<Component> {
 				.getTaskComments(selected.getId().toString())));
 
 	}
-
-	
 
 	public void setSelected(Task selected) {
 		this.selected = selected;

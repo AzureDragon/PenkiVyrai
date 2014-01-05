@@ -13,6 +13,7 @@ import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Grid;
@@ -92,6 +93,7 @@ public class TaskViewController extends SelectorComposer<Component> {
 
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
+		Clients.showBusy("Vykdoma");
 		String id = Executions.getCurrent().getParameter("id");
 		invisibleLabelId.setValue(id);
 		TaskStatements ts = new TaskStatements();
@@ -133,6 +135,7 @@ public class TaskViewController extends SelectorComposer<Component> {
 			
 			
 		}
+		Clients.clearBusy();
 	}
 
 	@Listen("onSelect = #comments")
