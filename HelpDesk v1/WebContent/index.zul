@@ -38,18 +38,6 @@ contentType="text/html;charset=UTF-8"
         Jūs žiūrite :<label value="@bind(vm.message)"/>
     </hlayout>
     
-    <vlayout apply="org.zkoss.bind.BindComposer">
- 	<groupbox closable="false" sclass="z-demo-config">
-        <caption label="Type Control" />
-        <vlayout>
-            <checkbox label="Toggle 3D Bar Chart" checked="false"
-            	onCheck="@global-command('configChanged', threeD=self.checked)"/>
-            <checkbox label="Horizontal" checked="true"
-            	onCheck="@global-command('configChanged', orient=self.checked?'horizontal':'vertical')"/>
-        </vlayout>
-    </groupbox>
-</vlayout>
-    
     <vlayout apply="org.zkoss.bind.BindComposer"
     viewModel="@id('vm') @init('bar.BarChartVM')">
     <chart id="mybarchart" width="520" height="400"

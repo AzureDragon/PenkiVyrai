@@ -11,7 +11,7 @@ public class BarChartVM {
 	BarChartEngine engine;
 	CategoryModel model;
 	boolean threeD = false;
-	String orient = "horizontal";
+	String orient = "vertical";
 
 	@Init
 	public void init() throws Exception {
@@ -41,6 +41,7 @@ public class BarChartVM {
 	public void onConfigChanged(
 			@BindingParam("threeD") Boolean threeD,
 			@BindingParam("orient") String orient){
+		System.out.print("atejo2\n");
 		if(threeD != null){
 			this.threeD = threeD;
 		}

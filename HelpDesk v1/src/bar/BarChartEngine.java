@@ -20,7 +20,8 @@ import org.zkoss.zul.Chart;
 public class BarChartEngine extends JFreeChartEngine {
 
 	public boolean prepareJFreeChart(JFreeChart jfchart, Chart chart) {
-		jfchart.setTitle("Annual Report");		
+		System.out.print("atejo\n");
+		jfchart.setTitle("Geriausi Darbuotojai");		
 		CategoryPlot plot = jfchart.getCategoryPlot();		
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
 		renderer.setBarPainter(new StandardBarPainter());
@@ -31,9 +32,9 @@ public class BarChartEngine extends JFreeChartEngine {
             CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 8.0)
         );
 
-		renderer.setSeriesPaint(0, ChartColors.COLOR_1);
+		renderer.setSeriesPaint(0, ChartColors.COLOR_3);
 		renderer.setSeriesPaint(1, ChartColors.COLOR_2);
-		renderer.setSeriesPaint(2, ChartColors.COLOR_3);		
+		renderer.setSeriesPaint(2, ChartColors.COLOR_1);		
 		
 		return false;
 	}

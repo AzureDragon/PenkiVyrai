@@ -26,7 +26,11 @@ public class ChartData {
 				.prepareStatement("SELECT name,surname,mamamyje.ReceiverId,mamamyje.count FROM employee E JOIN (SELECT * FROM (select ReceiverId, count(*) as count from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE t.status=3 AND taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) group by ReceiverId ORDER BY t.Id DESC) AS aleliuja ORDER BY aleliuja.count DESC LIMIT 5) AS mamamyje ON E.Id = ReceiverId;");
 		ResultSet rs = preparedStatement.executeQuery();
 		while (rs.next()) {
-			model.setValue("Išspręsta kreipinių", rs.getString("name"), rs.getInt("count"));
+			StringBuilder name = new StringBuilder();
+			name.append(rs.getString("name"));
+			name.append(" ");
+			name.append(rs.getString("surname"));
+			model.setValue("Išspręsta kreipinių", name.toString(), rs.getInt("count"));
 		}
 		
 		return model;
