@@ -14,7 +14,7 @@ public class BarChartVM {
 	String orient = "horizontal";
 
 	@Init
-	public void init() {
+	public void init() throws Exception {
 		// prepare chart data
 		engine = new BarChartEngine();
 		model = ChartData.getModel();
