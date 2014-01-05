@@ -486,7 +486,7 @@ public class DataControllServiceImpl implements DataControllService {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
-					name = "NeÅ¾inoma";
+					name = "Nežinoma";
 				}
 
 				clientID = sheet.getRow(j).getCell(3).getStringCellValue();
@@ -498,6 +498,7 @@ public class DataControllServiceImpl implements DataControllService {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
 					from = new Date(term);
+					fr = sdf.format(from);
 				}
 
 				try {
@@ -507,6 +508,7 @@ public class DataControllServiceImpl implements DataControllService {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
 					to = new Date(term);
+					till = sdf.format(from);
 				}
 
 				// System.out.print("SutartiesId: "+ ID +" SutartiesNr: "+
@@ -591,9 +593,9 @@ public class DataControllServiceImpl implements DataControllService {
 				try {
 					type = sheet.getRow(j).getCell(3).getStringCellValue();
 					if (type.equals("INC")) {
-						type = "1";
+						type = "0";
 					} else {
-						type = "2";
+						type = "1";
 					}
 
 				} catch (Exception e) {
@@ -711,7 +713,7 @@ public class DataControllServiceImpl implements DataControllService {
 								+ "','" + Integer.parseInt(clientId) + "','"
 								+ Integer.parseInt(status) + "','"
 								+ Integer.parseInt(type) + "','" + recv + "','"
-								+ "1970-01-01 00:00:00" + "','" + comp + "','"
+								+ sdf.format(new Date(term)) + "','" + comp + "','"
 								+ previous + "','"
 								+ Integer.parseInt(serviceId) + "','" + rank
 								+ "','" + Integer.parseInt(source) + "','"
@@ -781,6 +783,7 @@ public class DataControllServiceImpl implements DataControllService {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
 					assigned = new Date(term);
+					assig = sdf.format(assigned);
 				}
 
 				try {
@@ -790,6 +793,7 @@ public class DataControllServiceImpl implements DataControllService {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
 					returned = new Date(term);
+					ret = sdf.format(returned);
 				}
 
 				// System.out.print("IPaskyrimoId: "+ +
