@@ -30,6 +30,17 @@ padding-bottom: 0;
 }
 </style>
 <groupbox>
+
+<button label="Ištrinti duombazės duomenis">
+   <attribute name="onClick">
+        <![CDATA[	
+          services.DataControllServiceImpl dataControll = new services.DataControllServiceImpl();
+			dataControll.clearDB();
+          ]]>
+      </attribute>
+
+
+</button>
   <button label="Importuoti duombaze" upload="true,maxsize=300">
       <attribute name="onUpload">
         <![CDATA[
