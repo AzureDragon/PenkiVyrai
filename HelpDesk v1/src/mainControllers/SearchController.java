@@ -77,8 +77,9 @@ public class SearchController extends SelectorComposer<Component> {
 	@Listen("onClick = #searchButton")
 	public void search() throws Exception {
 		Clients.showBusy(taskListbox, "Ieškoma kreipinių");
+		System.out.println("PageCountas " +taskListbox.getPageCount());
 		appelationService = new AppelationServiceImpl(
-				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", taskListbox.getPageCount());
+				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", taskListbox.getPaginal().getActivePage()+1);
 		detailBox.setVisible(false);
 		String keyword = keywordBox.getValue();
 		List<Task> result = appelationService.search(keyword);
@@ -87,8 +88,21 @@ public class SearchController extends SelectorComposer<Component> {
 	    
 	}
 	@Listen ("onClick=#taskListbox")
-	public void onPaging (@ContextParam(ContextType.TRIGGER_EVENT) PagingEvent event) {
-	   System.out.println("active page is: " + taskListbox.getPaginal().getActivePage());
+	public void onPaging () throws Exception {
+	
+	
+	
+	   System.out.println("puslapis kuri reikia ukrauti: "+taskListbox.getPaginal().getActivePage()+1);
+	   int tmp = taskListbox.getPaginal().getActivePage();
+	   Clients.showBusy(taskListbox, "Ieškoma kreipinių");
+		AppelationServiceImpl apService = new AppelationServiceImpl(
+				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", tmp);
+		detailBox.setVisible(false);
+		for (Task t: apService.getTaskList()){
+			System.out.println(t.getId());
+		}
+		taskListbox.setModel(new ListModelList<Task>(apService.getTaskList()));
+		Clients.clearBusy(taskListbox);
 	}
 	@Listen("onClick = #connectButton")
 	public void connectToDatabase() throws Exception {

@@ -1,6 +1,8 @@
 package addtionalControllers;
 
 import java.awt.EventQueue;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 
 import mainControllers.CommentsController;
@@ -164,8 +166,14 @@ public class TaskViewController extends SelectorComposer<Component> {
 	@Listen("onClick = #startProgress")
 	public void startProgress() throws Exception {
 
-		AppelationServiceImpl taskService = new AppelationServiceImpl("select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");
-		taskService.startTaskProgress(invisibleLabelId.getValue());
+	
+		Connection connect = null;
+		PreparedStatement preparedStatement = null;
+		Class.forName("com.mysql.jdbc.Driver");
+		connect = Clasifiers.getConnection();
+		preparedStatement = connect.prepareStatement("UPDATE task SET Status ="
+				+ 2 + " WHERE ID=" + invisibleLabelId.getValue() + ";");
+		preparedStatement.executeUpdate();
 		Executions.getCurrent().sendRedirect("");
 
 	}

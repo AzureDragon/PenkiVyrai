@@ -17,26 +17,55 @@ public class AppelationServiceImpl implements AppelationService {
 	private Statement statement = null;
 	private ResultSet resultSet = null;
 	// data model
-	private LinkedList<Task> taskList = new LinkedList<Task>();
+	private LinkedList<Task> taskList ;
 
-	// initialize book data
-	public AppelationServiceImpl(String taskStatement, int currentPage) throws Exception {
+	public LinkedList<Task> getTaskList() {
+		return taskList;
+	}
 
+	public void setTaskList(LinkedList<Task> taskList) {
+		this.taskList = taskList;
+	}
+	public AppelationServiceImpl(String taskStatement) throws Exception {
+		taskList = new LinkedList<Task>();
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		resultSet = statement.executeQuery(taskStatement);
-		writeResultSet(resultSet, currentPage);
+		writeResultSet(resultSet);
+
+
+	}
+	
+	// initialize book data
+	public AppelationServiceImpl(String taskStatement, int currentPage) throws Exception {
+		taskList = new LinkedList<Task>();
+		Class.forName("com.mysql.jdbc.Driver");
+		connect = Clasifiers.getConnection();
+		statement = connect.createStatement();
+		resultSet = statement.executeQuery(taskStatement);
+		writeResultSetByPaging(resultSet, currentPage);
 
 
 	}
 
-	private void writeResultSet(ResultSet resultSet, int currentPage) throws Exception {
+	private void writeResultSetByPaging(ResultSet resultSet, int currentPage) throws Exception {
 		// ResultSet is initially before the first data set
-		int i=15*currentPage - 15;
+		int i=15*currentPage;
+		int tmp, counter=0;
+		if (currentPage == 0) { tmp=1;
+		} else tmp = currentPage+1;
+		
+		
+		
 		while (resultSet.next()) {
-			i++;
-			if (i<=15 * currentPage){ 
+			counter++;
+			if (counter<i){
+				taskList.add(new Task());
+			} else {		
+			if (i<=(15 * tmp)){
+			System.out.println("Indexas: " + i + "Atvaizduoti iki " + tmp);
+			System.out.println(resultSet.getInt("TaskId"));
 			resultSet.getRow();
 			taskList.add(new Task(resultSet.getInt("TaskId"), resultSet
 					.getString("Subject"), resultSet.getString("Description"),
@@ -46,10 +75,39 @@ public class AppelationServiceImpl implements AppelationService {
 					resultSet.getDate("Registered"), resultSet
 							.getInt("ReceiverId"), resultSet
 							.getString("SolveUntil"), resultSet.getInt("AssigneeId")));
+			i++;
 			}
-			else taskList.add(new Task());
+			
+			else {
+				taskList.add(new Task());
+			}
+			}
 		}
 	}
+	private void writeResultSet(ResultSet resultSet) throws Exception {
+		// ResultSet is initially before the first data set
+	
+		
+		
+		while (resultSet.next()) {
+		
+			
+		
+			resultSet.getRow();
+			taskList.add(new Task(resultSet.getInt("TaskId"), resultSet
+					.getString("Subject"), resultSet.getString("Description"),
+					Clasifiers.getTypeName(resultSet.getInt("Type")),
+					Clasifiers.getStatusName(resultSet.getInt("Status")),
+					Clasifiers.getClientNameById(resultSet.getInt("ClientID")),
+					resultSet.getDate("Registered"), resultSet
+							.getInt("ReceiverId"), resultSet
+							.getString("SolveUntil"), resultSet.getInt("AssigneeId")));
+	
+			}
+			
+		
+			}
+		
 
 	public List<Task> findAll() {
 		return taskList;
@@ -87,13 +145,7 @@ public class AppelationServiceImpl implements AppelationService {
 	}
 
 	public void startTaskProgress(String taskId) throws Exception {
-		Connection connect = null;
-		PreparedStatement preparedStatement = null;
-		Class.forName("com.mysql.jdbc.Driver");
-		connect = Clasifiers.getConnection();
-		preparedStatement = connect.prepareStatement("UPDATE task SET Status ="
-				+ 2 + " WHERE ID=" + taskId + ";");
-		preparedStatement.executeUpdate();
+		
 
 	}
 
