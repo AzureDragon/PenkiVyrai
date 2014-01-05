@@ -116,6 +116,23 @@ public class TaskViewController extends SelectorComposer<Component> {
 		// ListModelList<Employee>(
 		// employeeService.getEmployeeList())));
 		showComments();
+	
+		if (ts.getTaskReceiverId(invisibleLabelId.getValue()) !=null){
+		solutionAuthor.setValue(Clasifiers.getEmployeeNameById(Integer
+				.parseInt(ts.getTaskReceiverId(invisibleLabelId.getValue())))
+				+ " "
+				+ Clasifiers.getEmployeeSurnameById(Integer.parseInt(ts
+						.getTaskReceiverId(invisibleLabelId.getValue()))));
+		
+		solution.setValue(ts.getTaskSolution(invisibleLabelId.getValue()));
+		} else {
+			isSolution.setValue("Kreipinys neišspręstas");
+			solution.setVisible(false);
+			solutionAuthor.setVisible(false);
+			
+			
+			
+		}
 	}
 
 	@Listen("onSelect = #comments")
@@ -144,7 +161,7 @@ public class TaskViewController extends SelectorComposer<Component> {
 	@Listen("onClick = #startProgress")
 	public void startProgress() throws Exception {
 
-		AppelationServiceImpl taskService = new AppelationServiceImpl();
+		AppelationServiceImpl taskService = new AppelationServiceImpl("select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");
 		taskService.startTaskProgress(invisibleLabelId.getValue());
 		Executions.getCurrent().sendRedirect("");
 
@@ -167,23 +184,7 @@ public class TaskViewController extends SelectorComposer<Component> {
 
 	@Listen("onSelect=#solutionInfo")
 	public void showSolutionInfo() throws Exception {
-		TaskStatements ts = new TaskStatements();
-		if (ts.getTaskReceiverId(invisibleLabelId.getValue()) !=null){
-		solutionAuthor.setValue(Clasifiers.getEmployeeNameById(Integer
-				.parseInt(ts.getTaskReceiverId(invisibleLabelId.getValue())))
-				+ " "
-				+ Clasifiers.getEmployeeSurnameById(Integer.parseInt(ts
-						.getTaskReceiverId(invisibleLabelId.getValue()))));
 		
-		solution.setValue(ts.getTaskSolution(invisibleLabelId.getValue()));
-		} else {
-			isSolution.setValue("Kreipinys neišspręstas");
-			solution.setVisible(false);
-			solutionAuthor.setVisible(false);
-			
-			
-			
-		}
 	}
 
 }
