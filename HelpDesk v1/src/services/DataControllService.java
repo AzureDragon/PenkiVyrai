@@ -9,6 +9,6 @@ public interface DataControllService {
 
 	public void importData(String name);
 	public File exportData() throws FileNotFoundException, DocumentException;
-	void clearDB();
+	void clearDB() throws Exception;
 
 }

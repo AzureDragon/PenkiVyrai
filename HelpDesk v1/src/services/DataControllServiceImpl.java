@@ -813,7 +813,7 @@ setKey(0);
 		}	
 	}
 	
-	void clearDB() throws Exception
+	public void clearDB() throws Exception
 	{
 		clearTableData("service");
 		clearTableData("activities");
