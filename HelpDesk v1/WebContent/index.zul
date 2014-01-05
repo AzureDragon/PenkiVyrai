@@ -1,4 +1,4 @@
-<?page 
+<?page title="Pagrindinis"
   xml="version="1.0" 
   encoding="UTF-8""
 contentType="text/html;charset=UTF-8"
@@ -6,27 +6,42 @@ contentType="text/html;charset=UTF-8"
 
 <zk xmlns:n="native">
 <include src="menu.zul"/>
+   <groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/task.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Pagrindinis</n:h1>
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>   
+	</groupbox>
+	<hbox>
+	<vbox>
+<groupbox title="Meniu">
 
+
+</groupbox>
 <vlayout apply="org.zkoss.bind.BindComposer" 
 	viewModel="@id('vm') @init('pie.PieChartConfigVM')">
-	<grid width="98%">
-	</grid>
-	<separator height="10px" />
 	<groupbox sclass="z-demo-config">
 		<caption>Valdymas</caption>
 		<radiogroup>
 			<vlayout>
-				<radio label="Pie Chart" selected="true"
+				<radio label="Skritulinė diagrama" selected="true"
 					onCheck="@global-command('configChanged', threeD=false, exploded=false)" />			
-				<radio label="Pie Chart 3D"
+				<radio label="Skritulinė diagrama 3D"
 					onCheck="@global-command('configChanged', threeD=true, exploded=false)" />
-				<radio label="Pie Chart Exploded"
-					onCheck="@global-command('configChanged', threeD=false, exploded=true)" />
 			</vlayout>
 		</radiogroup>
 	</groupbox>		
 </vlayout>
-
+</vbox>	
+<groupbox title="Apžvalga">
+<hbox>
+<groupbox>
 <vlayout apply="org.zkoss.bind.BindComposer"
     viewModel="@id('vm') @init('pie.PieChartVM')">
     <chart id="mychart" title="Kreipinių statistika"
@@ -37,17 +52,22 @@ contentType="text/html;charset=UTF-8"
     <hlayout  visible="@bind(not empty vm.message)">
         Jūs žiūrite :<label value="@bind(vm.message)"/>
     </hlayout>
-    
+    </vlayout>
+</groupbox>
+<groupbox>    
     <vlayout apply="org.zkoss.bind.BindComposer"
     viewModel="@id('vm') @init('bar.BarChartVM')">
     <chart id="mybarchart" width="520" height="400"
         fgAlpha="255" paneColor="#ffffff" bgColor="#ffffff" type="bar"
         threeD="@bind(vm.threeD)" orient="@bind(vm.orient)"
         model="@bind(vm.model)" engine="@bind(vm.engine)"/>
-        
-</vlayout>
-    
+            
 </vlayout>    
-
+</groupbox>
+</hbox>
+</groupbox>	
+	
+	</hbox>
+	
 <include src="footer.zul"/>
 </zk>

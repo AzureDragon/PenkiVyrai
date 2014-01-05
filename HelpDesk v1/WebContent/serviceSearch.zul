@@ -20,7 +20,7 @@
 	        <hbox>
                 <image src="/img/service2.png"></image>
                 <vbox>
-			     <n:h1 class="cg-title">Paslaugas</n:h1> 
+			     <n:h1 class="cg-title">Paslaugos</n:h1> 
 			    <hbox class="cg-down-title"> 	
 				<a href="index.zul"
 					label="Pagrindinis" class="cg-down-title" />
