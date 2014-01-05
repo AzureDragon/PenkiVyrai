@@ -17,7 +17,7 @@
 		padding-bottom: 0; } .info { font-weight: normal;
 		font-size:21px; color: #787878 ; }
 	</style>
-	<include src="index.zul" />
+	<include src="menu.zul" />
 	<groupbox sclass="footerUp">
 	        <hbox>
                 <image src="/img/task3.png"></image>
@@ -28,7 +28,7 @@
 				<a href="index.zul"
 					label="Pagrindinis" class="cg-down-title" />
 				»
-				<a href="clientSearch.zul"
+				<a href="appelationSearch.zul"
 					label="Kreipiniai" class="cg-down-title" />
 				»
 				<a href="">
