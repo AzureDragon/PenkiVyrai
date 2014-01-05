@@ -2,7 +2,33 @@
 
 
 <zk xmlns:n="native">
+<style>
+.cg-title { 
+font-weight: normal; 
+font-size: 24px;
+color: #008DB7;
+margin-bottom: 0; 
+padding-bottom: 0; 
+}
 
+.cg-down-title { 
+font-weight: small; 
+color: #C0C0C0;
+margin-bottom: 0; 
+padding-bottom: 0; 
+}
+.footerUp {
+	height: 75px;
+	background-color: #f1f1f1;
+	background-image: -webkit-gradient(linear, top, left, from(#f1f1f1), to(#fcfcfc));
+	background-image: -webkit-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:    -moz-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:     -ms-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:      -o-linear-gradient(top, #f1f1f1, #fcfcfc); 
+	background-image:         linear-gradient(top, #f1f1f1, #fcfcfc);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fcfcfc', EndColorStr='#f1f1f1');
+}
+</style>
 <groupbox>
   <button label="Importuoti duombaze" upload="true,maxsize=300">
       <attribute name="onUpload">

@@ -7,8 +7,9 @@ contentType="text/html;charset=UTF-8"
 	<include src="menu.zul" />
 	<style>
 		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
-		hidden; } .cg-title { font-weight: normal; color: #008DB7;
-		margin-bottom: 0; padding-bottom: 0; } .cg-desc { margin-top: 0;
+		hidden; } .cg-title { font-weight: normal;
+		font-size: 26px; color: #008DB7; margin-bottom: 0;
+		padding-bottom: 0; } .cg-desc { margin-top: 0;
 		font-family: arial,sans-serif; font-size: small; font-weight:
 		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
 		div.status { border: 0 none; } .status tr.z-grid-odd
@@ -18,12 +19,25 @@ contentType="text/html;charset=UTF-8"
 		.status .head { text-align : right; } .status .head span {
 		font-weight : bold; }
 	</style>
+	<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/client2.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Klientai</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="clientSearch.zul"
+					label="Klientai" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>   
+	</groupbox>	
 	<groupbox sclass="main z-demo-config">
 		<caption label="Klientai" />
-		<hlayout spacing="40px" style="padding-left: 10px;">
-			<image src="/img/client2.png"></image>
-			<n:h1 class="cg-title">Klientų administravimas</n:h1>
-		</hlayout>
+	
 		<vlayout spacing="15px">
 			<hbox
 			apply="mainControllers.ClientsController">

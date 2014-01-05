@@ -16,7 +16,15 @@
 }
 .cg-title { 
 font-weight: normal; 
+font-size: 24px;
 color: #008DB7;
+margin-bottom: 0; 
+padding-bottom: 0; 
+}
+
+.cg-down-title { 
+font-weight: small; 
+color: #C0C0C0;
 margin-bottom: 0; 
 padding-bottom: 0; 
 }
@@ -35,11 +43,26 @@ padding-bottom: 0;
 <include src="menu.zul" />
 	        <groupbox sclass="footerUp">
 	        <hbox>
-                <image src="/img/client2.png"></image>
-			     <n:h1 class="cg-title">Kliento administravimas</n:h1>
+                <image src="/img/client5.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Klientas</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="clientSearch.zul"
+					label="Klientai" class="cg-down-title" />
+				»
+				<a href="">
+				<label id="clientRef" class="cg-down-title" value="Klientas">
+				</label>
+				</a>
+				</hbox>
+				</vbox>
 			</hbox>     
             </groupbox>
-<n:div align="center">            
+           
 	<groupbox mold="3d" apply="mainControllers.ClientViewController">
     <caption label="Kliento informacija"></caption>
 		<hbox align="start">
@@ -75,6 +98,7 @@ padding-bottom: 0;
 			</groupbox>
 		</hbox>
 	</groupbox>
+	<n:div align="center"> 
 	<groupbox mold="3d" apply="mainControllers.ClientViewController">
     <caption label="Kliento kreipiniai"></caption>
 	</groupbox>	
