@@ -33,11 +33,12 @@
 <hbox pack="stretch" sclass="hboxRemoveWhiteStrips" width="100%">
 <toolbar align="start" style="float:left; border-style: none;">
             <toolbarbutton image="/img/home.png" label="Pagrindinis" href="index.zul" />
-            <toolbarbutton image="/img/service.png" label="Paslaugos" onClick="alert(self.label)"  />            
-            <toolbarbutton image="/img/contract.png" label="Sutartys" onClick="alert(self.label)" />
+            <toolbarbutton image="/img/service.png" label="Paslaugos" href="serviceSearch.zul"  />            
+            <toolbarbutton image="/img/contract.png" label="Sutartys" href="contractSearch.zul" />
             <toolbarbutton image="/img/employee.png" label="Darbuotojai" href="employeeSearch.zul" />            
             <toolbarbutton image="/img/client4.png" label="Klientai" href="clientSearch.zul" />
-            <toolbarbutton image="/img/task2.png" label="Kreipiniai" href="appelationSearch.zul" />            
+            <toolbarbutton image="/img/task2.png" label="Kreipiniai" href="appelationSearch.zul" />      
+            <toolbarbutton image="/img/task2.png" label="Savitarna" href="selfService.zul" />        
 </toolbar>
 <toolbar apply="mainControllers.LogOutController" align="end" style="float:right; border-style: none;">
    <!-- 
