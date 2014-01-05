@@ -34,7 +34,7 @@ import services.EmployeeServiceImpl;
 public class SearchController extends SelectorComposer<Component> {
 
 	public Task selected;
-
+	private static int previousPage=0;
 	private static final long serialVersionUID = 1L;
 	public EmployeeService employeeService = new EmployeeServiceImpl();
 
@@ -89,19 +89,18 @@ public class SearchController extends SelectorComposer<Component> {
 	}
 	@Listen ("onClick=#taskListbox")
 	public void onPaging () throws Exception {
-	
-	
-	
+		if (previousPage!=taskListbox.getPaginal().getActivePage()){
+			previousPage = taskListbox.getPaginal().getActivePage();
+		System.out.println(taskListbox.getPageCount());
+		System.out.println(taskListbox.getPaginal().getActivePage());
 	   System.out.println("puslapis kuri reikia ukrauti: "+taskListbox.getPaginal().getActivePage()+1);
 	   int tmp = taskListbox.getPaginal().getActivePage();
 	   Clients.showBusy(taskListbox, "Ieškoma kreipinių");
 		AppelationServiceImpl apService = new AppelationServiceImpl("select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE Subject LIKE '%"+ keywordBox.getValue() + "%' and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", tmp);
 		detailBox.setVisible(false);
-		for (Task t: apService.getTaskList()){
-			System.out.println(t.getId());
-		}
 		taskListbox.setModel(new ListModelList<Task>(apService.getTaskList()));
 		Clients.clearBusy(taskListbox);
+		}
 	}
 	@Listen("onClick = #connectButton")
 	public void connectToDatabase() throws Exception {

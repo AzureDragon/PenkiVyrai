@@ -64,8 +64,7 @@ public class AppelationServiceImpl implements AppelationService {
 				taskList.add(new Task());
 			} else {		
 			if (i<=(15 * tmp)){
-			System.out.println("Indexas: " + i + "Atvaizduoti iki " + tmp);
-			System.out.println(resultSet.getInt("TaskId"));
+		
 			resultSet.getRow();
 			taskList.add(new Task(resultSet.getInt("TaskId"), resultSet
 					.getString("Subject"), resultSet.getString("Description"),
