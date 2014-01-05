@@ -119,9 +119,16 @@ contentType="text/html;charset=UTF-8" title="Kreipiniai"
 						</listcell>
 						<listcell if="${each.type == 'Užklausimas'}" image="img/req.png" height="20px" label="${each.type}">
 						</listcell>
-						<listcell height="20px"
-							label="${each.status}">
+						<listcell if="${each.status == 'Užregistruota'}" height="20px" image="img/u.png" label="${each.status}">
 						</listcell>
+						<listcell if="${each.status == 'Sprendžiama'}" height="20px" image="img/s.png" label="${each.status}">
+						</listcell>
+						<listcell if="${each.status == 'Išspręsta'}" height="20px" image="img/i.png" label="${each.status}">
+						</listcell>
+						<listcell if="${each.status == 'Grąžintas neišspręstas'}" height="20px" image="img/g.png" label="${each.status}">
+						</listcell>
+						<listcell if="${each.status == 'Atsisakyta spręsti'}" height="20px" image="img/a.png" label="${each.status}">
+						</listcell>																								
 						<listcell height="20px"
 							label="${each.clientId}">
 						</listcell>
