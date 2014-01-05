@@ -1,6 +1,6 @@
 <?page title="Paslaugos" contentType="text/html;charset=UTF-8"?>
 <zk xmlns:n="native">
-<?page title="Sutartys" contentType="text/html;charset=UTF-8"?>
+<?page title="Paslaugos" contentType="text/html;charset=UTF-8"?>
 
 	<include src="menu.zul" />
 	<style>
@@ -16,17 +16,28 @@
 		.status .head { text-align : right; } .status .head span {
 		font-weight : bold; }
 	</style>
+		<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/service2.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Paslaugas</n:h1> 
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="serviceSearch.zul"
+					label="Paslaugos" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>   
+	</groupbox>	
 	<groupbox sclass="main z-demo-config"
 		apply="mainControllers.ServiceSearchController">
 		<caption label="Paslaugos" />
-		<hlayout spacing="40px" style="padding-left: 10px;">
-			<image src="/img/client2.png"></image>
-			<n:h1 class="cg-title">Paslaugų administravimas</n:h1>
-		</hlayout>
 		<vlayout spacing="15px">
 			<hbox>
 				<toolbar>
-					Sutartis:
+					Paslauga:
 					<textbox id="keywordBox" />
 					<button id="searchButton" label="Ieškoti"
 						image="/img/search.png" />

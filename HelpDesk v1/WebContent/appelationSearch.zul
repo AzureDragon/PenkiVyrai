@@ -115,7 +115,10 @@ contentType="text/html;charset=UTF-8" title="Kreipiniai"
 						<listcell height="20px"
 							label="${each.subject}">
 						</listcell>
-						<listcell height="20px" label="${each.type}"></listcell>
+						<listcell if="${each.type == 'Incidentas'}" image="img/inc.png" height="20px" label="${each.type}">
+						</listcell>
+						<listcell if="${each.type == 'Užklausimas'}" image="img/req.png" height="20px" label="${each.type}">
+						</listcell>
 						<listcell height="20px"
 							label="${each.status}">
 						</listcell>
