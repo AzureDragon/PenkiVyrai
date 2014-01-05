@@ -79,7 +79,7 @@ public class SearchController extends SelectorComposer<Component> {
 		Clients.showBusy(taskListbox, "Ieškoma kreipinių");
 		System.out.println("PageCountas " +taskListbox.getPageCount());
 		appelationService = new AppelationServiceImpl(
-				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", taskListbox.getPaginal().getActivePage()+1);
+				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", taskListbox.getPaginal().getActivePage());
 		detailBox.setVisible(false);
 		String keyword = keywordBox.getValue();
 		List<Task> result = appelationService.search(keyword);
@@ -95,8 +95,7 @@ public class SearchController extends SelectorComposer<Component> {
 	   System.out.println("puslapis kuri reikia ukrauti: "+taskListbox.getPaginal().getActivePage()+1);
 	   int tmp = taskListbox.getPaginal().getActivePage();
 	   Clients.showBusy(taskListbox, "Ieškoma kreipinių");
-		AppelationServiceImpl apService = new AppelationServiceImpl(
-				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", tmp);
+		AppelationServiceImpl apService = new AppelationServiceImpl("select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE Subject LIKE '%"+ keywordBox.getValue() + "%' and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", tmp);
 		detailBox.setVisible(false);
 		for (Task t: apService.getTaskList()){
 			System.out.println(t.getId());
