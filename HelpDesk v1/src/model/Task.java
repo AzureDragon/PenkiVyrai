@@ -66,6 +66,10 @@ public class Task {
 
 	
 
+	public Task() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
 		return id;
 	}

@@ -20,20 +20,23 @@ public class AppelationServiceImpl implements AppelationService {
 	private LinkedList<Task> taskList = new LinkedList<Task>();
 
 	// initialize book data
-	public AppelationServiceImpl(String taskStatement) throws Exception {
+	public AppelationServiceImpl(String taskStatement, int currentPage) throws Exception {
 
 		Class.forName("com.mysql.jdbc.Driver");
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		resultSet = statement.executeQuery(taskStatement);
-		writeResultSet(resultSet);
+		writeResultSet(resultSet, currentPage);
 
 
 	}
 
-	private void writeResultSet(ResultSet resultSet) throws Exception {
+	private void writeResultSet(ResultSet resultSet, int currentPage) throws Exception {
 		// ResultSet is initially before the first data set
-		for (R t: resulSet){ 
+		int i=15*currentPage - 15;
+		while (resultSet.next()) {
+			i++;
+			if (i<=15 * currentPage){ 
 			resultSet.getRow();
 			taskList.add(new Task(resultSet.getInt("TaskId"), resultSet
 					.getString("Subject"), resultSet.getString("Description"),
@@ -43,10 +46,10 @@ public class AppelationServiceImpl implements AppelationService {
 					resultSet.getDate("Registered"), resultSet
 							.getInt("ReceiverId"), resultSet
 							.getString("SolveUntil"), resultSet.getInt("AssigneeId")));
+			}
+			else taskList.add(new Task());
 		}
 	}
-	
-	
 
 	public List<Task> findAll() {
 		return taskList;

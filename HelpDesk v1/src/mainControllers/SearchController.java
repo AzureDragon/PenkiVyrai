@@ -7,6 +7,10 @@ import model.Clasifiers;
 import model.Comment;
 import model.Task;
 
+import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
@@ -20,6 +24,7 @@ import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Menuitem;
 import org.zkoss.zul.Menupopup;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.event.PagingEvent;
 
 import services.AppelationService;
 import services.AppelationServiceImpl;
@@ -73,14 +78,18 @@ public class SearchController extends SelectorComposer<Component> {
 	public void search() throws Exception {
 		Clients.showBusy(taskListbox, "Ieškoma kreipinių");
 		appelationService = new AppelationServiceImpl(
-				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");
+				"select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", taskListbox.getPageCount());
 		detailBox.setVisible(false);
 		String keyword = keywordBox.getValue();
 		List<Task> result = appelationService.search(keyword);
 		taskListbox.setModel(new ListModelList<Task>(result));
 		Clients.clearBusy(taskListbox);
+	    
 	}
-
+	@Listen ("onClick=#taskListbox")
+	public void onPaging (@ContextParam(ContextType.TRIGGER_EVENT) PagingEvent event) {
+	   System.out.println("active page is: " + taskListbox.getPaginal().getActivePage());
+	}
 	@Listen("onClick = #connectButton")
 	public void connectToDatabase() throws Exception {
 
