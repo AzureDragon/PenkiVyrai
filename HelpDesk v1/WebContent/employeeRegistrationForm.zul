@@ -5,11 +5,12 @@ contentType="text/html;charset=UTF-8"
 ?>
 
 
-
-<window id="employeeRegistrationWindow" height="270px" width="500px" apply="mainControllers.EmployeeRegistrationController">
+<zk xmlns:n="native">
+<window id="employeeRegistrationWindow" height="280px" width="500px" apply="mainControllers.EmployeeRegistrationController">
 	
 	<vbox spacing="30px">
 		<groupbox title="Darbuotojo registracija" mold="3d">
+		<groupbox title="Forma">
 			<grid>
 				<columns>
 					<column width="30%">  </column>
@@ -44,16 +45,18 @@ contentType="text/html;charset=UTF-8"
 					</row>
 				</rows>
 			</grid>
-
-		</groupbox>
-		<hbox>
+        </groupbox>
+        <groupbox title="Veiksmai">
+        <hbox>
 		<button id="createEmployee" label="Sukurti" width="100px"
 			top="">
 		</button>
-			<button id="cancelClientButton" onClick="clientRegistrationWindow.detach()" label="Atšaukti" width="100px"
+			<button id="cancelClientButton" onClick="employeeRegistrationWindow.detach()" label="Atšaukti" width="100px"
 			top="">
 		</button>
-		</hbox>
+		</hbox>        
+        </groupbox>
+		</groupbox>
 	</vbox>
 
 
@@ -63,3 +66,4 @@ contentType="text/html;charset=UTF-8"
 
 
 </window>
+</zk>
