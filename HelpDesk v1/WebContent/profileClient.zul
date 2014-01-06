@@ -68,18 +68,7 @@
                         constraint="no empty: Iveskite adresÄ…!" width="200px"/>
                     </cell>
                 </row>
-                <row>
-                    <cell sclass="row-title">El. pašto adresai</cell>
-                    <cell id="cellGridMail">
-                        <textbox inplace="true" id="mails" width="200px"/>
-                    </cell>
-                </row>
-                <row>
-                    <cell sclass="row-title">Telefono nuemriai :</cell>
-                    <cell id="cellGridPhone"> 
-                        <textbox id="phone" inplace="true" width="200px"/>
-                    </cell>
-                </row>
+ 
                 <row>
                     <cell sclass="row-title">Teisės :</cell>
                     <cell><label id="rights"/></cell>
