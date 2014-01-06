@@ -57,7 +57,7 @@ public class IndexController extends SelectorComposer<Component> {
 		DCS.importData(name);
 	}
 	
-	public File Export() throws FileNotFoundException, DocumentException
+	public File Export() throws Exception
 	{
 		DataControllService DCS = new DataControllServiceImpl();
 		

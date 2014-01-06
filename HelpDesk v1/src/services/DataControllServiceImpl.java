@@ -1,10 +1,10 @@
 package services;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
+import InformationHandlers.PdfHandler;
+
+import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,109 +13,69 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JFileChooser;
-
 import model.Clasifiers;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.zkoss.zk.ui.util.Clients;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
-import com.lowagie.text.Anchor;
 import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
 import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
+import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
-import com.lowagie.text.pdf.CMYKColor;
-import com.lowagie.text.pdf.DefaultFontMapper;
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfTemplate;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 
 public class DataControllServiceImpl implements DataControllService {
 
+	PdfHandler pdfgenerator = new PdfHandler();
+	
 	private Connection connect = null;
 	private PreparedStatement preparedStatement = null;
 	private PreparedStatement preparedStatement2 = null;
-	
+
 	long term = 999_999_999_999_9L;
 
-	public File exportData() {
-		//Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+	public File exportData() throws Exception {
 
 		String tempPath = System.getProperty("java.io.tmpdir")
 				+ "informacija.pdf";
-		@SuppressWarnings("unused")
-
+		
 		PdfWriter writer = null;
-		 
-	    Document document = new Document();
-	    
-	    int width = 500;
-	    int height = 400;
-	    
-	    try {
-	        writer = PdfWriter.getInstance(document, new FileOutputStream(
-	        		tempPath));
-	        document.open();
-	        
-	        PdfContentByte contentByte = writer.getDirectContent();
-	        PdfTemplate template = contentByte.createTemplate(width, height);
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    document.close();
-//		
-//		Anchor anchorTarget = new Anchor("First page of the document.");
-//		anchorTarget.setName("BackToTop");
-//		Paragraph paragraph1 = new Paragraph();
-//
-//		paragraph1.setSpacingBefore(50);
-//
-//		paragraph1.add(anchorTarget);
-//		document.add(paragraph1);
-//
-//		document.add(new Paragraph(
-//				"Some more text on the \first page with different color and font type.",
-//
-//				FontFactory.getFont(FontFactory.COURIER, 14, Font.BOLD,
-//						new CMYKColor(0, 255, 0, 0))));
-//
-//		document.close();
+		Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+
+		writer = PdfWriter
+				.getInstance(document, new FileOutputStream(tempPath));
+		document.open();
+
+		String str[] = { "Id", "Username", "Password" };
+		String pav[] = { "Numeris", "Vartotojo Vardas", "Slaptazodis" };
+		String base[] = { "Int", "String", "String" };
+		float size[] = { 10f, 30f, 30f };
+		
+		pdfgenerator.createOutPut("select * from authentificationservice", 3, str,base, size, pav, document, "Informaija apie prisijungimus");
+
+		pdfgenerator.createOutPut("select * from authentificationservice", 3, str,base, size, pav, document, "blablalb");
+
+		
+		document.close();
 		
 		File f = new File(tempPath);
 		return f;
 	}
 
+
 	public void importData(String name) {
-		// File file = new File(".");
-		// for(String fileNames : file.list()) System.out.println(fileNames);
-
-		// InputStream ExcelFileToRead = new FileInputStream("C:/Test.xlsx");
-		// XSSFWorkbook wb2 = new XSSFWorkbook(ExcelFileToRead);
-
 		try {
-			System.out.print("atejo\n");
-			JFileChooser myFileChooser = new JFileChooser();
-			// OPCPackage fs = new POIFSFileSystem(new FileInputStream(name));
 			FileInputStream file = new FileInputStream(new File(name));
 
-			// Get the workbook instance for XLS file
 			XSSFWorkbook wb = new XSSFWorkbook(file);
 			clearTableData("authentificationservice");
 			clearTableData("service");
@@ -130,10 +90,10 @@ public class DataControllServiceImpl implements DataControllService {
 			readContracts(getSheet(wb, "Sutartys"));
 			clearTableData("contractsServices");
 			readServiceContracts(getSheet(wb, "SutPasl"));
-			clearTableData("task");
-			readAppelations(getSheet(wb, "Kreipiniai"));
 			clearTableData("taskAssignments");
 			readAssigments(getSheet(wb, "Paskyrimai"));
+			clearTableData("task");
+			readAppelations(getSheet(wb, "Kreipiniai"));
 
 		} catch (Exception ioe) {
 			ioe.printStackTrace();
@@ -173,7 +133,7 @@ public class DataControllServiceImpl implements DataControllService {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					// e.printStackTrace();
-					ServiceName = "NeÅ¾inoma";
+					ServiceName = "Nežinoma";
 				}
 
 				try {
@@ -294,13 +254,16 @@ public class DataControllServiceImpl implements DataControllService {
 								+ "');");
 
 				preparedStatement.executeUpdate();
-				
-				preparedStatement2 = connect.prepareStatement("INSERT INTO authentificationservice (Username,Password,EmployeeId,ClientId, DelegateId) values ('"+ name+surName +"','"
-					       + name+surName +"','"
-					       + ID +"',"
-					       + null +","
-					       + null+");");
-				
+
+				preparedStatement2 = connect
+						.prepareStatement("INSERT INTO authentificationservice (Username,Password,EmployeeId,ClientId, DelegateId) values ('"
+								+ name
+								+ surName
+								+ "','"
+								+ name
+								+ surName
+								+ "','" + ID + "'," + null + "," + null + ");");
+
 				preparedStatement2.executeUpdate();
 
 			}
@@ -348,18 +311,26 @@ public class DataControllServiceImpl implements DataControllService {
 								+ "','0000000" + "','" + address + "','','');");
 				// Traktuokim, kad kai im. k. 0000000 - mes neturim duomenu.
 				preparedStatement.executeUpdate();
-				
-				StringBuffer loginNameBuffer = new StringBuffer();
-				
-				loginNameBuffer.append(name);
-				loginNameBuffer.delete(loginNameBuffer.indexOf(","), loginNameBuffer.length());
 
-				preparedStatement2 = connect.prepareStatement("INSERT INTO authentificationservice (Username,Password,EmployeeId,ClientId, DelegateId) values ('"+ loginNameBuffer.toString() +"','"
-					       + loginNameBuffer.toString() +"',"
-					       + null +",'"
-					       + Integer.parseInt(ID) +"',"
-					       + null+");");
-				
+				StringBuffer loginNameBuffer = new StringBuffer();
+
+				loginNameBuffer.append(name);
+				loginNameBuffer.delete(loginNameBuffer.indexOf(","),
+						loginNameBuffer.length());
+
+				preparedStatement2 = connect
+						.prepareStatement("INSERT INTO authentificationservice (Username,Password,EmployeeId,ClientId, DelegateId) values ('"
+								+ loginNameBuffer.toString()
+								+ "','"
+								+ loginNameBuffer.toString()
+								+ "',"
+								+ null
+								+ ",'"
+								+ Integer.parseInt(ID)
+								+ "',"
+								+ null
+								+ ");");
+
 				preparedStatement2.executeUpdate();
 			}
 		} else
@@ -441,13 +412,16 @@ public class DataControllServiceImpl implements DataControllService {
 								+ phone + "','" + mail + "','" + active + "');");
 
 				preparedStatement.executeUpdate();
-				
-				preparedStatement2 = connect.prepareStatement("INSERT INTO authentificationservice (Username,Password,EmployeeId,ClientId, DelegateId) values ('"+ name+surName +"','"
-					       + name+surName +"',"
-					       + null +","
-					       + null +",'"
-					       + ID+"');");
-				
+
+				preparedStatement2 = connect
+						.prepareStatement("INSERT INTO authentificationservice (Username,Password,EmployeeId,ClientId, DelegateId) values ('"
+								+ name
+								+ surName
+								+ "','"
+								+ name
+								+ surName
+								+ "'," + null + "," + null + ",'" + ID + "');");
+
 				preparedStatement2.executeUpdate();
 
 			}
@@ -713,8 +687,8 @@ public class DataControllServiceImpl implements DataControllService {
 								+ "','" + Integer.parseInt(clientId) + "','"
 								+ Integer.parseInt(status) + "','"
 								+ Integer.parseInt(type) + "','" + recv + "','"
-								+ sdf.format(new Date(term)) + "','" + comp + "','"
-								+ previous + "','"
+								+ sdf.format(new Date(term)) + "','" + comp
+								+ "','" + previous + "','"
 								+ Integer.parseInt(serviceId) + "','" + rank
 								+ "','" + Integer.parseInt(source) + "','"
 								+ data + "','" + data + "');");
