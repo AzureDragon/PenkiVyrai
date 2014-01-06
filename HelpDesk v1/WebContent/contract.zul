@@ -1,0 +1,45 @@
+<?page title="Sutartis" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="Sutartis"
+		apply="mainControllers.ContractViewController">
+		<label id="invisibleContractNumber" visible="false"></label>
+		<groupbox>
+			<vbox>
+				<label id="name" />
+				<label id="code" />
+				<label id="client" />
+				<label id="validFrom" />
+				<label id="validTo" />
+				<label />
+			</vbox>
+			<listbox maxlength="5" width="20%" id="serviceListbox"
+				sclass="z-listbox-autopaging" height="200px"
+				emptyMessage="Paslaugų nėra">
+
+				<listhead sizable="true">
+					<listheader label="Paslaugos" />
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell label="${each.name}"></listcell>
+
+					</listitem>
+				</template>
+			</listbox>
+		</groupbox>
+		<hbox spacing="30px">
+			<button id="addService" width="100px"
+				label="Pridėti paslaugą">
+			</button>
+			<combobox id="services" readonly="true"
+				placeholder="Pasirinkite paslaugą">
+				<template name="model">
+					<comboitem label="${each.name}"></comboitem>
+				</template>
+			</combobox>
+		</hbox>
+	</window>
+
+</zk>
