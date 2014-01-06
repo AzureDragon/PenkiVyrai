@@ -92,7 +92,7 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 			statement.close();
 		}
 
-		Clients.showNotification("Jusų profilis atnaujintas.");
+		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.");
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		statement.executeUpdate("UPDATE employee SET Name='"
