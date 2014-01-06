@@ -1,24 +1,25 @@
 package mainControllers;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 import model.Authentication;
 import model.Clasifiers;
 import model.Client;
+import model.Delegate;
+import model.Task;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Button;
-import org.zkoss.zul.Cell;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 
@@ -55,6 +56,8 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 	@Wire
 	Listbox delegatesListbox;
 
+	private ResultSet resultSet = null;
+
 	// services
 	AuthenticationService authService = new AuthenticationServiceImpl();
 
@@ -64,15 +67,25 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
 
+
 		if (!authService.isLoggedIn())
 		{
-			System.out.print("nerado");
+		
 			Executions.sendRedirect("login.zul");
 		}
 		else
-		{
+		{ 
+			Authentication cre = authService.getUserCredential();
+			
 			refreshProfileView();
-			System.out.print("rado");
+		
+			Class.forName("com.mysql.jdbc.Driver");
+			connect = Clasifiers.getConnection();
+			statement = connect.createStatement();
+			System.out.println("select * from delegates WHERE ClientId="+ cre.getClientId()+";");
+			resultSet = statement.executeQuery("select * from delegates WHERE ClientId="+ cre.getClientId()+";");
+		
+			delegatesListbox.setModel(new ListModelList<Delegate>(writeResultSet(resultSet)));
 		}
 	}
 
@@ -128,7 +141,30 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 		else
 			refreshProfileView();
 	}
-
+	private List<Delegate> writeResultSet(ResultSet resultSet) throws Exception {
+		 List<Delegate> delegateList;
+		delegateList = new LinkedList<Delegate>();
+		  while (resultSet.next()) {
+			  
+			  	if (resultSet.getBoolean("Active")){
+			  		delegateList.add(new Delegate(
+			    			resultSet.getString("Name"),
+			    			resultSet.getString("Surname"),
+			    			resultSet. getString("Telephone"),
+			    			resultSet.getString("Mail"), "Aktyvus"));
+			   	
+			  	} else{
+			  		delegateList.add(new Delegate(
+			    			resultSet.getString("Name"),
+			    			resultSet.getString("Surname"),
+			    			resultSet. getString("Telephone"),
+			    			resultSet.getString("Mail"), "Neaktyvus"));
+			   
+			  	}
+		  }
+		    	 
+		  return delegateList;
+	}
 	private void refreshProfileView() throws Exception {
 		Authentication cre = authService.getUserCredential();
 		Client client = userInfoService.findClient(cre);
