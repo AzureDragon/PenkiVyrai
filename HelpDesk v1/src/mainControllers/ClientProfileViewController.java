@@ -53,8 +53,6 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 	@Wire
 	Textbox Address;
 	@Wire
-	Label nameLabel;
-	@Wire
 	Cell cellGridMail, cellGridPhone;
 	@Wire
 	Textbox mails, phone;
@@ -124,9 +122,7 @@ System.out.print("LABAS");
 					.getAttribute("name")
 					+ ";");
 
-		nameLabel.setValue(account.getValue());
-
-		Clients.showNotification("Jusų profilis atnaujintas.");
+		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.");
 
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
@@ -151,17 +147,14 @@ System.out.print("LABAS");
 		Authentication cre = authService.getUserCredential();
 		Client client = userInfoService.findClient(cre);
 		if (client == null) {
-			System.out.print("nerado");
 			// TODO handle un-authenticated access
 			return;
 		}
-		System.out.print("rado");
 		// apply bean value to UI components
 		account.setValue(cre.getLoginName());
 		Name.setValue(client.getName());
 		Code.setValue(client.getCode());
 		Address.setValue(client.getAddress());
-		nameLabel.setValue(client.getName());
 		rights.setValue(userInfoService.rightsValue(client.getRights()));
 
 		for (int i = 0; i < client.geteMail().size(); i++) {

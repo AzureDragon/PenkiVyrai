@@ -82,6 +82,8 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 						+ u.getDelegateId());
 
 		while (resultSet2.next()) {
+			System.out.print(u.getDelegateId());
+			//+resultSet2.getInt("ClientId")+resultSet.getString("Name")+resultSet.getString("Surname")+resultSet.getString("Telephone")+resultSet.getString("Mail")+resultSet.getBoolean("Active")+5);
 			return Delegate.clone(new Delegate(u.getDelegateId(), resultSet2.getInt("ClientId"), resultSet
 					.getString("Name"), resultSet.getString("Surname"), resultSet.getString("Telephone"), 
 					resultSet.getString("Mail"), resultSet.getBoolean("Active"), 5));
