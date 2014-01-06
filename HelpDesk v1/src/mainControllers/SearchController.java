@@ -91,9 +91,7 @@ public class SearchController extends SelectorComposer<Component> {
 	public void onPaging () throws Exception {
 		if (previousPage!=taskListbox.getPaginal().getActivePage()){
 			previousPage = taskListbox.getPaginal().getActivePage();
-		System.out.println(taskListbox.getPageCount());
-		System.out.println(taskListbox.getPaginal().getActivePage());
-	   System.out.println("puslapis kuri reikia ukrauti: "+taskListbox.getPaginal().getActivePage()+1);
+	   
 	   int tmp = taskListbox.getPaginal().getActivePage();
 	   Clients.showBusy(taskListbox, "Ieškoma kreipinių");
 		AppelationServiceImpl apService = new AppelationServiceImpl("select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE Subject LIKE '%"+ keywordBox.getValue() + "%' and taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", tmp);

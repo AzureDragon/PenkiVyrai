@@ -129,15 +129,21 @@
 		</tabs>
 		<tabpanels>
 			<tabpanel>
+			<vbox>
 				<button id="addComment" label="Pridėti komentarą" />
+				<label id="noComments" value="Komentarų nėra... " visible="false"></label>
+			</vbox>
 				<grid id="commentsGrid"
-					rowRenderer="addtionalControllers.CommentRowRenderer">
-
+					rowRenderer="addtionalControllers.CommentRowRenderer">				
 				</grid>
 
 
 			</tabpanel>
-			<tabpanel>service unavailable</tabpanel>
+			<tabpanel>
+				<grid id="historyGrid"	rowRenderer="addtionalControllers.HistoryRowRenderer">				
+				</grid>
+
+			</tabpanel>
 		</tabpanels>
 	</tabbox>
 	</vlayout>

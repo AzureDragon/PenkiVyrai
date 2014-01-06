@@ -14,9 +14,8 @@ public class Employee implements Serializable,Cloneable {
         int rights;
         String eMail;
         String phone;
-        int appelationNumber;
-    	List<Task> currentAppelations;
-    	List<Task> allAppelations;
+
+
 
         public Employee(int id, String firstName, String surName, int rights, String eMail, String phone) {
                 this.id = id;
@@ -28,8 +27,7 @@ public class Employee implements Serializable,Cloneable {
         }
 
     	public Employee(int id, int rights, String firstName, String surName,
-    			String eMail, String phone, int appelationNumber,
-    			List<Task> currentAppelations, List<Task> allAppelations) {
+    			String eMail, String phone) {
     		super();
     		this.id = id;
     		this.rights = rights;
@@ -37,9 +35,7 @@ public class Employee implements Serializable,Cloneable {
     		this.surName = surName;
             this.eMail = eMail;
             this.phone = phone;
-    		this.appelationNumber = appelationNumber;
-    		this.currentAppelations = currentAppelations;
-    		this.allAppelations = allAppelations;
+
     	}
         
 		public String geteMail() {
@@ -91,30 +87,6 @@ public class Employee implements Serializable,Cloneable {
 		}
 		
 
-		public int getKreipiniuSkaicius() {
-			return appelationNumber;
-		}
-
-		public void setKreipiniuSkaicius(int kreipiniuSkaicius) {
-			this.appelationNumber = kreipiniuSkaicius;
-		}
-
-		public List<Task> getSprendziamiKreipiniai() {
-			return currentAppelations;
-		}
-
-		public void setSprendziamiKreipiniai(List<Task> sprendziamiKreipiniai) {
-			this.currentAppelations = sprendziamiKreipiniai;
-		}
-
-		public List<Task> getVisiKreipiniai() {
-			return allAppelations;
-		}
-
-		public void setVisiKreipiniai(List<Task> visiKreipiniai) {
-			this.allAppelations = visiKreipiniai;
-		}
-		
         @Override
         public boolean equals(Object obj) {
                 if (this == obj)

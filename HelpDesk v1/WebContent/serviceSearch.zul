@@ -74,9 +74,9 @@
 					<listitem context="msg" height="5px"
 						sclass="z-listbox-autopaging">
 						<listcell height="20px" label="${each.name}"></listcell>
-						<listcell label="${each.serviceCode}"></listcell>
-						<listcell label="${each.incidentTime}"></listcell>
-						<listcell label="${each.requestTime}"></listcell>
+						<listcell label="P${each.serviceCode}"></listcell>
+						<listcell label="${each.incidentTime}h"></listcell>
+						<listcell label="${each.requestTime}h"></listcell>
 					</listitem>
 				</template>
 				

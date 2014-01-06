@@ -51,7 +51,7 @@ public class TaskViewController extends SelectorComposer<Component> {
 	@Wire
 	Label assignedLabel;
 	@Wire
-	Label clientLabel;
+	Label clientLabel, noComments;
 	@Wire
 	Grid commentsGrid;
 	@Wire
@@ -142,9 +142,15 @@ public class TaskViewController extends SelectorComposer<Component> {
 
 	@Listen("onSelect = #comments")
 	public void showComments() throws Exception {
+		if ((commentsController.getTaskComments(invisibleLabelId.getValue())).isEmpty()){
+			noComments.setVisible(true);
+			
+			
+		} else {
 		commentsGrid.setModel(new ListModelList<Comment>(commentsController
 				.getTaskComments(invisibleLabelId.getValue())));
-
+		noComments.setVisible(false);
+		}
 	}
 
 	@Listen("onClick = #addComment")
