@@ -83,20 +83,8 @@ public class EmployeeController extends SelectorComposer<Component> {
 			preparedStatement = connect
 					.prepareStatement("UPDATE task SET Id="+ kreipinys.getId() +" WHERE Id = "+ kreipinys.getId() +" ;");
 			preparedStatement.executeUpdate();
-			/*preparedStatement = connect
-					.prepareStatement("UPDATE task SET ReceiverId ="
-							+ Clasifiers
-									.getEmployeeIdByNameAndSurname(darbuotojas
-											.getValue())
-							+ ", SolveUntil='"
-							+ formatedDate.format(isprestiIkiDateBox.getValue())
-							+ "' WHERE ID =" + kreipinys.getId() + ";");
-			System.out.println("UPDATE task SET ReceiverId ="
-					+ Clasifiers.getEmployeeIdByNameAndSurname(darbuotojas
-							.getValue()) + ", SolveUntil="
-					+ formatedDate.format(isprestiIkiDateBox.getValue())
-					+ " WHERE ID =" + kreipinys.getId() + ";"); */
-			preparedStatement.executeUpdate();
+			
+
 			System.out.println("pakomkitinau");
 
 			System.out.println("Priskyriau");
