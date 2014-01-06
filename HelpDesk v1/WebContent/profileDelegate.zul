@@ -1,87 +1,101 @@
-<?page 
-  xml="version="1.0" 
-  encoding="UTF-8""
-contentType="text/html;charset=UTF-8"
-?>
-
-<?link rel="stylesheet" type="text/css" href="/style.css"?>
-<window apply="mainControllers.DelegateProfileViewController">
+<?page title="Profilis" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
 <include src="menu.zul" />
+<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/profileBig.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Profilis</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="profileDelegate.zul"
+					label="Profilis" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>     
+            </groupbox>
+<groupbox apply="mainControllers.DelegateProfileViewController" title="Atstovo informacija">
     <vlayout>
         <grid width="500px">
             <columns>
-                <column align="right" hflex="min"/>
+                <column align="right" hflex="min" width="150px"/>
                 <column/>
             </columns>
             <rows>
                 <row>
-                    <cell sclass="row-title">Prisijungimo vardas :</cell>
+                    <cell sclass="row-title">Prisijungimo vardas:</cell>
                     <cell><label id="account"/></cell>
                 </row>
                                 <row>
-                    <cell sclass="row-title">Senas slaptažodis :</cell>
+                    <cell sclass="row-title">Senas slaptažodis:</cell>
                     <cell>
-                        <textbox id="oldPassword" type="password"/>
+                        <textbox id="oldPassword" type="password" width="200px"/>
                     </cell>
                 </row>
                                 <row>
-                    <cell sclass="row-title">Naujas slaptažodis :</cell>
+                    <cell sclass="row-title">Naujas slaptažodis:</cell>
                     <cell>
-                        <textbox id="newPassword" type="password"/>
+                        <textbox id="newPassword" type="password" width="200px"/>
                     </cell>
                 </row>
                                 <row>
-                    <cell sclass="row-title">Pakartokite slaptažodį :</cell>
+                    <cell sclass="row-title">Pakartokite slaptažodį:</cell>
                     <cell>
-                        <textbox id="newRepPassword" type="password"/>
+                        <textbox id="newRepPassword" type="password" width="200px"/>
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">Vardas :</cell>
+                    <cell sclass="row-title">Vardas:</cell>
                     <cell>
                         <textbox id="Name"
                         constraint="no empty: Iveskite vardą!" width="200px"/>
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">Pavardė :</cell>
+                    <cell sclass="row-title">Pavardė:</cell>
                     <cell>
                         <textbox id="surName"
                         constraint="no empty: Iveskite pavardę!" width="200px"/>
                     </cell>
                 </row>
                                 <row>
-                    <cell sclass="row-title">Klientas :</cell>
+                    <cell sclass="row-title">Klientas:</cell>
                     <cell>
                         <label id="Code" width="200px"/>
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">El. pašto adresas</cell>
+                    <cell sclass="row-title">El. pašto adresas:</cell>
                     <cell id="cellGridMail">
                         <textbox id="mails" width="200px"/>
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">Telefono numeris :</cell>
+                    <cell sclass="row-title">Telefono numeris:</cell>
                     <cell id="cellGridPhone"> 
                         <textbox id="phone" width="200px"/>
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">Teisės :</cell>
+                    <cell sclass="row-title">Teisės:</cell>
                     <cell><label id="rights"/></cell>
                 </row>  
                 <row>
-                    <cell sclass="row-title">Aktyvus :</cell>
-                    <cell><label id="active"/></cell>
+                    <cell sclass="row-title">Aktyvus:</cell>
+                    <cell><checkbox id="active" disabled="true"/></cell>
                 </row>               
             </rows>
         </grid>
+        <groupbox title="Valdymas" width="500px">
         <hlayout>
             <button id="saveProfile" label="Išsaugoti"/>
             <button id="reloadProfile" label="Atnaujinti"/>
         </hlayout>
+        </groupbox>
     </vlayout>
-    <include src="footer.zul"/>
-</window>
+</groupbox>
+<include src="footer.zul"/>
+</zk>
