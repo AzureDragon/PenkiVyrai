@@ -33,7 +33,7 @@ public class EmployeeViewController extends SelectorComposer<Component>{
 		role.setValue(Clasifiers.getRole(Integer.parseInt(employee.getRights2())));
 		phone.setValue(employee.getPhone());
 		email.setValue(employee.geteMail());
-		AppelationServiceImpl ap = new AppelationServiceImpl("")
+	
 	};
 	
 	
