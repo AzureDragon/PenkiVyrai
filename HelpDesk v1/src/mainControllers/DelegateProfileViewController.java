@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Cell;
+import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
@@ -53,7 +54,7 @@ public class DelegateProfileViewController extends SelectorComposer<Component> {
 	@Wire
 	Label rights;
 	@Wire
-	Label active;
+	Checkbox active;
 	@Wire
 	Textbox mails, phone;
 
