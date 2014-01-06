@@ -8,7 +8,7 @@ import com.lowagie.text.DocumentException;
 public interface DataControllService {
 
 	public void importData(String name);
-	public File exportData() throws FileNotFoundException, DocumentException, Exception;
+	public File exportData(boolean dataset1, boolean dataset2) throws FileNotFoundException, DocumentException, Exception;
 	void clearDB() throws Exception;
 
 }

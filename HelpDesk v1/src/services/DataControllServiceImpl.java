@@ -5,6 +5,7 @@ import InformationHandlers.PdfHandler;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +22,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.HeaderFooter;
@@ -42,7 +44,7 @@ public class DataControllServiceImpl implements DataControllService {
 
 	long term = 999_999_999_999_9L;
 
-	public File exportData() throws Exception {
+	public File exportData(boolean dataset1, boolean dataset2) throws Exception {
 
 		String tempPath = System.getProperty("java.io.tmpdir")
 				+ "informacija.pdf";
@@ -53,20 +55,36 @@ public class DataControllServiceImpl implements DataControllService {
 
 		writer = PdfWriter
 				.getInstance(document, new FileOutputStream(tempPath));
+
 		document.open();
-
-		String str[] = { "ClientName", "Tipas", "Status", "AssignedToDo", "ManagerToDo", "Registered", "SolveUntill", "Subject" };
-		String pav[] = { "Kliento Vardas", "Tipas", "Statusas", "Priskirtas", "Priskyrejas", "Registruotas", "Isspresti iki", "Tema" };
-		String base[] = { "String", "String", "String" , "String" , "String" , "Date", "Date", "String" };
-		float size[] = { 30f, 25f,25f,30f,30f,25f,25f,30f };
+		if(dataset1)
+		{		
 		
-		pdfgenerator.createOutPut("select c.Name as ClientName, CASE WHEN t.type = 0 THEN 'Užklausimas' ELSE 'Incidentas' END AS Tipas, CASE WHEN t.Status = 1 THEN 'Užregistruota' WHEN t.Status = 2 THEN 'Sprendžiama' WHEN t.Status = 3 THEN 'Išspręsta' WHEN t.Status = 4 THEN 'Grąžintas neišspręstas' WHEN t.Status = 5 THEN 'Atsisakyta spręsti' else '' END AS Status, CONCAT(e.Name ,' ' , e.Surname) as AssignedToDo, CONCAT(e2.Name ,' ' , e2.Surname) as ManagerToDo, t.Registered as Registered, t.SolveUntil as SolveUntill, t.Subject as Subject from task t JOIN taskAssignments ta ON t.Id = ta.TaskId JOIN client c ON c.Id = t.ClientId JOIN employee e ON e.Id = ta.ReceiverId JOIN employee e2 ON e2.Id = ta.AssigneeId WHERE (t.solveUntil <= current_date() and t.Solved = '0000-00-00') and ta.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", 8, str,base, size, pav, document, "Veluojantys kreipiniai");
-
+		pdfgenerator.createOutPut("select c.Name as ClientName, CASE WHEN t.type = 0 THEN 'Užklausimas' ELSE 'Incidentas' END AS Tipas, CASE WHEN t.Status = 1 THEN 'Užregistruota' WHEN t.Status = 2 THEN 'Sprendžiama' WHEN t.Status = 3 THEN 'Išspręsta' WHEN t.Status = 4 THEN 'Grąžintas neišspręstas' WHEN t.Status = 5 THEN 'Atsisakyta spręsti' else '' END AS Status, CONCAT(e.Name ,' ' , e.Surname) as AssignedToDo, CONCAT(e2.Name ,' ' , e2.Surname) as ManagerToDo, t.Registered as Registered, t.SolveUntil as SolveUntill, t.Subject as Subject from task t JOIN taskAssignments ta ON t.Id = ta.TaskId JOIN client c ON c.Id = t.ClientId JOIN employee e ON e.Id = ta.ReceiverId JOIN employee e2 ON e2.Id = ta.AssigneeId WHERE (t.solveUntil <= current_date() and t.Solved = '0000-00-00') and ta.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC",
+				8, 
+				new String[]{ "ClientName", "Tipas", "Status", "AssignedToDo", "ManagerToDo", "Registered", "SolveUntill", "Subject" },
+				new String[]{ "Kliento Vardas", "Tipas", "Statusas", "Priskirtas", "Priskyrejas", "Registruotas", "Isspresti iki", "Tema" }, 
+				new float[]{ 30f, 25f,25f,30f,30f,25f,25f,30f }, 
+				new String[]{ "Kliento Vardas", "Tipas", "Statusas", "Priskirtas", "Priskyrejas", "Registruotas", "Isspresti iki", "Tema" }, 
+				document, 
+				"Kreipiniai, kuriuose nebuvo laikomasi terminų.");
+		}
+		
+		if(dataset2)
+		{		
+		pdfgenerator.createOutPut("SELECT Username,Password,Case WHEN EmployeeId is not null THEN 'Darbuotojas' WHEN ClientId is not null THEN 'Klientas' WHEN DelegateId is not null THEN 'Atstovas' END AS Type FROM authentificationservice", 
+				3, 
+				new String[]{ "UserName", "Password", "Type"}, 
+				new String[]{ "String", "String", "String"}, 
+				new float[]{ 30f, 30f,25f }, 
+				new String[]{ "Naudotojo prisijungimo vardas", "Slaptažodis", "Vartotojo tipas"}, 
+				document, 
+				"Sistemos naudotojų informacija");
 		//pdfgenerator.createOutPut("select * from authentificationservice", 3, str,base, size, pav, document, "blablalb");
-
-		
+		}
+			
 		document.close();
-		
+
 		File f = new File(tempPath);
 		return f;
 	}

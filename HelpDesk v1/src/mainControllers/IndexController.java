@@ -2,6 +2,7 @@ package mainControllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Date;
 
 import model.Authentication;
 
@@ -42,6 +43,16 @@ public class IndexController extends SelectorComposer<Component> {
 	Button importFile;
 
 	Media media;
+	
+	static Date date = new Date();
+
+	public static Date getDate() {
+		return date;
+	}
+
+	public static void setDate(Date date) {
+		IndexController.date = date;
+	}
 
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
@@ -58,11 +69,11 @@ public class IndexController extends SelectorComposer<Component> {
 		DCS.importData(name);
 	}
 	
-	public File Export() throws Exception
+	public File Export(boolean dataset1, boolean dataset2) throws Exception
 	{
 		DataControllService DCS = new DataControllServiceImpl();
 		
-		return DCS.exportData();
+		return DCS.exportData(dataset1, dataset2);
 	}
 	
 	@Listen("onClick = #logOut")
