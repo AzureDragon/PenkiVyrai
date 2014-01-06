@@ -78,8 +78,8 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		resultSet2 = statement
-				.executeQuery("SELECT delegates.Id, delegates.ClientId, delegates.Name, delegates.Surname, delegates.Telephone , delegates.Mail, delegates.Active FROM employee WHERE employee.id="
-						+ u.getEmployeeId());
+				.executeQuery("SELECT delegates.Id, delegates.ClientId, delegates.Name, delegates.Surname, delegates.Telephone , delegates.Mail, delegates.Active FROM delegates WHERE delegates.Id="
+						+ u.getDelegateId());
 
 		while (resultSet2.next()) {
 			return Delegate.clone(new Delegate(u.getDelegateId(), resultSet2.getInt("ClientId"), resultSet
