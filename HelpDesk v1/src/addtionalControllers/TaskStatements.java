@@ -287,7 +287,13 @@ public class TaskStatements {
 
 	}
 	
-
+public int getLastTaskId () throws NumberFormatException, Exception{
+	int id;
+	id = Integer.parseInt(sql("SELECT max(Id) FROM task"));
+	System.out.println("Last Id" + id);
+	id++;
+	return id;
+}
 
 	public static void main(String args[]) throws Exception {
 
