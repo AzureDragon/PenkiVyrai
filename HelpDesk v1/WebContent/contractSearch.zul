@@ -45,10 +45,10 @@
 						label="Užregistruoti sutartį">
 						<attribute name="onClick">
 	{
-		final Window klientoRegistracija = (Window) Executions
-				.createComponents("clientRegistrationForm.zul", null, null);
-		klientoRegistracija.setMaximizable(true);
-		klientoRegistracija.doModal();
+		final Window contractRegistration = (Window) Executions
+				.createComponents("contractRegistrationForm.zul", null, null);
+		contractRegistration.setMaximizable(true);
+		contractRegistration.doModal();
 	}
 </attribute>
 					</button>

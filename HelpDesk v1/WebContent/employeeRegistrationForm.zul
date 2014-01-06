@@ -1,0 +1,64 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+
+
+
+<window id="clientRegistrationWindow" height="270px" width="500px">
+	
+	<vbox spacing="30px">
+		<groupbox title="Kliento registracija" mold="3d">
+			<grid>
+				<columns>
+					<column width="30%">  </column>
+					<column width="70%"> </column>
+				</columns>
+				<rows>
+					<row>
+						<label value="Vardas"></label>
+						<textbox id="name" width="100%"></textbox>
+					</row>
+					<row>
+						<label value="Pavardė"></label>
+						<textbox id="surname" width="100%"></textbox>
+					</row>
+					<row>
+						<label value="Rolė"></label>
+						<combobox width="100%" readonly="true">
+						<comboitem label="Administratorius"/>
+						<comboitem label="Vadovas"/>
+						<comboitem label="Inžinierius"/>
+						
+						</combobox>
+					</row>
+					<row>
+						<label value="Telefono numeris"></label>
+						<textbox id="phone" width="100%"></textbox>
+					</row>
+					<row>
+						<label value="El. pašto adresas"></label>
+						<textbox id="email" width="100%" ></textbox>
+					</row>
+				</rows>
+			</grid>
+
+		</groupbox>
+		<hbox>
+		<button id="createClientButton" label="Sukurti" width="100px"
+			top="">
+		</button>
+			<button id="cancelClientButton" onClick="clientRegistrationWindow.detach()" label="Atšaukti" width="100px"
+			top="">
+		</button>
+		</hbox>
+	</vbox>
+
+
+
+
+
+
+
+</window>

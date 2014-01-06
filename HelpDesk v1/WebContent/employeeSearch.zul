@@ -1,0 +1,103 @@
+<?page title="Darbuotojai" contentType="text/html;charset=UTF-8"?>
+<zk>
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8" title="Darbuotojai"
+?>
+<zk xmlns:n="native">
+	<include src="menu.zul" />
+	<style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; } .cg-title { font-weight: normal;
+		font-size: 26px; color: #008DB7; margin-bottom: 0;
+		padding-bottom: 0; } .cg-desc { margin-top: 0;
+		font-family: arial,sans-serif; font-size: small; font-weight:
+		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+		div.status { border: 0 none; } .status tr.z-grid-odd
+		td.z-row-inner, .status tr.z-grid-odd .z-cell, .status
+		tr.z-grid-odd { background: none; border: 0 none; }
+
+		.status .head { text-align : right; } .status .head span {
+		font-weight : bold; }
+	</style>
+	<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/client2.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Darbuotojai</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="employeeSearch.zul"
+					label="Darbuotojai" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>   
+	</groupbox>	
+	<groupbox sclass="main z-demo-config">
+		<caption label="Darbuotojai" />
+	
+		<vlayout spacing="15px">
+			<hbox
+			apply="mainControllers.EmployeeSearchController">
+				<toolbar>
+					Pavadinimas:
+					<textbox id="keywordBox" />
+					<button id="searchButton" label="Ieškoti"
+						image="/img/search.png" />
+
+					<button id="uzregistruotiKlientaButton"
+						label="Užregistruoti darbuotoją">
+						<attribute name="onClick">
+	{
+		final Window employeeRegistration = (Window) Executions
+				.createComponents("employeeRegistrationForm.zul", null, null);
+		employeeRegistration.setMaximizable(true);
+		employeeRegistration.doModal();
+	}
+</attribute>
+					</button>
+				</toolbar>
+				</hbox>
+		</vlayout>
+		<vlayout spacing="15px">
+			<listbox maxlength="8" id="employeeListbox"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Darbuotojų nerasta">
+
+				<listhead sizable="true">
+					<listheader label="Id" width="4%" />
+					<listheader label="Vardas" width="40%" />
+					<listheader label="Pavardė" />
+					<listheader label="Rolė" />
+					<listheader label="Telefonas" />
+					<listheader label="El. paštas" />
+		
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell label="${each.id}"></listcell>
+						<listcell height="20px" label="${each.firstName}"></listcell>
+						<listcell height="20px" label="${each.surName}"></listcell>
+						<listcell height="20px" label="${each.rights}"></listcell>
+						<listcell height="20px" label="${each.phone}"></listcell>
+						<listcell height="20px" label="${each.eMail}"></listcell>
+						
+				
+						
+
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+		
+	</groupbox>
+
+<include src="footer.zul"/>
+</zk>
+</zk>

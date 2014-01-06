@@ -1,0 +1,65 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+
+
+
+<window id="clientRegistrationWindow" height="270px" width="500px">
+
+	<vbox spacing="30px">
+		<groupbox title="Sutarties registracija" mold="3d">
+			<grid>
+				<columns>
+					<column width="30%"></column>
+					<column width="70%"></column>
+				</columns>
+				<rows>
+					<row>
+						<label value="Pavadinimas"></label>
+						<textbox id="name" width="100%"></textbox>
+					</row>
+					<row>
+						<label value="Sutarties kodas"></label>
+						<textbox id="Code" width="100%"></textbox>
+					</row>
+					<row>
+						<label value="Klientas"></label>
+						<combobox readonly="true" id="client" width="100%">
+							<template name="model">
+								<comboitem label="${each.name}">
+								</comboitem>
+							</template>
+						</combobox>
+					</row>
+					<row>
+						<label value="Galioja nuo"></label>
+						<datebox id="validFrom" width="100%"></datebox>
+					</row>
+					<row>
+						<label value="Galioja iki"></label>
+						<datebox id="validTo" width="100%"></datebox>
+					</row>
+				</rows>
+			</grid>
+
+		</groupbox>
+		<hbox>
+			<button id="createClientButton" label="Sukurti"
+				width="100px" top="">
+			</button>
+			<button id="cancelClientButton"
+				onClick="clientRegistrationWindow.detach()" label="Atšaukti"
+				width="100px" top="">
+			</button>
+		</hbox>
+	</vbox>
+
+
+
+
+
+
+
+</window>
