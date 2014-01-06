@@ -98,49 +98,19 @@ public class TaskRegistrationController extends
 				Authentication cre = authService.getUserCredential();
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = Clasifiers.getConnection();
-				System.out.println("INSERT INTO task values (" + "default,"
-						+ " '" + "1" + "'," + " " + " '"
-						+ todayDate.format(date)
-						+ "',"
-						+ " '"
-						+ issprestiIkiDate.format(issprestiIkiDateBox
-								.getValue())
-						+ "',"
-						+ " '"
-						+ null
-						+ "',"
-						+
-
-						" '"
-						+ null
-						+ "',"
-						+ " '"
-						+ null
-						+ "',"
-						+ " '"
-						+ Clasifiers.getReceiveSourceCode(gavimoBudas
-								.getValue())
-						+ "',"
-						+ " '"
-						+ aprasymas.getValue()
-						+ "',"
-						+ " '"
-						+ tema.getValue()
-						+ "',"
-						+ " '"
-						+ null
-						+ "',"
-						+ " '"
-						+ cre.getLoginName()
-						+ "',"
-						+ " '"
-						+ Clasifiers.getEmployeeIdByNameAndSurname(priskirti
-								.getValue())
-						+ "',"
-						+ " '"
-						+ Clasifiers.getClientIdByName(klientas.getValue())
-						+ "');");
-
+				preparedStatement = connect
+						.prepareStatement("INSERT INTO taskAssignments values ("
+								+ "default," 
+								+ " LAST_INSERT_ID(),"
+								+ " '"+ cre.getEmployeeId() + "',"
+								+ " '"+ Integer.parseInt(Clasifiers.getEmployeeIdByNameAndSurname(priskirti.getValue()))+ "',"
+								+ " '"+ todayDate.format(date)+ "',"
+								+ " '"+ "0000-00-00"+ "',"
+								+ " null,"
+								+ "'1',"
+								+ " null);");
+				
+				preparedStatement.executeUpdate();
 				preparedStatement = connect
 						.prepareStatement("INSERT INTO task values ("
 								+ "default," 
@@ -161,22 +131,10 @@ public class TaskRegistrationController extends
 								+ " '"+ tema.getValue()+ "');");
 				
 				preparedStatement.executeUpdate();
-				System.out.println("Ikeliau TASK");
 				
-				preparedStatement = connect
-						.prepareStatement("INSERT INTO taskAssignments values ("
-								+ "default," 
-								+ " LAST_INSERT_ID(),"
-								+ " '"+ cre.getEmployeeId() + "',"
-								+ " '"+ Integer.parseInt(Clasifiers.getEmployeeIdByNameAndSurname(priskirti.getValue()))+ "',"
-								+ " '"+ todayDate.format(date)+ "',"
-								+ " '"+ "0000-00-00"+ "',"
-								+ " null,"
-								+ "'1',"
-								+ " null);");
-
-				preparedStatement.executeUpdate();
-				System.out.println("IKELIAU TASK ASSIGNMENTS");
+				
+			
+			
 			} catch (Exception e) {
 				throw e;
 			} finally {
