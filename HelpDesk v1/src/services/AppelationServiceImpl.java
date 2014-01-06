@@ -49,6 +49,10 @@ public class AppelationServiceImpl implements AppelationService {
 
 	}
 
+	public AppelationServiceImpl() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private void writeResultSetByPaging(ResultSet resultSet, int currentPage) throws Exception {
 		// ResultSet is initially before the first data set
 		int i=15*currentPage;
@@ -146,6 +150,36 @@ public class AppelationServiceImpl implements AppelationService {
 	public void startTaskProgress(String taskId) throws Exception {
 		
 
+	}
+
+	public List<Task> search(String keyword, int employeeId) throws Exception {
+
+		PreparedStatement stmt;
+		ResultSet rs;
+		Connection conn;
+
+		List<Task> result = new LinkedList<Task>();
+		if (keyword == null || "".equals(keyword)) {
+			result = taskList;
+		} else {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = Clasifiers.getConnection();
+			// Do something with the Connection
+			stmt = conn
+					.prepareStatement("select * from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId WHERE ReceiverId="+employeeId+" AND taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				result.add(new Task(rs.getInt("Id"), rs.getString("Subject"),
+						rs.getString("Description"), Clasifiers.getTypeName(rs
+								.getInt("Type")), Clasifiers.getStatusName(rs
+								.getInt("Status")), Clasifiers
+								.getClientNameById(rs.getInt("ClientID")), rs
+								.getDate("Registered"),
+						rs.getInt("ReceiverId"), rs.getString("SolveUntil"), rs.getInt("AssigneeId")));
+			}
+		}
+
+		return result;
 	}
 
 }

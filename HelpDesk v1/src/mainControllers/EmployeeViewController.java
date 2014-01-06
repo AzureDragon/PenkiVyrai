@@ -2,12 +2,14 @@ package mainControllers;
 
 import model.Clasifiers;
 import model.Employee;
+import model.Task;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 
 import services.AppelationServiceImpl;
@@ -33,7 +35,8 @@ public class EmployeeViewController extends SelectorComposer<Component>{
 		role.setValue(Clasifiers.getRole(Integer.parseInt(employee.getRights2())));
 		phone.setValue(employee.getPhone());
 		email.setValue(employee.geteMail());
-	
+		AppelationServiceImpl ap = new AppelationServiceImpl();
+		employeeTasks.setModel(new ListModelList<Task>(ap.search(" ", Integer.parseInt(employeeId))));
 	};
 	
 	

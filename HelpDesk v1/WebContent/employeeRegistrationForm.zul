@@ -19,7 +19,13 @@ contentType="text/html;charset=UTF-8"
 				<rows>
 					<row>
 						<label value="Vardas"></label>
-						<textbox id="name" width="100%"></textbox>
+						<textbox id="name" constraint="no empty" width="100%">
+						<attribute name="onError">
+			
+				
+                          	createEmployee.setDisabled(true);
+			</attribute>
+						</textbox>
 					</row>
 					<row>
 						<label value="Pavardė"></label>
