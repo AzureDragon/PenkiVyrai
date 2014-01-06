@@ -6,122 +6,48 @@ contentType="text/html;charset=UTF-8"
 
 
 
-<window id="clientRegistrationWindow" height="450px" width="620px">
-	<zscript><![CDATA[
-	public void addComponent(int num, Class clazz, Grid grid) {
-		Textbox tb = clazz.newInstance();
-		tb.setWidth("100%");
-		Row row = new Row();
-
-		row.appendChild(new Label(""
-				+ (grid.getRows().getChildren().size() + 1)));
-		row.appendChild(tb);
-		grid.getRows().appendChild(row);
-
-		if (dynamicEmails.getRows().getChildren().size() == 5) {
-			addEmailButton.setDisabled(true);
-		}
-		if (dynamicPhones.getRows().getChildren().size() == 5) {
-			addPhoneButton.setDisabled(true);
-		}
-	}
-	public void deleteComponent(Row row, Class clazz) {
-		
+<window id="clientRegistrationWindow" height="270px" width="500px">
 	
-		
-		if (dynamicEmails.getRows().getChildren().size() == 0) 
-			deleteEmailButton.setDisabled(true); 
-		}
-		if (dynamicPhones.getRows().getChildren().size() == 0) 
-			deleteEmailButton.setDisabled(true); 
-		row.detach();
-
-	}
-	public void addTextbox(Grid grid) {
-		addComponent(grid.getRows().getChildren().size(), Textbox.class, grid);
-	}
-	public void deleteTextbox(Grid grid) {
-		deleteComponent(grid.getRows().getLastChild(), Textbox.class);
-		if (dynamicEmails.getRows().getChildren().size() != 5) {
-			addEmailButton.setDisabled(false);
-		}
-		if (dynamicPhones.getRows().getChildren().size() != 5) {
-			addPhoneButton.setDisabled(false);
-		}
-	}
-]]></zscript>
-
-
 	<vbox spacing="30px">
 		<groupbox title="Kliento registracija" mold="3d">
 			<grid>
 				<columns>
-					<column width="150px" />
-					<column />
+					<column width="30%">  </column>
+					<column width="70%"> </column>
 				</columns>
 				<rows>
 					<row>
 						<label value="Kliento pavadinimas"></label>
-						<textbox id="clientName" width="98%"></textbox>
+						<textbox id="clientName" width="100%"></textbox>
 					</row>
 					<row>
 						<label value="Kliento kodas"></label>
-						<textbox id="clientCode" width="98%"></textbox>
+						<textbox id="clientCode" width="100%"></textbox>
 					</row>
 					<row>
 						<label value="Kliento adresas"></label>
-						<textbox id="clientAddress" width="98%"></textbox>
+						<textbox id="clientAddress" width="100%" ></textbox>
+					</row>
+					<row>
+						<label value="Telefono numeris"></label>
+						<textbox id="phone" width="100%"></textbox>
+					</row>
+					<row>
+						<label value="El. pašto adresas"></label>
+						<textbox id="email" width="100%" ></textbox>
 					</row>
 				</rows>
 			</grid>
 
-			<groupbox title="Kontaktai">
-				<box orient="horizontal" spacing="20px">
-					<vbox>
-						<label value="El pašto adresai: " />
-						<grid id="dynamicEmails">
-							<columns>
-								<column width="30px" />
-								<column width="98%" />
-							</columns>
-							<rows />
-						</grid>
-						<box orient="horizontal">
-							<button id="addEmailButton"
-								label="Pridėti el. pašto adresą"
-								onClick="addTextbox(dynamicEmails);" />
-							<button id="deleteEmailButton" label="Ištrinti el pašto adresą"
-						
-								onClick="deleteTextbox(dynamicEmails)" />
-						</box>
-					</vbox>
-					<vbox>
-						<vbox>
-							<label value="Telefono numeriai " />
-							<grid id="dynamicPhones">
-								<columns>
-									<column width="30px" />
-									<column width="98%" />
-								</columns>
-								<rows />
-							</grid>
-						</vbox>
-
-						<box orient="horizontal">
-							<button id="addPhoneButton"
-								label="Pridėti telefono numerį"
-								onClick="addTextbox(dynamicPhones);" />
-							<button id="deletePhoneButton" label="Ištrinti telefono numerį"
-								onClick="deleteTextbox(dynamicPhones)" />
-						</box>
-					</vbox>
-				</box>
-			</groupbox>
 		</groupbox>
-
+		<hbox>
 		<button id="createClientButton" label="Sukurti" width="100px"
-			height="30px" top="">
+			top="">
 		</button>
+			<button id="cancelClientButton" onClick="clientRegistrationWindow.detach()" label="Atšaukti" width="100px"
+			top="">
+		</button>
+		</hbox>
 	</vbox>
 
 
