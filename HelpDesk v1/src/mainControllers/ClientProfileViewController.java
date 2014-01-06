@@ -106,7 +106,7 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 			statement.close();
 		}
 
-		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.");
+		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 50000, true);
 
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
@@ -116,7 +116,7 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 				+ "'");
 		statement.close();
 
-		Executions.sendRedirect("index.zul");
+	//	Executions.sendRedirect("index.zul");
 	}
 
 	@Listen("onClick=#reloadProfile")

@@ -86,7 +86,7 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 			statement.close();
 		}
 
-		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.");
+		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 50000, true);
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		statement.executeUpdate("UPDATE employee SET Name='"
@@ -94,7 +94,7 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 				+ "',EmailAddress='" + null + "',TelephoneNumber='"
 				+ null + "' WHERE id='" + user.getId() + "'");
 		statement.close();
-		Executions.sendRedirect("index.zul");
+	//	Executions.sendRedirect("index.zul");
 	}
 
 	@Listen("onClick=#reloadProfile")
