@@ -84,7 +84,7 @@ contentType="text/html;charset=UTF-8" title="Darbuotojai"
 						<listcell label="${each.id}"></listcell>
 						<listcell height="20px" label="${each.firstName}"></listcell>
 						<listcell height="20px" label="${each.surName}"></listcell>
-						<listcell height="20px" label="${each.rights}"></listcell>
+						<listcell height="20px" label="${each.rights2}"></listcell>
 						<listcell height="20px" label="${each.phone}"></listcell>
 						<listcell height="20px" label="${each.eMail}"></listcell>
 						

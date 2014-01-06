@@ -14,6 +14,15 @@ public class Employee implements Serializable,Cloneable {
         int rights;
         String eMail;
         String phone;
+        public String getRights2() {
+			return rights2;
+		}
+
+		public void setRights2(String rights2) {
+			this.rights2 = rights2;
+		}
+
+		String rights2;
 
 
 
@@ -26,11 +35,11 @@ public class Employee implements Serializable,Cloneable {
                 this.rights = rights;
         }
 
-    	public Employee(int id, int rights, String firstName, String surName,
+    	public Employee(int id, String rights2, String firstName, String surName,
     			String eMail, String phone) {
     		super();
     		this.id = id;
-    		this.rights = rights;
+    		this.rights2 = rights2;
     		this.firstName = firstName;
     		this.surName = surName;
             this.eMail = eMail;

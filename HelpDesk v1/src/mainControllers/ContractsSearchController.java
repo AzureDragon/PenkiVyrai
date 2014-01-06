@@ -19,6 +19,8 @@ import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 
+import addtionalControllers.TaskStatements;
+
 public class ContractsSearchController extends SelectorComposer<Component>{
 
 	private Connection connect = null;
@@ -36,11 +38,12 @@ public class ContractsSearchController extends SelectorComposer<Component>{
 
 	private void writeResultSet(ResultSet resultSet) throws Exception {
 		contractList = new LinkedList<Contract>();
+		TaskStatements ts = new TaskStatements();
 		while (resultSet.next()) {
 		
 			contractList.add(new Contract(
 					resultSet.getString("ContractNumber"), resultSet
-							.getString("Name"), resultSet.getInt("ClientId"),
+							.getString("Name"), ts.getClientName(resultSet.getInt("ClientId")),
 					resultSet.getDate("BeginTime"), resultSet
 							.getDate("EndTime")));
 		}

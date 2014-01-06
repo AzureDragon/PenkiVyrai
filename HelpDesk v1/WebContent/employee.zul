@@ -1,10 +1,59 @@
 <?page title="Darbuotojas" contentType="text/html;charset=UTF-8"?>
 <zk>
-<window title="Darbuotojas" apply="mainControllers.EmployeeViewController">
+<window  apply="mainControllers.EmployeeViewController">
 <label id="name"></label>
 <label id="surname"></label>
 <label id="role"></label>
 <label id="phone"></label>
 <label id="email"></label>
+
+<listbox maxlength="8" id="employeeTasks"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Kreipinių nerasta" mold="paging" pageSize="15">
+
+				<listhead sizable="true">
+					<listheader label="Nr" width="4%" />
+					<listheader label="Kreipinys" width="40%" />
+					<listheader label="Tipas" />
+					<listheader label="Būsena" />
+					<listheader label="Klientas" />
+					<listheader label="Užregistruota" />
+					<listheader label="Išspręsti iki" />
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell label="${each.id}"></listcell>
+						<listcell height="20px"
+							label="${each.subject}">
+						</listcell>
+						<listcell if="${each.type == 'Incidentas'}" image="img/inc.png" height="20px" label="${each.type}">
+						</listcell>
+						<listcell if="${each.type == 'Užklausimas'}" image="img/req.png" height="20px" label="${each.type}">
+						</listcell>
+						<listcell if="${each.status == 'Užregistruota'}" height="20px" image="img/u.png" label="${each.status}">
+						</listcell>
+						<listcell if="${each.status == 'Sprendžiama'}" height="20px" image="img/s.png" label="${each.status}">
+						</listcell>
+						<listcell if="${each.status == 'Išspręsta'}" height="20px" image="img/i.png" label="${each.status}">
+						</listcell>
+						<listcell if="${each.status == 'Grąžintas neišspręstas'}" height="20px" image="img/g.png" label="${each.status}">
+						</listcell>
+						<listcell if="${each.status == 'Atsisakyta spręsti'}" height="20px" image="img/a.png" label="${each.status}">
+						</listcell>																								
+						<listcell height="20px"
+							label="${each.clientId}">
+						</listcell>
+						<listcell height="20px"
+							label="${each.registered}">
+						</listcell>
+						<listcell height="20px"
+							label="${each.solveUntil}">
+						</listcell>
+
+					</listitem>
+				</template>
+			</listbox>
 </window>
 </zk>

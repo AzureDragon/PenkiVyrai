@@ -7,11 +7,13 @@ public class Contract {
 	int id;
 	String contractNumber;
 	String name;
-	int clientId;
+	String clientId;
+
+
 	Date beginTime;
 	Date endTime;
 
-	public Contract(String contractNumber, String name, int clientId,
+	public Contract(String contractNumber, String name, String clientId,
 			Date beginTime, Date endTime) {
 		super();
 		this.contractNumber = contractNumber;
@@ -45,13 +47,6 @@ public class Contract {
 		this.name = name;
 	}
 
-	public int getClientId() {
-		return clientId;
-	}
-
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
-	}
 
 	public Date getBeginTime() {
 		return beginTime;
@@ -68,5 +63,11 @@ public class Contract {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
+	public String getClientId() {
+		return clientId;
+	}
 
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
 }

@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import services.AuthenticationService;
-import services.AuthenticationServiceImpl;
-
 import model.Authentication;
 import model.Clasifiers;
+import model.Employee;
+import services.AuthenticationService;
+import services.AuthenticationServiceImpl;
 
 public class TaskStatements {
 
@@ -252,6 +252,29 @@ public String getContractIdByContractNumber (String number) throws Exception {
 				
 			}
 			return received;
+
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	public Employee getEmployee(int id) throws Exception {
+
+	
+		PreparedStatement stmt;
+		ResultSet rs;
+		Connection conn;
+		Employee employee = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = Clasifiers.getConnection();
+			// Do something with the Connection
+			stmt = conn.prepareStatement("Select * FROM employee WHERE Id=" +id + ";");
+			rs = stmt.executeQuery("Select * FROM employee WHERE Id=" +id + ";");
+			while (rs.next()) {
+				employee = new Employee(id, rs.getString("RoleId"),  rs.getString("Name"), rs.getString("Surname"), rs.getString("EmailAddress"), rs.getString("TelephoneNumber"));
+				
+			}
+			return employee;
 
 		} catch (Exception ex) {
 			throw ex;

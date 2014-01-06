@@ -14,6 +14,7 @@ import model.Client;
 import model.Employee;
 
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Components;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventQueue;
 import org.zkoss.zk.ui.event.Events;
@@ -77,6 +78,7 @@ public class TaskRegistrationController extends
 		employeeService = new EmployeeServiceImpl();
 		priskirti.setModel(new ListModelList<Employee>(employeeService
 				.getEmployeeList()));
+		
 		klientas.setModel(new ListModelList<Client>(getClientsList()));
 	}
 

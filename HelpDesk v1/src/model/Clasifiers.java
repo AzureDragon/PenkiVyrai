@@ -65,6 +65,41 @@ public class Clasifiers {
 			return 1;
 	}
 
+	public static int getRoleCode(String role) {
+		switch (role) {
+		case "Inžinierius":
+			return 1;
+		case "Administratorius":
+			return 2;
+		case "Vadovas":
+			return 3;
+		case "Svečias":
+			return 4;
+		case "Kliento atstovas":
+			return 5;
+		default:
+			return 6;
+		}
+	}
+	public static String getRole(int role) {
+		switch (role) {
+		case 1:
+			return "Inžinierius";
+		case 2:
+			return "Administratorius";
+		case 3:
+			return "Vadovas";
+		case 4:
+			return "Svečias";
+		case 5:
+			return "Kliento atstovas";
+		case 6:
+			return "Nenurodyta";
+		
+		default:
+			return "Klaida! toks statusas neegzistuoja";
+		}
+	}
 	public static String getStatusName(int status) {
 		switch (status) {
 		case 1:
@@ -111,6 +146,14 @@ public class Clasifiers {
 		}
 	}
 
+	public static String isNull (String tmp){
+		
+		if (tmp==null || tmp.equals("null")){
+			return "--";
+		} else {
+			return tmp;
+		}
+	}
 	public static String getReceiveSourceName (int receiveSource){
 		switch (receiveSource) {
 		case 1:

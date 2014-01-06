@@ -47,7 +47,7 @@
 						<attribute name="onClick">
 	{
 		final Window klientoRegistracija = (Window) Executions
-				.createComponents("clientRegistrationForm.zul", null, null);
+				.createComponents("serviceRegistrationForm.zul", null, null);
 		klientoRegistracija.setMaximizable(true);
 		klientoRegistracija.doModal();
 	}
