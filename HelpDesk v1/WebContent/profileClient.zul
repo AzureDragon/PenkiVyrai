@@ -1,12 +1,24 @@
-<?page 
-  xml="version="1.0" 
-  encoding="UTF-8""
-contentType="text/html;charset=UTF-8"
-?>
-
-<?link rel="stylesheet" type="text/css" href="/style.css"?>
-<window apply="mainControllers.ClientProfileViewController">
+<?page title="Klientas" contentType="text/html;charset=UTF-8" title="Profilis"?>
+<zk xmlns:n="native">
 <include src="menu.zul" />
+<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/profileBig.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Profilis</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="profileClient.zul"
+					label="Profilis" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>     
+            </groupbox>
+<hbox>
+<groupbox title="Kliento Informacija" apply="mainControllers.ClientProfileViewController">
     <vlayout>
         <grid width="500px">
             <columns>
@@ -74,14 +86,27 @@ contentType="text/html;charset=UTF-8"
                 </row>               
             </rows>
         </grid>
-            <vlayout spacing="15px">
+        <groupbox title="Valdymas">
+        <hlayout>
+            <button id="saveProfile" label="Išsaugoti"/>
+            <button id="reloadProfile" label="Atnaujinti"/>
+        </hlayout>
+        </groupbox>
+    </vlayout>
+</groupbox>
+<groupbox title="Atstovai" width="600px">
+           <vlayout spacing="15px">
 			<listbox maxlength="8" id="delegatesListbox"
 				sclass="z-listbox-autopaging" height="300px"
 				emptyMessage="Atstovų nerasta">
 
 				<listhead sizable="true">
+				    <listheader label="Id" width="20%" />
 					<listheader label="Vardas" width="20%" />
 					<listheader label="Pavardė" width="20%" />
+					<listheader label="Tel. Nr." width="20%" />
+					<listheader label="El. paštas" width="20%" />
+					<listheader label="Būsena" width="20%" />
 				</listhead>
 
 				<template name="model">
@@ -90,21 +115,14 @@ contentType="text/html;charset=UTF-8"
 						<listcell label="${each.id}"></listcell>
 						<listcell height="20px" label="${each.name}"></listcell>
 						<listcell height="20px" label="${each.code}"></listcell>
-						<listcell height="20px"
-							label="${each.address}">
-						</listcell>
-						
-
+						<listcell height="20px" label="${each.phone}"></listcell>
+						<listcell height="20px" label="${each.mail}"></listcell>
+						<listcell height="20px" label="${each.active}"></listcell>
 					</listitem>
 				</template>
 			</listbox>
 		</vlayout>
-        <div>Jūs koreaguojate <label id="nameLabel"/> profilį.</div>
-        <hlayout>
-            <button id="saveProfile" label="Išsaugoti"/>
-            <button id="reloadProfile" label="Atnaujinti"/>
-        </hlayout>
-    </vlayout>
-
-    <include src="footer.zul"/>
-</window>
+</groupbox>
+</hbox>		
+<include src="footer.zul"/>
+</zk>

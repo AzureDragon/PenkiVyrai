@@ -95,7 +95,7 @@ padding-bottom: 0;
 		</cell>
         -->
 		<toolbarbutton image="/img/time.png" href="timer.zul" label="Sistemos laikas: laikas" id="time" />           
-		<toolbarbutton image="/img/profile.png" label="Prisijungęs: ${sessionScope.Authentication.loginName}" id="profile">
+		<toolbarbutton image="/img/profile.png" label="Profilis" id="profile">
 		 <attribute name="onClick">
         <![CDATA[	
           mainControllers.IndexController ic = new mainControllers.IndexController();  

@@ -1,4 +1,4 @@
-<?link rel="stylesheet" type="text/css" href="/style.css"?>
+<?page title="Klientas" contentType="text/html;charset=UTF-8" title="Profilis"?>
 <zk xmlns:n="native">
 <include src="menu.zul" />
 <groupbox sclass="footerUp">
@@ -11,17 +11,18 @@
 				<a href="index.zul"
 					label="Pagrindinis" class="cg-down-title" />
 				»
-				<a href="profileEmployee.zul"
+				<a href="profileClient.zul"
 					label="Profilis" class="cg-down-title" />
 				</hbox>
 				</vbox>
 			</hbox>     
             </groupbox>
-<groupbox title="Darbuotojo informacija" apply="mainControllers.EmployeeProfileViewController">
+<hbox>
+<groupbox title="Kliento Informacija" apply="mainControllers.ClientProfileViewController">
     <vlayout>
         <grid width="500px">
             <columns>
-                <column align="right" width="150px"/>
+                <column align="right" hflex="min"/>
                 <column/>
             </columns>
             <rows>
@@ -48,33 +49,80 @@
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">Vardas :</cell>
+                    <cell sclass="row-title">Pavadinimas :</cell>
                     <cell>
-                        <textbox id="firstName"
-                        constraint="no empty: Iveskite vardą!" width="200px"/>
+                        <textbox id="Name"
+                        constraint="no empty: Iveskite pavadinimÄ…!" width="200px"/>
+                    </cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Kodas :</cell>
+                    <cell>
+                        <label id="Code" width="200px"/>
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">Pavardė :</cell>
+                    <cell sclass="row-title">Adresas :</cell>
                     <cell>
-                        <textbox id="lastName"
-                        constraint="no empty: Iveskite Pavardę!" width="200px"/>
+                        <textbox id="Address"
+                        constraint="no empty: Iveskite adresÄ…!" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">El. pašto adresai</cell>
+                    <cell id="cellGridMail">
+                        <textbox inplace="true" id="mails" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Telefono nuemriai :</cell>
+                    <cell id="cellGridPhone"> 
+                        <textbox id="phone" inplace="true" width="200px"/>
                     </cell>
                 </row>
                 <row>
                     <cell sclass="row-title">Teisės :</cell>
                     <cell><label id="rights"/></cell>
                 </row>               
-   
             </rows>
         </grid>
-        <groupbox title="Valdymas" width="500px">
+        <groupbox title="Valdymas">
         <hlayout>
             <button id="saveProfile" label="Išsaugoti"/>
             <button id="reloadProfile" label="Atnaujinti"/>
         </hlayout>
         </groupbox>
     </vlayout>
-    </groupbox>
-    <include src="footer.zul"/>
+</groupbox>
+<groupbox title="Atstovai" width="600px">
+           <vlayout spacing="15px">
+			<listbox maxlength="8" id="delegatesListbox"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Atstovų nerasta">
+
+				<listhead sizable="true">
+				    <listheader label="Id" width="20%" />
+					<listheader label="Vardas" width="20%" />
+					<listheader label="Pavardė" width="20%" />
+					<listheader label="Tel. Nr." width="20%" />
+					<listheader label="El. paštas" width="20%" />
+					<listheader label="Būsena" width="20%" />
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell label="${each.id}"></listcell>
+						<listcell height="20px" label="${each.name}"></listcell>
+						<listcell height="20px" label="${each.code}"></listcell>
+						<listcell height="20px" label="${each.phone}"></listcell>
+						<listcell height="20px" label="${each.mail}"></listcell>
+						<listcell height="20px" label="${each.active}"></listcell>
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
+</groupbox>
+</hbox>		
+<include src="footer.zul"/>
 </zk>
