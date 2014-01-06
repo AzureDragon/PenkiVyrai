@@ -10,6 +10,11 @@ public class Service {
 		this.incidentTime = incidentTime;
 		this.requestTime = requestTime;
 	}
+	public Service(String name) {
+		super();
+		this.name = name;
+	
+	}
 	int id;
 	String name;
 	String serviceCode;

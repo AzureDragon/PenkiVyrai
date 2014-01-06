@@ -71,19 +71,20 @@ public class ContractsSearchController extends SelectorComposer<Component>{
 	
 	@Listen("onClick = #searchButton")
 	public void search() throws Exception{
-		
-		contractsListbox.setModel(new ListModelList<Contract>(getContractList()));
+		ContractsSearchController cs = new ContractsSearchController();
+		contractsListbox.setModel(new ListModelList<Contract>(cs.getContractList()));
 		String keyword = keywordBox.getValue();
-		List<Contract> result = search(keyword);
+		List<Contract> result = cs.search(keyword);
 		contractsListbox.setModel(new ListModelList<Contract>(result));
 	}
-	
 	@Listen("onSelect = #contractsListbox")
 	public void openClientView() throws Exception {
 		
-			Client selectedClient =  contractsListbox.getSelectedItem().getValue();
-			Executions.sendRedirect("client.zul?id=" + selectedClient.getId());
+			Contract selectedContract =  contractsListbox.getSelectedItem().getValue();
+			Executions.sendRedirect("contract.zul?contract=" + selectedContract.getContractNumber());
 
 	}
+	
+
 
 }

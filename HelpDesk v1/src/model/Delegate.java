@@ -12,9 +12,10 @@ public class Delegate implements Serializable,Cloneable{
 	String mail;
 	int rights;
 	boolean active;
+	String active2;
 	
 	
-	
+
 	public Delegate(int iD, int clientID, String firstName, String lastName,
 			String phone, String mail, boolean active, int rights) {
 		super();
@@ -26,6 +27,15 @@ public class Delegate implements Serializable,Cloneable{
 		this.mail = mail;
 		this.active = active;
 		this.rights = rights;
+	}
+	public Delegate(String firstName, String lastName,
+			String phone, String mail, String active2) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.mail = mail;
+		this.active2 = active2;
 	}
 	
 	public int getRights() {
@@ -89,4 +99,10 @@ public class Delegate implements Serializable,Cloneable{
         return null;
 }
 	
+	public String getActive2() {
+		return active2;
+	}
+	public void setActive2(String active2) {
+		this.active2 = active2;
+	}
 }

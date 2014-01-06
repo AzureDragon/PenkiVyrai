@@ -17,8 +17,8 @@
 				</vbox>
 			</hbox>     
             </groupbox>
-<hbox>
-<groupbox title="Kliento Informacija" apply="mainControllers.ClientProfileViewController">
+<hbox apply="mainControllers.ClientProfileViewController">
+<groupbox title="Kliento Informacija" >
     <vlayout>
         <grid width="500px">
             <columns>
@@ -90,7 +90,7 @@
 				emptyMessage="Atstovų nerasta">
 
 				<listhead sizable="true">
-				    <listheader label="Id" width="5%" />
+			
 					<listheader label="Vardas" width="20%" />
 					<listheader label="Pavardė" width="20%" />
 					<listheader label="Tel. Nr." width="20%" />
@@ -101,12 +101,11 @@
 				<template name="model">
 					<listitem context="msg" height="5px"
 						sclass="z-listbox-autopaging">
-						<listcell label="${each.id}"></listcell>
-						<listcell height="20px" label="${each.name}"></listcell>
-						<listcell height="20px" label="${each.code}"></listcell>
+						<listcell height="20px" label="${each.firstName}"></listcell>
+						<listcell height="20px" label="${each.lastName}"></listcell>
 						<listcell height="20px" label="${each.phone}"></listcell>
 						<listcell height="20px" label="${each.mail}"></listcell>
-						<listcell height="20px" label="${each.active}"></listcell>
+						<listcell height="20px" label="${each.active2}"></listcell>
 					</listitem>
 				</template>
 			</listbox>

@@ -6,7 +6,7 @@ contentType="text/html;charset=UTF-8"
 
 
 
-<window id="clientRegistrationWindow" height="270px" width="500px">
+<window id="clientRegistrationWindow" apply="mainControllers.ContractRegistrationController" height="400px" width="500px">
 
 	<vbox spacing="30px">
 		<groupbox title="Sutarties registracija" mold="3d">
@@ -22,7 +22,7 @@ contentType="text/html;charset=UTF-8"
 					</row>
 					<row>
 						<label value="Sutarties kodas"></label>
-						<textbox id="Code" width="100%"></textbox>
+						<textbox id="code" width="100%"></textbox>
 					</row>
 					<row>
 						<label value="Klientas"></label>
@@ -46,17 +46,20 @@ contentType="text/html;charset=UTF-8"
 
 		</groupbox>
 		<hbox>
-			<button id="createClientButton" label="Sukurti"
+			<button id="createContractButton" label="Sukurti"
 				width="100px" top="">
 			</button>
-			<button id="cancelClientButton"
+			<button id="cancelContractButton"
 				onClick="clientRegistrationWindow.detach()" label="Atšaukti"
 				width="100px" top="">
 			</button>
 		</hbox>
 	</vbox>
+<grid id="paslaugos"><rows /></grid>
 
 
+
+Norėdami sutarčiai nurodyti paslaugas, tai galite padaryti detalioje peržiūroje.
 
 
 

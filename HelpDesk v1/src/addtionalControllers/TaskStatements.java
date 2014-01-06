@@ -33,6 +33,44 @@ public class TaskStatements {
 
 	}
 	
+	public String getContractName (String contractNumber) throws Exception {
+		
+		
+		return sql("SELECT Name FROM contract WHERE ContractNumber ='" + contractNumber+ "'");
+		
+	}
+	
+	public String getContractClient (String contractNumber) throws Exception {
+		
+		
+		return sql("SELECT ClientId FROM contract WHERE ContractNumber ='" + contractNumber+ "'");
+		
+	}
+public String getServiceIdByName (String name) throws Exception {
+		
+		
+		return sql("SELECT id FROM service WHERE Name ='" + name+ "'");
+		
+	}
+public String getContractIdByContractNumber (String number) throws Exception {
+	
+	
+	return sql("SELECT id FROM contract WHERE ContractNumber ='" + number+ "'");
+	
+}
+
+
+	public String getContractBeginTime (String contractNumber) throws Exception {
+		
+		return sql("SELECT BeginTime FROM contract WHERE ContractNumber ='" + contractNumber+ "'");
+		
+	}
+	public String getContractEndTime (String contractNumber) throws Exception {
+		
+		return sql("SELECT EndTime FROM contract WHERE ContractNumber ='" + contractNumber+ "'");
+		
+	}
+	
 	public String getTaskStatus(String Id) throws Exception {
 
 		String tekstas = "";
