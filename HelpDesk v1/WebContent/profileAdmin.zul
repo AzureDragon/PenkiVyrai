@@ -1,0 +1,116 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="new page title" border="normal">
+<groupbox>
+
+<button label="Ištrinti duombazės duomenis">
+   <attribute name="onClick">
+        <![CDATA[	
+          services.DataControllServiceImpl dataControll = new services.DataControllServiceImpl();
+			dataControll.clearDB();
+          ]]>
+      </attribute>
+
+
+</button>
+  <button label="Importuoti duombaze" upload="true,maxsize=300">
+      <attribute name="onUpload">
+        <![CDATA[
+          org.zkoss.util.media.Media media = event.getMedia();
+          java.io.File myFile = new java.io.File(media.getName());
+          mainControllers.IndexController ic = new mainControllers.IndexController();          
+          ic.ImportDataBase(myFile.getAbsolutePath());
+        ]]>
+      </attribute>
+    </button>
+	</groupbox>		
+	
+	    <vlayout>
+	    Kurią informaciją norite eksportuoti?
+        <checkbox id="l1" label="Kreipiniai, kuriuose nebuvo laikomasi terminų." onCheck="doChecked()" />
+        <checkbox id="l2" label="Sistemos naudotojų informacija." onCheck="doChecked()" />
+        <checkbox id="l3" label="3 ataskaita" onCheck="doChecked()" />
+        <checkbox id="l4" label="4 ataskaita" onCheck="doChecked()" />
+        <checkbox id="l5" label="5 ataskaita" onCheck="doChecked()" />
+        <separator />
+        <hlayout>
+            paspaudus eksportuoti bus eksportuojama :
+            <label id="layout" />
+        </hlayout>
+        <zscript><![CDATA[
+            void doChecked() {
+                layout.value = (l1.isChecked() ? l1.label+' ' : "") 
+                    + (l2.isChecked() ? l2.label+' ' : "")
+                    + (l3.isChecked() ? l3.label+' ' : "")
+                    + (l4.isChecked() ? l4.label+' ' : "")
+                    + (l5.isChecked() ? l5.label+' ' : "");
+            }
+        ]]></zscript>
+    </vlayout>
+          <button label="eksportuoti">
+      <attribute name="onClick">
+        <![CDATA[	
+          mainControllers.IndexController ic = new mainControllers.IndexController();  
+if(l1.isChecked() || l2.isChecked())
+          if(ic.Export(l1.isChecked(), l2.isChecked()).exists()) { Filedownload.save(ic.Export(l1.isChecked(), l2.isChecked()) ,"null"); }
+          else
+          	System.out.print("Neegzistuoja\n");
+else
+	Clients.showNotification("Nepasirinkta jokia ataskaita.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 50000, true);
+
+		  
+        ]]>
+      </attribute>
+    </button>
+
+</window>	            
+
+<datebox id="db2" cols="12" format="medium" onCreate="self.value = new Date()">
+              <attribute name="onChange">
+        <![CDATA[	
+Runtime rt = Runtime.getRuntime();
+rt.exec("runas /profile /user:Administrator \"cmd.exe /c Powrprof.dll,SetSuspendState\"");
+rt.exec("cmd /C date 19-02-17");
+
+            
+              //   System.out.println( d ); 
+//          System.out.print((db2.getValue().getTime()+tb2.getValue().getTime())+"\n");
+//          System.currentTimeMillis((db2.getValue().getTime()+tb2.getValue().getTime()));
+//          System.
+        ]]>
+      </attribute>
+      </datebox>
+            <timebox id="tb2" cols="12" format="medium" onCreate="self.value = new Date()">
+              <attribute name="onChange">
+        <![CDATA[	
+try {
+    // Execute command
+    String command = "cmd /c start cmd.exe";
+    Process child = Runtime.getRuntime().exec(command);
+
+    // Get output stream to write from it
+    OutputStream out = child.getOutputStream();
+
+    out.write("cd C:/ /r/n".getBytes());
+    out.flush();
+    out.write("dir /r/n".getBytes());
+    out.close();
+} catch (IOException e) {
+}
+        ]]>
+      </attribute>
+            </timebox>
+            
+            <timer id="timer2" delay="1000" repeats="true">
+    <attribute name="onTimer">
+ Locale locale = org.zkoss.util.Locales.getCurrent();
+ java.text.DateFormat dateFormat = java.text.DateFormat.getDateTimeInstance(
+   java.text.DateFormat.MEDIUM, java.text.DateFormat.MEDIUM, locale);
+ String strTime = dateFormat.format(java.util.Calendar.getInstance(locale)
+   .getTime());
+ timer.setValue(strTime);
+</attribute>
+   </timer>
+<label id="timer" width="33%" />
+kazkas as neveikiu
+</zk>
