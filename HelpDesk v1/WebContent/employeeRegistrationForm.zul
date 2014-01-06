@@ -30,8 +30,8 @@ contentType="text/html;charset=UTF-8"
 						<comboitem label="Administratorius"/>
 						<comboitem label="Vadovas"/>
 						<comboitem label="Inžinierius"/>
-						
 						</combobox>
+						
 					</row>
 					<row>
 						<label value="Telefono numeris"></label>
