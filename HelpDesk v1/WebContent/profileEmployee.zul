@@ -62,19 +62,6 @@
                     </cell>
                 </row>
                 <row>
-                    <cell sclass="row-title">Elektroninis paštas :</cell>
-                    <cell>
-                        <textbox id="eMail"
-                        constraint="/.+@.+\.[a-z]+/: Iveskite elektroninio pašto adresą" width="200px"/>
-                    </cell>
-                </row>
-                <row>
-                    <cell sclass="row-title">Telefono numeris :</cell>
-                    <cell>
-                        <textbox id="phone"/>
-                    </cell>
-                </row>
-                <row>
                     <cell sclass="row-title">Teisės :</cell>
                     <cell><label id="rights"/></cell>
                 </row>               

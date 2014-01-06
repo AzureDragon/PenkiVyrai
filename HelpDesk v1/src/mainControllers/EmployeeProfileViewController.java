@@ -43,10 +43,6 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 	Textbox newRepPassword;
 	@Wire
 	Label rights;
-	@Wire
-	Textbox eMail;
-	@Wire
-	Textbox phone;
 
 	// services
 	AuthenticationService authService = new AuthenticationServiceImpl();
@@ -73,8 +69,6 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 
 		user.setFirstName(firstName.getValue());
 		user.setSurName(lastName.getValue());
-		user.seteMail(eMail.getValue());
-		user.setPhone(phone.getValue());
 
 		if (!(oldPassword.getValue().isEmpty())) {
 			if ((oldPassword.getValue().equals(cre.getPassword()))
@@ -97,8 +91,8 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 		statement = connect.createStatement();
 		statement.executeUpdate("UPDATE employee SET Name='"
 				+ firstName.getValue() + "',Surname='" + lastName.getValue()
-				+ "',EmailAddress='" + eMail.getValue() + "',TelephoneNumber='"
-				+ phone.getValue() + "' WHERE id='" + user.getId() + "'");
+				+ "',EmailAddress='" + null + "',TelephoneNumber='"
+				+ null + "' WHERE id='" + user.getId() + "'");
 		statement.close();
 		Executions.sendRedirect("index.zul");
 	}
@@ -125,8 +119,6 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 		account.setValue(cre.getLoginName());
 		firstName.setValue(user.getFirstName());
 		lastName.setValue(user.getSurName());
-		eMail.setValue(user.geteMail());
-		phone.setValue(user.getPhone());
 		rights.setValue(userInfoService.rightsValue(user.getRights()));
 
 	}
