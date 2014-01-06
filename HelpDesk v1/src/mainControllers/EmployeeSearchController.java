@@ -44,9 +44,9 @@ public class EmployeeSearchController extends SelectorComposer<Component> {
 		     	
 		    	employeeList.add(new Employee(
 		    			resultSet.getInt("Id"),
-		    			resultSet.getInt("RoleId"),
+		    			Clasifiers.getRole(resultSet.getInt("RoleId")),
 		    			resultSet. getString("Name"),
-		    			resultSet.getString("Surname"), resultSet.getString("EmailAddress"), resultSet.getString("TelephoneNumber")));
+		    			resultSet.getString("Surname"), Clasifiers.isNull(resultSet.getString("EmailAddress")), Clasifiers.isNull(resultSet.getString("TelephoneNumber"))));
 		    }
 	}
 	public List<Employee> search(String keyword){
@@ -86,7 +86,8 @@ public class EmployeeSearchController extends SelectorComposer<Component> {
 		
 			Employee selectedEmployee =  employeeListbox.getSelectedItem().getValue();
 			Executions.sendRedirect("employee.zul?id=" + selectedEmployee.getId());
-
+			
 	}
 
+	
 }
