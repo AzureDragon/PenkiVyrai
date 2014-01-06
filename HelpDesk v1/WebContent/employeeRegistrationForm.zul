@@ -6,10 +6,10 @@ contentType="text/html;charset=UTF-8"
 
 
 
-<window id="clientRegistrationWindow" height="270px" width="500px">
+<window id="employeeRegistrationWindow" height="270px" width="500px" apply="mainControllers.EmployeeRegistrationController">
 	
 	<vbox spacing="30px">
-		<groupbox title="Kliento registracija" mold="3d">
+		<groupbox title="Darbuotojo registracija" mold="3d">
 			<grid>
 				<columns>
 					<column width="30%">  </column>
@@ -26,10 +26,11 @@ contentType="text/html;charset=UTF-8"
 					</row>
 					<row>
 						<label value="Rolė"></label>
-						<combobox width="100%" readonly="true">
+						<combobox id="role" width="100%" readonly="true">
 						<comboitem label="Administratorius"/>
 						<comboitem label="Vadovas"/>
 						<comboitem label="Inžinierius"/>
+						
 						</combobox>
 						
 					</row>
@@ -46,7 +47,7 @@ contentType="text/html;charset=UTF-8"
 
 		</groupbox>
 		<hbox>
-		<button id="createClientButton" label="Sukurti" width="100px"
+		<button id="createEmployee" label="Sukurti" width="100px"
 			top="">
 		</button>
 			<button id="cancelClientButton" onClick="clientRegistrationWindow.detach()" label="Atšaukti" width="100px"
