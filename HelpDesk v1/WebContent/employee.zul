@@ -1,0 +1,10 @@
+<?page title="Darbuotojas" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Darbuotojas" apply="mainControllers.EmployeeViewController">
+<label id="name"></label>
+<label id="surname"></label>
+<label id="role"></label>
+<label id="phone"></label>
+<label id="email"></label>
+</window>
+</zk>
