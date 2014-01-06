@@ -26,6 +26,8 @@ import org.zkoss.zul.Datebox;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Textbox;
 
+import addtionalControllers.TaskStatements;
+
 import services.AuthenticationService;
 import services.AuthenticationServiceImpl;
 import services.EmployeeService;
@@ -96,12 +98,14 @@ public class TaskRegistrationController extends
 						"yyyy/MM/dd HH:mm");
 				AuthenticationService authService = new AuthenticationServiceImpl();
 				Authentication cre = authService.getUserCredential();
+				TaskStatements ts =  new TaskStatements ();
+				int ID = ts.getLastTaskId();
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = Clasifiers.getConnection();
 				preparedStatement = connect
 						.prepareStatement("INSERT INTO taskAssignments values ("
 								+ "default," 
-								+ " LAST_INSERT_ID(),"
+								+ " '"+ ID +"',"
 								+ " '"+ cre.getEmployeeId() + "',"
 								+ " '"+ Integer.parseInt(Clasifiers.getEmployeeIdByNameAndSurname(priskirti.getValue()))+ "',"
 								+ " '"+ todayDate.format(date)+ "',"
@@ -113,7 +117,7 @@ public class TaskRegistrationController extends
 				preparedStatement.executeUpdate();
 				preparedStatement = connect
 						.prepareStatement("INSERT INTO task values ("
-								+ "default," 
+								+ " '"+ ID +"'," 
 								+ " '"+ Integer.parseInt(Clasifiers.getClientIdByName(klientas.getValue())) + "',"
 								+ "'1'," 
 								+ " '"+ Clasifiers.getTypeCode(tipas.getValue()) + "',"

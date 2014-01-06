@@ -79,7 +79,10 @@ public class EmployeeController extends SelectorComposer<Component> {
 							+ " null,"
 							+ "'2',"
 							+ " null);");
-			
+			preparedStatement.executeUpdate();
+			preparedStatement = connect
+					.prepareStatement("UPDATE task SET Id="+ kreipinys.getId() +" WHERE Id = "+ kreipinys.getId() +" ;");
+			preparedStatement.executeUpdate();
 			/*preparedStatement = connect
 					.prepareStatement("UPDATE task SET ReceiverId ="
 							+ Clasifiers
