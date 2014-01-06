@@ -5,8 +5,11 @@ import model.Client;
 import model.Delegate;
 import model.Employee;
 
-public interface UserInfoService {
 
+
+	public interface UserInfoService {
+
+		public Client findClientByID(int id) throws Exception;
 	/**
 	 * find user by account
 	 * 

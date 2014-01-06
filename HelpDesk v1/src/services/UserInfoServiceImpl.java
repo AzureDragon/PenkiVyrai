@@ -108,6 +108,26 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 
 		return null;
 	}
+	
+	public synchronized Client findClientByID(int id) throws Exception {
+
+		connect = Clasifiers.getConnection();
+		statement = connect.createStatement();
+		resultSet2 = statement
+				.executeQuery("SELECT client.Name, client.Address, client.Code, client.Mails, client.Phones FROM client WHERE client.id="
+						+ id);
+
+		while (resultSet2.next()) {
+			return Client.clone(new Client(id, resultSet2
+					.getString("Name"), resultSet2.getString("Code"),
+					resultSet2.getString("Address"), getMail(resultSet2
+							.getString("Mails")), getPhone(resultSet2
+							.getString("Phones")), 6));
+		}
+		statement.close();
+
+		return null;
+	}
 
 	public Vector<String> getPhone(String Phones) throws Exception {
 		

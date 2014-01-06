@@ -74,11 +74,37 @@ contentType="text/html;charset=UTF-8"
                 </row>               
             </rows>
         </grid>
+            <vlayout spacing="15px">
+			<listbox maxlength="8" id="delegatesListbox"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Atstovų nerasta">
+
+				<listhead sizable="true">
+					<listheader label="Vardas" width="20%" />
+					<listheader label="Pavardė" width="20%" />
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell label="${each.id}"></listcell>
+						<listcell height="20px" label="${each.name}"></listcell>
+						<listcell height="20px" label="${each.code}"></listcell>
+						<listcell height="20px"
+							label="${each.address}">
+						</listcell>
+						
+
+					</listitem>
+				</template>
+			</listbox>
+		</vlayout>
         <div>Jūs koreaguojate <label id="nameLabel"/> profilį.</div>
         <hlayout>
             <button id="saveProfile" label="Išsaugoti"/>
             <button id="reloadProfile" label="Atnaujinti"/>
         </hlayout>
     </vlayout>
+
     <include src="footer.zul"/>
 </window>

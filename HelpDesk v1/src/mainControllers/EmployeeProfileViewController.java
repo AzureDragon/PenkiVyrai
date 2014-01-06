@@ -47,8 +47,6 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 	Textbox eMail;
 	@Wire
 	Textbox phone;
-	@Wire
-	Label nameLabel;
 
 	// services
 	AuthenticationService authService = new AuthenticationServiceImpl();
@@ -94,8 +92,6 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 			statement.close();
 		}
 
-		nameLabel.setValue(firstName.getValue());
-
 		Clients.showNotification("Jusų profilis atnaujintas.");
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
@@ -133,6 +129,5 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 		phone.setValue(user.getPhone());
 		rights.setValue(userInfoService.rightsValue(user.getRights()));
 
-		nameLabel.setValue(user.getFirstName());
 	}
 }

@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Cell;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Textbox;
 
 import services.AuthenticationService;
@@ -57,6 +58,8 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 	Cell cellGridMail, cellGridPhone;
 	@Wire
 	Textbox mails, phone;
+	@Wire
+	Listbox delegatesListbox;
 
 	// services
 	AuthenticationService authService = new AuthenticationServiceImpl();
@@ -169,6 +172,8 @@ System.out.print("LABAS");
 			phone.setValue(client.getPhone().elementAt(i));
 			addComponentPhone();
 		}
+		
+		//delegatesListbox.
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

@@ -3,6 +3,7 @@ package services;
 import java.io.Serializable;
 
 import model.Authentication;
+import model.Delegate;
 
 import org.zkoss.zk.ui.Session;
 import org.zkoss.zk.ui.Sessions;

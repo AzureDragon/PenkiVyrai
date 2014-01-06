@@ -64,7 +64,6 @@
    
             </rows>
         </grid>
-        <div>Jūs koreaguojate <label id="nameLabel"/> profilį.</div>
         <hlayout>
             <button id="saveProfile" label="Išsaugoti"/>
             <button id="reloadProfile" label="Atnaujinti"/>
