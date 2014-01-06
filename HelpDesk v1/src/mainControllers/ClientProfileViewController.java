@@ -94,6 +94,7 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 			if ((oldPassword.getValue().equals(cre.getPassword()))
 					&& (newPassword.getValue().equals(newRepPassword))
 					&& !(newPassword.getValue().isEmpty()))
+			{
 				cre.setPassword(newPassword.getValue());
 
 			connect = Clasifiers.getConnection();
@@ -104,6 +105,7 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 							+ "' WHERE id='"
 							+ cre.getId() + "'");
 			statement.close();
+			}
 		}
 
 		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 50000, true);
