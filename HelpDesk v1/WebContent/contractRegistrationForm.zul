@@ -5,11 +5,17 @@ contentType="text/html;charset=UTF-8"
 ?>
 
 
-
-<window id="clientRegistrationWindow" apply="mainControllers.ContractRegistrationController" height="400px" width="500px">
+<zk xmlns:n="native">
+<window id="clientRegistrationWindow" apply="mainControllers.ContractRegistrationController" height="330px" width="500px">
 
 	<vbox spacing="30px">
 		<groupbox title="Sutarties registracija" mold="3d">
+		<groupbox title="Pastaba">
+		<hbox><image src="/img/miniinfo.png"></image>
+		<n:small>Sutarčiai nurodyti paslaugas galite detalioje peržiūroje.</n:small>
+		</hbox>
+		</groupbox>
+		<groupbox title="Forma">
 			<grid>
 				<columns>
 					<column width="30%"></column>
@@ -43,8 +49,8 @@ contentType="text/html;charset=UTF-8"
 					</row>
 				</rows>
 			</grid>
-
-		</groupbox>
+        </groupbox>
+        <groupbox title="Veiksmai">
 		<hbox>
 			<button id="createContractButton" label="Sukurti"
 				width="100px" top="">
@@ -54,15 +60,8 @@ contentType="text/html;charset=UTF-8"
 				width="100px" top="">
 			</button>
 		</hbox>
+		</groupbox>
+		</groupbox>
 	</vbox>
-<grid id="paslaugos"><rows /></grid>
-
-
-
-Norėdami sutarčiai nurodyti paslaugas, tai galite padaryti detalioje peržiūroje.
-
-
-
-
-
 </window>
+</zk>
