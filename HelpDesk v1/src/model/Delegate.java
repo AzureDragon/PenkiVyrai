@@ -1,6 +1,8 @@
 package model;
 
-public class Delegate {
+import java.io.Serializable;
+
+public class Delegate implements Serializable,Cloneable{
 
 	int ID;
 	int clientID;
@@ -78,6 +80,7 @@ public class Delegate {
 	}
 
     public static Delegate clone(Delegate user){
+
         try {
                 return (Delegate)user.clone();
         } catch (CloneNotSupportedException e) {

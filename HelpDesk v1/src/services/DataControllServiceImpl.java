@@ -55,14 +55,14 @@ public class DataControllServiceImpl implements DataControllService {
 				.getInstance(document, new FileOutputStream(tempPath));
 		document.open();
 
-		String str[] = { "Id", "Username", "Password" };
-		String pav[] = { "Numeris", "Vartotojo Vardas", "Slaptazodis" };
-		String base[] = { "Int", "String", "String" };
-		float size[] = { 10f, 30f, 30f };
+		String str[] = { "ClientName", "Tipas", "Status", "AssignedToDo", "ManagerToDo", "Registered", "SolveUntill", "Subject" };
+		String pav[] = { "Kliento Vardas", "Tipas", "Statusas", "Priskirtas", "Priskyrejas", "Registruotas", "Isspresti iki", "Tema" };
+		String base[] = { "String", "String", "String" , "String" , "String" , "Date", "Date", "String" };
+		float size[] = { 30f, 25f,25f,30f,30f,25f,25f,30f };
 		
-		pdfgenerator.createOutPut("select * from authentificationservice", 3, str,base, size, pav, document, "Informaija apie prisijungimus");
+		pdfgenerator.createOutPut("select c.Name as ClientName, CASE WHEN t.type = 0 THEN 'Užklausimas' ELSE 'Incidentas' END AS Tipas, CASE WHEN t.Status = 1 THEN 'Užregistruota' WHEN t.Status = 2 THEN 'Sprendžiama' WHEN t.Status = 3 THEN 'Išspręsta' WHEN t.Status = 4 THEN 'Grąžintas neišspręstas' WHEN t.Status = 5 THEN 'Atsisakyta spręsti' else '' END AS Status, CONCAT(e.Name ,' ' , e.Surname) as AssignedToDo, CONCAT(e2.Name ,' ' , e2.Surname) as ManagerToDo, t.Registered as Registered, t.SolveUntil as SolveUntill, t.Subject as Subject from task t JOIN taskAssignments ta ON t.Id = ta.TaskId JOIN client c ON c.Id = t.ClientId JOIN employee e ON e.Id = ta.ReceiverId JOIN employee e2 ON e2.Id = ta.AssigneeId WHERE (t.solveUntil <= current_date() and t.Solved = '0000-00-00') and ta.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC", 8, str,base, size, pav, document, "Veluojantys kreipiniai");
 
-		pdfgenerator.createOutPut("select * from authentificationservice", 3, str,base, size, pav, document, "blablalb");
+		//pdfgenerator.createOutPut("select * from authentificationservice", 3, str,base, size, pav, document, "blablalb");
 
 		
 		document.close();

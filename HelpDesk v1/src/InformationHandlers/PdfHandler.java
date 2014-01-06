@@ -49,7 +49,7 @@ public class PdfHandler {
 		}
 
 		Paragraph paragraphs = new Paragraph(text);
-		Paragraph paragraph = new Paragraph(text);
+		Paragraph paragraph = new Paragraph();
 		paragraphs.setAlignment(Element.ALIGN_RIGHT);
 		paragraphs.setFont(new Font(Font.COURIER, 20, Font.BOLD));
 
@@ -63,7 +63,6 @@ public class PdfHandler {
 
 	}
 
-	@SuppressWarnings("unused")
 	public PdfPTable insertTable(String query, int cells, String labels[],
 			String type[], float[] size, String names[]) throws Exception {
 		Class.forName("com.mysql.jdbc.Driver");
@@ -72,14 +71,14 @@ public class PdfHandler {
 		preparedStatement = connect.prepareStatement(query);
 
 		ResultSet resultSet = preparedStatement
-				.executeQuery("select * from authentificationservice");
+				.executeQuery(query);
 
 		PdfPTable my_report_table = new PdfPTable(cells);
 
 		my_report_table.setWidths(size);
 
-		Font bfBold12 = new Font(Font.BOLD, 12);
-		Font bf12 = new Font(12);
+		Font bfBold12 = new Font(Font.BOLD, 6);
+		Font bf12 = new Font(Font.NORMAL, 6);
 
 		for (int i = 0; i < cells; i++) {
 			insertCell(my_report_table, names[i], Element.ALIGN_CENTER, 1,

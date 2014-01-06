@@ -63,7 +63,7 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-System.out.print("LABAS");
+
 		if (!authService.isLoggedIn())
 		{
 			System.out.print("nerado");
@@ -140,6 +140,8 @@ System.out.print("LABAS");
 		Code.setValue(client.getCode());
 		Address.setValue(client.getAddress());
 		rights.setValue(userInfoService.rightsValue(client.getRights()));
+		
+		
 		
 		//delegatesListbox.
 	}

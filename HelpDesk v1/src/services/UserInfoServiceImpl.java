@@ -81,19 +81,13 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 				.executeQuery("SELECT delegates.Id, delegates.ClientId, delegates.Name, delegates.Surname, delegates.Telephone , delegates.Mail, delegates.Active FROM delegates WHERE delegates.Id="
 						+ u.getDelegateId());
 
-		while (resultSet2.next()) {
-			System.out.print(u.getDelegateId()+" \n");
-					System.out.print(resultSet2.getInt("ClientId")+"\n");
-					System.out.print(resultSet2.getString("Name")+"\n");
-					System.out.print(resultSet2.getString("Surname")+"\n");
-					System.out.print(resultSet2.getString("Telephone")+"\n");
-					System.out.print(resultSet2.getString("Mail")+"\n");
-					System.out.print(resultSet2.getBoolean("Active")+"\n");
-					
+		while (resultSet2.next()) {					
 			return Delegate.clone(new Delegate(u.getDelegateId(), resultSet2.getInt("ClientId"), resultSet2
 					.getString("Name"), resultSet2.getString("Surname"), resultSet2.getString("Telephone"), 
 					resultSet2.getString("Mail"), resultSet2.getBoolean("Active"), 5));
 		}
+		statement.close();
+		
 		return null;
 	}
 
