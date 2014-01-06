@@ -1,14 +1,81 @@
 <?page title="Darbuotojas" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window  apply="mainControllers.EmployeeViewController">
-<label id="name"></label>
-<label id="surname"></label>
-<label id="role"></label>
-<label id="phone"></label>
-<label id="email"></label>
 
+<zk xmlns:n="native">
+	<include src="menu.zul" />
+	<style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; } .cg-title { font-weight: normal; color: #008DB7;
+		margin-bottom: 0; padding-bottom: 0; } .cg-desc { margin-top: 0;
+		font-family: arial,sans-serif; font-size: small; font-weight:
+		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+		div.status { border: 0 none; } .status tr.z-grid-odd
+		td.z-row-inner, .status tr.z-grid-odd .z-cell, .status
+		tr.z-grid-odd { background: none; border: 0 none; }.info { font-weight: normal;
+		font-size:21px; color: #787878 ; } .subject { font-weight: normal;
+		font-size:24px; color: #008DB7; margin-bottom: 0;
+		padding-bottom: 0; }
+
+		.status .head { text-align : right; } .status .head span {
+		font-weight : bold; }
+	</style>
+	<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/employeeBig.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Darbuotojas</n:h1> 
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="employeeSearch.zul"
+					label="Darbuotojai" class="cg-down-title" />
+				»
+				<a href="">
+				<label id="employeeRef" class="cg-down-title" value="Darbuotojas">
+				</label>
+				</a>	
+				</hbox>			
+				</vbox>
+			</hbox>   
+	</groupbox>
+<vbox	apply="mainControllers.EmployeeViewController">
+<groupbox mold="3d">
+    <caption label="Darbuotojo informacija"></caption>
+		<hbox align="start">
+		<groupbox title="Pagrindinė informacija" width="390px">
+					<vbox>
+				<hbox>
+					<label value="Vardas:" style="font-size:16px" />
+					<label id="name" style="font-size:18px" />
+				</hbox>			
+				<hbox>
+					<label value="Pavardė:" style="font-size:16px" />
+					<label id="surname" style="font-size:18px" />
+				</hbox>
+				<hbox>
+					<label value="Teisės:" style="font-size:16px" />
+					<label id="role" style="font-size:18px" />
+				</hbox>
+			</vbox>
+		</groupbox>
+		<groupbox title="Kontaktinė informacija">
+					<vbox>
+				<hbox>
+					<label value="Tel. Nr.:" style="font-size:16px" />
+					<label id="phone" style="font-size:18px" />
+				</hbox>			
+				<hbox>
+					<label value="El. paštas:" style="font-size:16px" />
+					<label id="email" style="font-size:18px" />
+				</hbox>
+			</vbox>
+		</groupbox>
+		</hbox>
+</groupbox>
+<groupbox mold="3d">
+<caption label="Darbuotojo kreipiniai"></caption>
 <listbox maxlength="8" id="employeeTasks"
-				sclass="z-listbox-autopaging" height="300px"
+				sclass="z-listbox-autopaging" height="100%"
 				emptyMessage="Kreipinių nerasta" mold="paging" pageSize="15">
 
 				<listhead sizable="true">
@@ -55,5 +122,7 @@
 					</listitem>
 				</template>
 			</listbox>
-</window>
+</groupbox>
+</vbox>
+	<include src="footer.zul" />
 </zk>
