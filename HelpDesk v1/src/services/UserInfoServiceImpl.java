@@ -84,15 +84,15 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 		while (resultSet2.next()) {
 			System.out.print(u.getDelegateId()+" \n");
 					System.out.print(resultSet2.getInt("ClientId")+"\n");
-					System.out.print(resultSet.getString("Name")+"\n");
-					System.out.print(resultSet.getString("Surname")+"\n");
-					System.out.print(resultSet.getString("Telephone")+"\n");
-					System.out.print(resultSet.getString("Mail")+"\n");
-					System.out.print(resultSet.getBoolean("Active")+"\n");
+					System.out.print(resultSet2.getString("Name")+"\n");
+					System.out.print(resultSet2.getString("Surname")+"\n");
+					System.out.print(resultSet2.getString("Telephone")+"\n");
+					System.out.print(resultSet2.getString("Mail")+"\n");
+					System.out.print(resultSet2.getBoolean("Active")+"\n");
 					
-			return Delegate.clone(new Delegate(u.getDelegateId(), resultSet2.getInt("ClientId"), resultSet
-					.getString("Name"), resultSet.getString("Surname"), resultSet.getString("Telephone"), 
-					resultSet.getString("Mail"), resultSet.getBoolean("Active"), 5));
+			return Delegate.clone(new Delegate(u.getDelegateId(), resultSet2.getInt("ClientId"), resultSet2
+					.getString("Name"), resultSet2.getString("Surname"), resultSet2.getString("Telephone"), 
+					resultSet2.getString("Mail"), resultSet2.getBoolean("Active"), 5));
 		}
 		return null;
 	}

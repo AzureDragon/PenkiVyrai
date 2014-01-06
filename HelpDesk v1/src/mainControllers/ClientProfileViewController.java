@@ -53,10 +53,6 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 	@Wire
 	Textbox Address;
 	@Wire
-	Cell cellGridMail, cellGridPhone;
-	@Wire
-	Textbox mails, phone;
-	@Wire
 	Listbox delegatesListbox;
 
 	// services
@@ -110,25 +106,13 @@ System.out.print("LABAS");
 			statement.close();
 		}
 
-		StringBuilder tmpMails = new StringBuilder();
-		for (int i = 1; i < cellGridMail.getChildren().size(); i++)
-			tmpMails.append(cellGridMail.getChildren().get(i)
-					.getAttribute("name")
-					+ ";");
-
-		StringBuilder tmpPhones = new StringBuilder();
-		for (int i = 1; i < cellGridPhone.getChildren().size(); i++)
-			tmpPhones.append(cellGridPhone.getChildren().get(i)
-					.getAttribute("name")
-					+ ";");
-
 		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.");
 
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		statement.executeUpdate("UPDATE client SET Name='" + Name.getValue()
-				+ "',Address='" + Address.getValue() + "',Mails='" + tmpMails
-				+ "', Phones='" + tmpPhones + "' WHERE id='" + client.getId()
+				+ "',Address='" + Address.getValue() + "',Mails='" + null
+				+ "', Phones='" + null + "' WHERE id='" + client.getId()
 				+ "'");
 		statement.close();
 
@@ -156,62 +140,7 @@ System.out.print("LABAS");
 		Code.setValue(client.getCode());
 		Address.setValue(client.getAddress());
 		rights.setValue(userInfoService.rightsValue(client.getRights()));
-
-		for (int i = 0; i < client.geteMail().size(); i++) {
-			mails.setValue(client.geteMail().elementAt(i));
-			addComponentMail();
-		}
-		for (int i = 0; i < client.getPhone().size(); i++) {
-			phone.setValue(client.getPhone().elementAt(i));
-			addComponentPhone();
-		}
 		
 		//delegatesListbox.
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Listen(Events.ON_OK + " = #mails ")
-	public void addComponentMail() {
-
-		final Button but = new Button();
-		String str = new String();
-
-		str = mails.getValue();
-		but.setAttribute("name", str);
-		but.setLabel(mails.getValue());
-
-		but.addEventListener("onClick", new EventListener() {
-			public void onEvent(Event event) throws Exception {
-				String tmp = (String) but.getAttribute("name");
-				mails.setValue(tmp);
-				cellGridMail.removeChild(but);
-			}
-		});
-		but.setHeight("20px");
-		cellGridMail.appendChild(but);
-		mails.setValue("");
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Listen(Events.ON_OK + " = #phone")
-	public void addComponentPhone() {
-
-		final Button but = new Button();
-		String str = new String();
-
-		str = phone.getValue();
-		but.setAttribute("name", str);
-		but.setLabel(phone.getValue());
-
-		but.addEventListener("onClick", new EventListener() {
-			public void onEvent(Event event) throws Exception {
-				String tmp = (String) but.getAttribute("name");
-				phone.setValue(tmp);
-				cellGridPhone.removeChild(but);
-			}
-		});
-		but.setHeight("20px");
-		cellGridPhone.appendChild(but);
-		phone.setValue("");
 	}
 }
