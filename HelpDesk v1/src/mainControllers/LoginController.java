@@ -4,6 +4,7 @@ import model.Authentication;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -63,7 +64,7 @@ public class LoginController extends SelectorComposer<Component> {
 		Authentication cre = authService.getUserCredential();
 		message.setValue("Sveiki, " + cre.getLoginName());
 		message.setSclass("");
-
+Sessions.getCurrent().setAttribute("labas", "name");
 		Executions.sendRedirect("index.zul");
 
 	}

@@ -84,7 +84,7 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 		while (resultSet2.next()) {
 			return Delegate.clone(new Delegate(u.getDelegateId(), resultSet2.getInt("ClientId"), resultSet
 					.getString("Name"), resultSet.getString("Surname"), resultSet.getString("Telephone"), 
-					resultSet.getString("Mail"), resultSet.getBoolean("Active")));
+					resultSet.getString("Mail"), resultSet.getBoolean("Active"), 5));
 		}
 		return null;
 	}
@@ -102,7 +102,7 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 					.getString("Name"), resultSet2.getString("Code"),
 					resultSet2.getString("Address"), getMail(resultSet2
 							.getString("Mails")), getPhone(resultSet2
-							.getString("Phones")), 2));
+							.getString("Phones")), 6));
 		}
 		statement.close();
 
@@ -156,8 +156,8 @@ public class UserInfoServiceImpl implements UserInfoService, Serializable {
 
 	public String rightsValue(int index) {
 		
-		List<String> RightsValues = Arrays.asList("Administratorius",
-				"Darbuotojas", "Klientas", "Inžinierius", "Svečias");
+		List<String> RightsValues = Arrays.asList("neapibreztas",
+				"Inžinierius", "Administratorius", "Vadovas", "Svečias", "Atstovas", "Klientas");
 		
 		return (RightsValues).get(index);
 	}

@@ -52,4 +52,22 @@ public class AuthenticationServiceImpl implements AuthenticationService,
 		else
 			return false;
 	}
+	
+	public int statusLogged()
+	{
+		Session sess = Sessions.getCurrent();
+		Authentication cre = (Authentication) sess.getAttribute("Authentication");
+		
+		if(cre.getClientId() > 0)
+		return 1;
+		
+		if(cre.getEmployeeId() > 0)
+		return 2;
+		
+		if(cre.getDelegateId() > 0)
+			return 3;
+		
+		return 0;
+	}
+	
 }

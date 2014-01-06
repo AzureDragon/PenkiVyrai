@@ -66,11 +66,17 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
-
+System.out.print("LABAS");
 		if (!authService.isLoggedIn())
+		{
+			System.out.print("nerado");
 			Executions.sendRedirect("login.zul");
+		}
 		else
+		{
 			refreshProfileView();
+			System.out.print("rado");
+		}
 	}
 
 	@Listen("onClick=#saveProfile")
@@ -142,9 +148,11 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 		Authentication cre = authService.getUserCredential();
 		Client client = userInfoService.findClient(cre);
 		if (client == null) {
+			System.out.print("nerado");
 			// TODO handle un-authenticated access
 			return;
 		}
+		System.out.print("rado");
 		// apply bean value to UI components
 		account.setValue(cre.getLoginName());
 		Name.setValue(client.getName());

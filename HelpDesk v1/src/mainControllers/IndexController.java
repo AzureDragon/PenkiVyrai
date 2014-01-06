@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Toolbarbutton;
 
 import com.lowagie.text.DocumentException;
 
@@ -30,7 +31,7 @@ public class IndexController extends SelectorComposer<Component> {
 	AuthenticationService authService = new AuthenticationServiceImpl();
 
 	@Wire
-	public Label profile;
+	Toolbarbutton profile;
 	@Wire
 	Label logOut;
 	@Wire
@@ -95,19 +96,28 @@ public class IndexController extends SelectorComposer<Component> {
 		profile.setStyle("color:black");
 	}
 
-	@Listen("onClick = #profile")
 	public void profileSwap() throws Exception {
 
 		Authentication cre = authService.getUserCredential();
+		System.out.print("pasieke");
 		if (cre.getClientId() > 0)
+		{
+			System.out.print("pasiekeKlienta");
 			Executions.sendRedirect("profileClient.zul");
+		}
 		else
+			if (cre.getEmployeeId() > 0)
 			Executions.sendRedirect("profileEmployee.zul");
+			else
+				if (cre.getDelegateId() > 0)
+					Executions.sendRedirect("profileDelegate.zul");
+				else
+					Executions.sendRedirect("login.zul");
 	}
 
-	public void changeName() {
-
-		Authentication cre = authService.getUserCredential();
-		profile.setValue(cre.getLoginName());
-	}
+//	public void changeName() {
+//
+//		Authentication cre = authService.getUserCredential();
+//		profile.setValue(cre.getLoginName());
+//	}
 }

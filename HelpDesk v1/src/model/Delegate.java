@@ -8,12 +8,13 @@ public class Delegate {
 	String lastName;
 	String phone;
 	String mail;
+	int rights;
 	boolean active;
 	
 	
 	
 	public Delegate(int iD, int clientID, String firstName, String lastName,
-			String phone, String mail, boolean active) {
+			String phone, String mail, boolean active, int rights) {
 		super();
 		ID = iD;
 		this.clientID = clientID;
@@ -22,8 +23,17 @@ public class Delegate {
 		this.phone = phone;
 		this.mail = mail;
 		this.active = active;
+		this.rights = rights;
 	}
 	
+	public int getRights() {
+		return rights;
+	}
+
+	public void setRights(int rights) {
+		this.rights = rights;
+	}
+
 	public int getID() {
 		return ID;
 	}

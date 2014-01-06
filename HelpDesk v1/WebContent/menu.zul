@@ -95,7 +95,16 @@ padding-bottom: 0;
 		</cell>
         -->
 		<toolbarbutton image="/img/time.png" href="timer.zul" label="Sistemos laikas: laikas" id="time" />           
-		<toolbarbutton image="/img/profile.png" href="profileUser.zul" label="Prisijungęs: ${sessionScope.Authentication.loginName}" id="profile" />
+		<toolbarbutton image="/img/profile.png" label="Prisijungęs: ${sessionScope.Authentication.loginName}" id="profile">
+		 <attribute name="onClick">
+        <![CDATA[	
+          mainControllers.IndexController ic = new mainControllers.IndexController();  
+
+          ic.profileSwap();
+		  
+        ]]>
+      </attribute>
+       </toolbarbutton>
 		<toolbarbutton image="/img/logout.png" label="Atsijungti" id="LogOut" />
 </toolbar>
 </hbox>
