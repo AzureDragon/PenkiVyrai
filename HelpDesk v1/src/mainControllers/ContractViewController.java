@@ -127,6 +127,7 @@ public void addService () throws Exception{
 			.prepareStatement("INSERT INTO `contractsServices`(`ContractId`, `ServiceId`) VALUES ("+ ts.getContractIdByContractNumber(invisibleContractNumber.getValue())+","+ ts.getServiceIdByName(services.getValue())+")");
 	System.out.println("INSERT INTO `contractsServices`(`ContractId`, `ServiceId`) VALUES ("+ ts.getContractIdByContractNumber(invisibleContractNumber.getValue())+","+ ts.getServiceIdByName(services.getValue())+");");
 	preparedStatement.executeUpdate();
+	Executions.sendRedirect("");
 	} else{
 		Messages.getString("sadfasdf");
 	}
