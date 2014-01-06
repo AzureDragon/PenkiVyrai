@@ -72,7 +72,7 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 
 		if (!(oldPassword.getValue().isEmpty())) {
 			if ((oldPassword.getValue().equals(cre.getPassword()))
-					&& (newPassword.getValue().equals(newRepPassword))
+					&& (newPassword.getValue().equals(newRepPassword.getValue()))
 					&& !(newPassword.getValue().isEmpty()))
 			{
 				cre.setPassword(newPassword.getValue());
@@ -85,10 +85,15 @@ public class EmployeeProfileViewController extends SelectorComposer<Component> {
 							+ "' WHERE id='"
 							+ cre.getId() + "'");
 			statement.close();
-					}
-		}
+			Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 50000, true);
 
-		Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 50000, true);
+					}
+			else
+				Clients.showNotification("Slaptažodis nebuvo pakeistas.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 50000, true);
+			}
+		else
+			Clients.showNotification("Jūsų profilis atnaujintas sėkmingai.", Clients.NOTIFICATION_TYPE_INFO, null, "middle_center", 50000, true);
+
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		statement.executeUpdate("UPDATE employee SET Name='"
