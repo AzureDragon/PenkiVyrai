@@ -1,0 +1,87 @@
+<?page 
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
+
+<?link rel="stylesheet" type="text/css" href="/style.css"?>
+<window apply="mainControllers.DelegateProfileViewController">
+<include src="menu.zul" />
+    <vlayout>
+        <grid width="500px">
+            <columns>
+                <column align="right" hflex="min"/>
+                <column/>
+            </columns>
+            <rows>
+                <row>
+                    <cell sclass="row-title">Prisijungimo vardas :</cell>
+                    <cell><label id="account"/></cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Senas slaptažodis :</cell>
+                    <cell>
+                        <textbox id="oldPassword" type="password"/>
+                    </cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Naujas slaptažodis :</cell>
+                    <cell>
+                        <textbox id="newPassword" type="password"/>
+                    </cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Pakartokite slaptažodį :</cell>
+                    <cell>
+                        <textbox id="newRepPassword" type="password"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Vardas :</cell>
+                    <cell>
+                        <textbox id="Name"
+                        constraint="no empty: Iveskite vardą!" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Pavardė :</cell>
+                    <cell>
+                        <textbox id="surName"
+                        constraint="no empty: Iveskite pavardę!" width="200px"/>
+                    </cell>
+                </row>
+                                <row>
+                    <cell sclass="row-title">Klientas :</cell>
+                    <cell>
+                        <label id="Code" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">El. pašto adresas</cell>
+                    <cell id="cellGridMail">
+                        <textbox id="mails" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Telefono numeris :</cell>
+                    <cell id="cellGridPhone"> 
+                        <textbox id="phone" width="200px"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell sclass="row-title">Teisės :</cell>
+                    <cell><label id="rights"/></cell>
+                </row>  
+                <row>
+                    <cell sclass="row-title">Aktyvus :</cell>
+                    <cell><label id="active"/></cell>
+                </row>               
+            </rows>
+        </grid>
+        <hlayout>
+            <button id="saveProfile" label="Išsaugoti"/>
+            <button id="reloadProfile" label="Atnaujinti"/>
+        </hlayout>
+    </vlayout>
+    <include src="footer.zul"/>
+</window>
