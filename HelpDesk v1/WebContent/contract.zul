@@ -1,23 +1,92 @@
 <?page title="Sutartis" contentType="text/html;charset=UTF-8"?>
-<zk>
-	<window title="Sutartis"
-		apply="mainControllers.ContractViewController">
+
+<zk xmlns:n="native">
+	<include src="menu.zul" />
+	<style>
+		.z-listbox-autopaging .z-listcell-cnt { height: 15px; overflow:
+		hidden; } .cg-title { font-weight: normal; color: #008DB7;
+		margin-bottom: 0; padding-bottom: 0; } .cg-desc { margin-top: 0;
+		font-family: arial,sans-serif; font-size: small; font-weight:
+		normal; color: #252525; } .gray_bkg { background-color: #ccc; }
+		div.status { border: 0 none; } .status tr.z-grid-odd
+		td.z-row-inner, .status tr.z-grid-odd .z-cell, .status
+		tr.z-grid-odd { background: none; border: 0 none; }.info { font-weight: normal;
+		font-size:21px; color: #787878 ; } .subject { font-weight: normal;
+		font-size:24px; color: #008DB7; margin-bottom: 0;
+		padding-bottom: 0; }
+
+		.status .head { text-align : right; } .status .head span {
+		font-weight : bold; }
+	</style>
+	<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/contractBig.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Sutartis</n:h1> 
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="contractSearch.zul"
+					label="Sutartys" class="cg-down-title" />
+				»
+				<a href="">
+				<label id="contractRef" class="cg-down-title" value="Sutartis">
+				</label>
+				</a>	
+				</hbox>			
+				</vbox>
+			</hbox>   
+	</groupbox>	
+	<groupbox title="Sutarties informacija" width="100%" apply="mainControllers.ContractViewController">
+	<vbox>
+	<hbox>
+	<groupbox title="Pagrindinė informacija" width="400px">
 		<label id="invisibleContractNumber" visible="false"></label>
-		<groupbox>
 			<vbox>
-				<label id="name" />
-				<label id="code" />
-				<label id="client" />
-				<label id="validFrom" />
-				<label id="validTo" />
-				<label />
+			<label sclass="subject" id="name"></label>
+					<box orient="horizontal" sclass="info">
+						Sutarties kodas:
+						<label style="color:red; font-weight:bold" id="code" />
+					</box>				
+					<box orient="horizontal" sclass="info">
+						Klientas:
+						<label style="font-weight:bold" id="client" />
+					</box>
 			</vbox>
-			<listbox maxlength="5" width="20%" id="serviceListbox"
-				sclass="z-listbox-autopaging" height="200px"
+	</groupbox>
+		<groupbox title="Terminas">
+						<box orient="horizontal" sclass="info">
+						Galioja nuo:
+						<label style="font-weight:bold" id="validFrom" />
+					</box>				
+					<box orient="horizontal" sclass="info">
+						Galioja iki:
+						<label style="font-weight:bold" id="validTo" />
+					</box>
+	</groupbox>
+	</hbox>
+	<groupbox title="Paslaugos" width="100%">
+	<vbox>
+		<groupbox>
+	<hbox>
+			<combobox id="services" readonly="true"
+				placeholder="Pasirinkite paslaugą">
+				<template name="model">
+					<comboitem label="${each.name}"></comboitem>
+				</template>
+			</combobox>
+		<button id="addService" width="100px"
+				label="Pridėti paslaugą">
+			</button>			
+	</hbox>		
+	</groupbox>
+			<listbox maxlength="5" id="serviceListbox"
+				sclass="z-listbox-autopaging" height="100%"
 				emptyMessage="Paslaugų nėra">
 
 				<listhead sizable="true">
-					<listheader label="Paslaugos" />
+					<listheader label="Paslaugos"/>
 				</listhead>
 
 				<template name="model">
@@ -27,19 +96,11 @@
 
 					</listitem>
 				</template>
-			</listbox>
-		</groupbox>
-		<hbox spacing="30px">
-			<button id="addService" width="100px"
-				label="Pridėti paslaugą">
-			</button>
-			<combobox id="services" readonly="true"
-				placeholder="Pasirinkite paslaugą">
-				<template name="model">
-					<comboitem label="${each.name}"></comboitem>
-				</template>
-			</combobox>
-		</hbox>
-	</window>
+			</listbox>	
+	</vbox>
+	</groupbox>
+	</vbox>			
+	</groupbox>
+	<include src="footer.zul"/>
 
 </zk>
