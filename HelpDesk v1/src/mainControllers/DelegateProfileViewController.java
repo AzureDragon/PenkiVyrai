@@ -144,7 +144,7 @@ public class DelegateProfileViewController extends SelectorComposer<Component> {
 		rights.setValue(userInfoService.rightsValue(delegate.getRights()));
 		mails.setValue(delegate.getMail());
 		phone.setValue(delegate.getPhone());
-		active.setValue(Boolean.toString(delegate.isActive()));
+		active.setChecked(delegate.isActive());
 
 	}
 
