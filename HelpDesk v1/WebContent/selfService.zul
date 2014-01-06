@@ -44,7 +44,7 @@ www.helpdeks.lt...
 		apply="mainControllers.SelfServiceController">
 		<caption label="Kreipiniai" />
 		<hlayout spacing="40px" style="padding-left: 10px;">
-			<image src="/img/client2.png"></image>
+			<image src="/img/selfBig.png"></image>
 			<n:h1 class="cg-title">Savitarnos modulis</n:h1>
 		</hlayout>
 		<vlayout spacing="15px">

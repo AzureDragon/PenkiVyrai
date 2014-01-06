@@ -21,7 +21,7 @@ contentType="text/html;charset=UTF-8" title="Klientai"
 	</style>
 	<groupbox sclass="footerUp">
 	        <hbox>
-                <image src="/img/client2.png"></image>
+                <image src="/img/clientBig.png"></image>
                 <vbox>
 			     <n:h1 class="cg-title">Klientai</n:h1>
 			     

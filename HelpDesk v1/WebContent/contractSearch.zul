@@ -17,7 +17,7 @@
 	</style>
 	<groupbox sclass="footerUp">
 	        <hbox>
-                <image src="/img/contract2.png"></image>
+                <image src="/img/contractBig.png"></image>
                 <vbox>
 			     <n:h1 class="cg-title">Sutartys</n:h1> 
 			    <hbox class="cg-down-title"> 	

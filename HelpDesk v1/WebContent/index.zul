@@ -8,7 +8,7 @@ contentType="text/html;charset=UTF-8"
 <include src="menu.zul"/>
    <groupbox sclass="footerUp">
 	        <hbox>
-                <image src="/img/task.png"></image>
+                <image src="/img/homeBig.png"></image>
                 <vbox>
 			     <n:h1 class="cg-title">Pagrindinis</n:h1>
 			    <hbox class="cg-down-title"> 	

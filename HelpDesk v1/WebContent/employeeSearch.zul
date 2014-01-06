@@ -23,7 +23,7 @@ contentType="text/html;charset=UTF-8" title="Darbuotojai"
 	</style>
 	<groupbox sclass="footerUp">
 	        <hbox>
-                <image src="/img/client2.png"></image>
+                <image src="/img/employeeBig.png"></image>
                 <vbox>
 			     <n:h1 class="cg-title">Darbuotojai</n:h1>
 			     

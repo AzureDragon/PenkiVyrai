@@ -26,7 +26,7 @@ contentType="text/html;charset=UTF-8" title="Kreipiniai"
 	</style>
 	<groupbox sclass="footerUp">
 	        <hbox>
-                <image src="/img/task.png"></image>
+                <image src="/img/taskBig.png"></image>
                 <vbox>
 			     <n:h1 class="cg-title">Kreipiniai</n:h1>
 			     

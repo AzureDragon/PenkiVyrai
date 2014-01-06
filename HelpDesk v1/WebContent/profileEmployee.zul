@@ -1,10 +1,27 @@
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
-<window apply="mainControllers.EmployeeProfileViewController">
+<zk xmlns:n="native">
 <include src="menu.zul" />
+<groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/profileBig.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Profilis</n:h1>
+			     
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="profileEmployee.zul"
+					label="Profilis" class="cg-down-title" />
+				</hbox>
+				</vbox>
+			</hbox>     
+            </groupbox>
+<groupbox title="Darbuotojo informacija" apply="mainControllers.EmployeeProfileViewController">
     <vlayout>
         <grid width="500px">
             <columns>
-                <column align="right" hflex="min"/>
+                <column align="right" width="150px"/>
                 <column/>
             </columns>
             <rows>
@@ -64,10 +81,13 @@
    
             </rows>
         </grid>
+        <groupbox title="Valdymas" width="500px">
         <hlayout>
             <button id="saveProfile" label="Išsaugoti"/>
             <button id="reloadProfile" label="Atnaujinti"/>
         </hlayout>
+        </groupbox>
     </vlayout>
+    </groupbox>
     <include src="footer.zul"/>
-</window>
+</zk>

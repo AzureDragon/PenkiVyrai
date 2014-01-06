@@ -18,7 +18,7 @@
 	</style>
 		<groupbox sclass="footerUp">
 	        <hbox>
-                <image src="/img/service2.png"></image>
+                <image src="/img/serviceBig.png"></image>
                 <vbox>
 			     <n:h1 class="cg-title">Paslaugos</n:h1> 
 			    <hbox class="cg-down-title"> 	
