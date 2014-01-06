@@ -56,7 +56,7 @@ public class SolveTaskController extends SearchController {
 		String solvingTask = solveTaskWindow.getAttribute("taskId").toString();
 		
 		TaskStatements ts = new TaskStatements();
-		ts.changeStatus(solvingTask, status.getValue());
+		//ts.changeStatus(solvingTask, status.getValue());
 		ts.setSolution(solvingTask, comment.getValue(), status.getValue());
 		Event closeEvent = new Event("onClose", this.getSelf(), null);
 		Events.postEvent(closeEvent);
