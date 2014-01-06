@@ -33,19 +33,19 @@
                                 <row>
                     <cell sclass="row-title">Senas slaptažodis :</cell>
                     <cell>
-                        <textbox id="oldPassword" type="password"/>
+                        <textbox id="oldPassword" type="password" width="200px"/>
                     </cell>
                 </row>
                                 <row>
                     <cell sclass="row-title">Naujas slaptažodis :</cell>
                     <cell>
-                        <textbox id="newPassword" type="password"/>
+                        <textbox id="newPassword" type="password" width="200px"/>
                     </cell>
                 </row>
                                 <row>
                     <cell sclass="row-title">Pakartokite slaptažodį :</cell>
                     <cell>
-                        <textbox id="newRepPassword" type="password"/>
+                        <textbox id="newRepPassword" type="password" width="200px"/>
                     </cell>
                 </row>
                 <row>
@@ -90,7 +90,7 @@
 				emptyMessage="Atstovų nerasta">
 
 				<listhead sizable="true">
-				    <listheader label="Id" width="20%" />
+				    <listheader label="Id" width="5%" />
 					<listheader label="Vardas" width="20%" />
 					<listheader label="Pavardė" width="20%" />
 					<listheader label="Tel. Nr." width="20%" />
