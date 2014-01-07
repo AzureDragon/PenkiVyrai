@@ -25,5 +25,6 @@ public interface AppelationService {
 	 */
 	public List<Task> search(String keyword) throws Exception;
 	public List<Task> search(String keyword, int employeeId) throws Exception;
+	public List<Task> searchClientTasks(String keyword, int clientId) throws Exception;
 
 }
