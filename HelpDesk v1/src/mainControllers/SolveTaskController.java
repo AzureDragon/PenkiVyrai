@@ -89,12 +89,7 @@ public class SolveTaskController extends SearchController {
 		
 
 		
-		if(RegistrationTime.getTime() < ic.getDate().getTime())
-		{
-		System.out.print(RegistrationTime + " " + ic.getDate());
-		long diff = (RegistrationTime.getTime() - ic.getDate().getTime());
-		System.out.print(diff+"\n");
-		}
+	
 	}
 
 	public Task getSolvingTask() {

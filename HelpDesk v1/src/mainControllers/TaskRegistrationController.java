@@ -33,14 +33,13 @@ import services.AuthenticationService;
 import services.AuthenticationServiceImpl;
 import services.EmployeeService;
 import services.EmployeeServiceImpl;
-
-
+import services.UserInfoService;
+import services.UserInfoServiceImpl;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class TaskRegistrationController extends
-		SelectorComposer<Component> {
+public class TaskRegistrationController extends SelectorComposer<Component> {
 	/**
 	 * 
 	 */
@@ -72,19 +71,48 @@ public class TaskRegistrationController extends
 	@Wire
 	Button sukurtiKreipini;
 
+	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		super.doAfterCompose(comp);
+		System.out.println("Buvau buvau");
 		AuthenticationService authService = new AuthenticationServiceImpl();
-		employeeService = new EmployeeServiceImpl();
-		priskirti.setModel(new ListModelList<Employee>(employeeService
-				.getEmployeeList()));
+		Authentication cre = authService.getUserCredential();
+		TaskStatements ts = new TaskStatements();
+	
+		if (cre.getDelegateId()!=0 || cre.getClientId()!=0){ //Delegatas arba klientas
+	
+			//employeeService = new EmployeeServiceImpl();
+			Employee employee = new Employee(ts.getCurrentEmployeeName(), ts.getCurrentEmployeeSurname());
+			List<Employee> employeeList = new LinkedList<Employee>();
+			employeeList.add(employee);
+			priskirti.setModel(new ListModelList<Employee>(employeeList));
+			priskirti.setValue(employee.getFirstName() +" "+ employee.getSurName());
+			priskirti.setDisabled(true);
+			
+			if (cre.getDelegateId() == 0){
+				
+				klientas.setModel(new ListModelList<Client>(getCurrentClient(cre.getClientId())));	
+			} else{
+				UserInfoService us = new UserInfoServiceImpl();
+				klientas.setModel(new ListModelList<Client>(getCurrentClient(us.findDelegate(cre).getClientID())));
+				
+			}
+		}
 		
-		klientas.setModel(new ListModelList<Client>(getClientsList()));
-	}
+			if (cre.getEmployeeId()!=0){ //Darbuotojas
+				
+				employeeService = new EmployeeServiceImpl();
+				priskirti.setModel(new ListModelList<Employee>(employeeService
+						.getEmployeeList()));	
+				klientas.setModel(new ListModelList<Client>(getClientsList()));
+		
+			}
+		}
+	
 
 	@Listen("onClick=#sukurtiKreipini")
 	public void sukurtiKreipini() throws Exception {
-		mainControllers.IndexController ic = new mainControllers.IndexController(); 
+		mainControllers.IndexController ic = new mainControllers.IndexController();
 		if (!(tema.getValue().equals("") || aprasymas.getValue().equals("")
 				|| klientas.getValue().equals("")
 				|| gavimoBudas.getValue().equals("")
@@ -100,47 +128,77 @@ public class TaskRegistrationController extends
 						"yyyy/MM/dd HH:mm");
 				AuthenticationService authService = new AuthenticationServiceImpl();
 				Authentication cre = authService.getUserCredential();
-				TaskStatements ts =  new TaskStatements ();
+				TaskStatements ts = new TaskStatements();
 				int ID = ts.getLastTaskId();
 				Class.forName("com.mysql.jdbc.Driver");
 				connect = Clasifiers.getConnection();
 				preparedStatement = connect
 						.prepareStatement("INSERT INTO taskAssignments values ("
-								+ "default," 
-								+ " '"+ ID +"',"
-								+ " '"+ cre.getEmployeeId() + "',"
-								+ " '"+ Integer.parseInt(Clasifiers.getEmployeeIdByNameAndSurname(priskirti.getValue()))+ "',"
-								+ " '"+ todayDate.format(date)+ "',"
-								+ " '"+ "0000-00-00"+ "',"
+								+ "default,"
+								+ " '"
+								+ ID
+								+ "',"
+								+ " '"
+								+ cre.getEmployeeId()
+								+ "',"
+								+ " '"
+								+ Integer.parseInt(Clasifiers
+										.getEmployeeIdByNameAndSurname(priskirti
+												.getValue()))
+								+ "',"
+								+ " '"
+								+ todayDate.format(date)
+								+ "',"
+								+ " '"
+								+ "0000-00-00"
+								+ "',"
 								+ " null,"
 								+ "'1',"
 								+ " null);");
-				
+
 				preparedStatement.executeUpdate();
 				preparedStatement = connect
-						.prepareStatement("INSERT INTO task values ("
-								+ " '"+ ID +"'," 
-								+ " '"+ Integer.parseInt(Clasifiers.getClientIdByName(klientas.getValue())) + "',"
-								+ "'1'," 
-								+ " '"+ Clasifiers.getTypeCode(tipas.getValue()) + "',"
-								+ " '"+ todayDate.format(date)+ "',"
-								+ " '"+ issprestiIkiDate.format(issprestiIkiDateBox.getValue())+ "',"
-								+ " '"+ "0000-00-00"+ "',"
-								+ " '"+ 0 + "',"
+						.prepareStatement("INSERT INTO task values (" + " '"
+								+ ID
+								+ "',"
+								+ " '"
+								+ Integer.parseInt(Clasifiers
+										.getClientIdByName(klientas.getValue()))
+								+ "',"
+								+ "'1',"
+								+ " '"
+								+ Clasifiers.getTypeCode(tipas.getValue())
+								+ "',"
+								+ " '"
+								+ todayDate.format(date)
+								+ "',"
+								+ " '"
+								+ issprestiIkiDate.format(issprestiIkiDateBox
+										.getValue())
+								+ "',"
+								+ " '"
+								+ "0000-00-00"
+								+ "',"
+								+ " '"
+								+ 0
+								+ "',"
 								+ // Previous task
-								" '"+ 0 + "',"
+								" '"
+								+ 0
+								+ "',"
 								+ // Service type
-								" '"+ 0 + "',"
+								" '"
+								+ 0
+								+ "',"
 								+ // Task Evaluation
-								" '"+ Clasifiers.getReceiveSourceCode(gavimoBudas.getValue())+ "',"
-								+ " '"+ aprasymas.getValue() + "',"
-								+ " '"+ tema.getValue()+ "');");
-				
+								" '"
+								+ Clasifiers.getReceiveSourceCode(gavimoBudas
+										.getValue()) + "'," + " '"
+								+ aprasymas.getValue() + "'," + " '"
+								+ tema.getValue() + "');");
+
 				preparedStatement.executeUpdate();
-				
-				
-			
-			
+
 			} catch (Exception e) {
 				throw e;
 			} finally {
@@ -182,7 +240,7 @@ public class TaskRegistrationController extends
 	}
 
 	public List<Client> getClientsList() throws Exception {
-		
+
 		ResultSet resultSet = null;
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
@@ -192,9 +250,21 @@ public class TaskRegistrationController extends
 
 	}
 
+	public List<Client> getCurrentClient(int clientId) throws Exception {
+
+		ResultSet resultSet = null;
+		connect = Clasifiers.getConnection();
+		statement = connect.createStatement();
+		resultSet = statement.executeQuery("select * from client where id="
+				+ clientId);
+
+		return writeResultSet(resultSet);
+
+	}
+
 	private List<Client> writeResultSet(ResultSet resultSet)
 			throws SQLException {
-		
+
 		List<Client> clientList = new LinkedList<Client>();
 
 		while (resultSet.next()) {

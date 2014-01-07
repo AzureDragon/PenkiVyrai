@@ -47,6 +47,11 @@ public class Employee implements Serializable,Cloneable {
 
     	}
         
+		public Employee(String currentEmployeeName,
+				String currentEmployeeSurname) {
+			// TODO Auto-generated constructor stub
+		}
+
 		public String geteMail() {
 			return eMail;
 		}

@@ -30,17 +30,19 @@ import services.AuthenticationService;
 import services.AuthenticationServiceImpl;
 import services.EmployeeService;
 import services.EmployeeServiceImpl;
+import services.UserInfoService;
+import services.UserInfoServiceImpl;
 
 public class SelfServiceController extends SelectorComposer<Component> {
 	public Task selected;
 	private static final long serialVersionUID = 1L;
-	public EmployeeService employeeService = new EmployeeServiceImpl();
+
 
 	
 	@Wire
 	private Textbox keywordBox;
 	@Wire
-	public Listbox taskListbox;
+	public Listbox clientTasks;
 	@Wire
 	private Label temaLabel;
 	@Wire
@@ -70,41 +72,34 @@ public class SelfServiceController extends SelectorComposer<Component> {
 	@Wire 
 	Checkbox showClient, showDelegate;
 	
-	
+	@Override
+	public void doAfterCompose(Component comp) throws Exception {
+		super.doAfterCompose(comp);
+		
+		
+		
+	}
 	@SuppressWarnings("unused")
 	private Connection connect = null;
 
-	public AppelationService appelationService;
+	public AppelationServiceImpl appelationService;
 
 	@Listen("onClick = #searchButton")
 	public void search() throws Exception {
-		Clients.showBusy(taskListbox, "Ieškoma kreipinių");
-	
+		System.out.println("ohohohoh");
+		UserInfoService us = new UserInfoServiceImpl();
 		AuthenticationService authService = new AuthenticationServiceImpl();
 		Authentication cre = authService.getUserCredential();
-		if (showDelegate.isChecked() && !showClient.isChecked()){
-			appelationService = new AppelationServiceImpl("select `ClientId`, t.Status, `Type`, `Registered`, `SolveUntil`, `Solved`, `PreviousTask`, `ServiceType`, `TaskEvaluation`, `ReceiveSource`, `Description`, `Subject`,`TaskId`, `AssigneeId`, `ReceiverId`, `AssignedDate`, `ReturnedDate`, `Solution`, `tookTime` " +
-					"from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId " +
-					"WHERE DelegateId="+ cre.getDelegateId() + 
-					"AND taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");	
-		}
-		if (showClient.isChecked() && !showDelegate.isChecked() ){
-			appelationService = new AppelationServiceImpl("select `ClientId`, t.Status, `Type`, `Registered`, `SolveUntil`, `Solved`, `PreviousTask`, `ServiceType`, `TaskEvaluation`, `ReceiveSource`, `Description`, `Subject`,`TaskId`, `AssigneeId`, `ReceiverId`, `AssignedDate`, `ReturnedDate`, `Solution`, `tookTime` " +
-					"from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId " +
-					"WHERE ClientId="+ cre.getClientId() + 
-					" AND taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");	
-		}
-		if (showDelegate.isChecked() && showClient.isChecked()){
-			appelationService = new AppelationServiceImpl("select `ClientId`, t.Status, `Type`, `Registered`, `SolveUntil`, `Solved`, `PreviousTask`, `ServiceType`, `TaskEvaluation`, `ReceiveSource`, `Description`, `Subject`,`TaskId`, `AssigneeId`, `ReceiverId`, `AssignedDate`, `ReturnedDate`, `Solution`, `tookTime` " +
-					"from task t JOIN taskAssignments ON t.Id = taskAssignments.TaskId " +
-					"WHERE DelegateId="+ cre.getDelegateId() + 
-					"AND taskAssignments.Id = (SELECT MAX(taskAssignments.Id) FROM taskAssignments WHERE taskAssignments.TaskId = t.Id) ORDER BY t.Id DESC");	
+		appelationService = new AppelationServiceImpl();
+		//String keyword = keywordBox.getValue();
+		if (cre.getDelegateId()==0){
+			clientTasks.setModel(new ListModelList<Task>(appelationService.searchClientTasks(" ", cre.getClientId())));
+				
+		} else {
+			clientTasks.setModel(new ListModelList<Task>(appelationService.searchClientTasks(" ", us.findDelegate(cre).getClientID())));
 		}
 		
-		String keyword = keywordBox.getValue();
-		List<Task> result = appelationService.search(keyword);
-		taskListbox.setModel(new ListModelList<Task>(result));
-		Clients.clearBusy(taskListbox);
+		
 	}
 
 	
@@ -135,7 +130,7 @@ public class SelfServiceController extends SelectorComposer<Component> {
 		
 		detailBox.setVisible(true);
 		
-			selected = taskListbox.getSelectedItem().getValue();
+			selected = clientTasks.getSelectedItem().getValue();
 			temaLabel.setValue(selected.getSubject());
 			busenaLabel.setValue(selected.getStatus() + "");
 			aprasymasLabel.setValue(selected.getDescription());
@@ -153,7 +148,7 @@ public class SelfServiceController extends SelectorComposer<Component> {
 	@Listen("onSelect = #comments")
 	public void showComments() throws Exception {
 
-		selected = taskListbox.getSelectedItem().getValue();
+		selected = clientTasks.getSelectedItem().getValue();
 		CommentsController commentsController = new CommentsController();
 		commentsGrid.setModel(new ListModelList<Comment>(commentsController
 				.getTaskComments(selected.getId().toString())));

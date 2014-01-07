@@ -168,6 +168,22 @@ public String getContractIdByContractNumber (String number) throws Exception {
 		return tekstas;
 	}
 
+	public String getCurrentEmployeeName() throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT Name FROM currentEmployee;");
+
+		return tekstas;
+	}
+
+	public String getCurrentEmployeeSurname() throws Exception {
+
+		String tekstas = "";
+		tekstas = sql("SELECT Surname FROM currentEmployee;");
+
+		return tekstas;
+	}
+
 	public String getEmployeeSurname(int Id) throws Exception {
 
 		String tektas = "";
@@ -175,7 +191,8 @@ public String getContractIdByContractNumber (String number) throws Exception {
 
 		return tektas;
 	}
-
+	
+	
 	public String getEmployeeElAddress(int Id) throws Exception {
 
 		String tektas = "";

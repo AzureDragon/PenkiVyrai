@@ -5,26 +5,6 @@
 
 Jūs turite išspręstų naujų kreipinių: 
 www.helpdeks.lt...
-<zscript><![CDATA[
-	public void addComponent(int num, Class clazz, Grid grid) {
-		Textbox tb = clazz.newInstance();
-		tb.setWidth("100%");
-		Row row = new Row();
-
-		row.appendChild(new Label(""
-				+ (grid.getRows().getChildren().size() + 1)));
-		row.appendChild(tb);
-		grid.getRows().appendChild(row);
-
-		if (dynamicEmails.getRows().getChildren().size() == 5) {
-			addEmailButton.setDisabled(true);
-		}
-		if (dynamicPhones.getRows().getChildren().size() == 5) {
-			addPhoneButton.setDisabled(true);
-		}
-	}
-
-]]></zscript>
 
 
 	<style>
@@ -69,12 +49,11 @@ www.helpdeks.lt...
 				</toolbar>
 			</hbox>
 		</vlayout>
-		<checkbox id="showDelegate" label="Rodyti tik mano kreipinius"></checkbox>
-		<checkbox id="showClient" label="Rodyti tik kliento kreipinius"></checkbox>
-		<vlayout spacing="15px">
-			<listbox maxlength="8" id="taskListbox"
+
+		
+			<listbox maxlength="8" id="clientTasks"
 				sclass="z-listbox-autopaging" height="300px"
-				emptyMessage="Sutarčių nerasta">
+				emptyMessage="Kreipinių nerasta">
 
 				<listhead sizable="true">
 
@@ -109,7 +88,6 @@ www.helpdeks.lt...
 					</listitem>
 				</template>
 			</listbox>
-		</vlayout>
 
 	</groupbox>
 
