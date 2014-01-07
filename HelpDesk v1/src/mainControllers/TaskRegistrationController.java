@@ -84,7 +84,7 @@ public class TaskRegistrationController extends
 
 	@Listen("onClick=#sukurtiKreipini")
 	public void sukurtiKreipini() throws Exception {
-
+		mainControllers.IndexController ic = new mainControllers.IndexController(); 
 		if (!(tema.getValue().equals("") || aprasymas.getValue().equals("")
 				|| klientas.getValue().equals("")
 				|| gavimoBudas.getValue().equals("")
@@ -93,7 +93,7 @@ public class TaskRegistrationController extends
 				|| priskirti.getValue().equals("") || issprestiIkiDateBox
 				.getValue().equals(""))) {
 			try {
-				Date date = new Date();
+				Date date = ic.getDate();
 				SimpleDateFormat todayDate = new SimpleDateFormat(
 						"yyyy/MM/dd HH:mm");
 				SimpleDateFormat issprestiIkiDate = new SimpleDateFormat(

@@ -23,8 +23,8 @@ import model.Comment;
 	private PreparedStatement preparedStatement = null;
 
 	public boolean addComment(String taskId, String comment) throws Exception {
-		
-		Date date = new Date();
+		mainControllers.IndexController ic = new mainControllers.IndexController(); 
+		Date date = ic.getDate();
 		SimpleDateFormat todayDate = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 		AuthenticationService authService = new AuthenticationServiceImpl();

@@ -283,10 +283,12 @@ public String getContractIdByContractNumber (String number) throws Exception {
 
 	public void changeAssignee(String taskId, String name) throws Exception {
 
+		
+		mainControllers.IndexController ic = new mainControllers.IndexController(); 
 		Connection connect = null;
 		PreparedStatement preparedStatement = null;
 		AuthenticationService authService = new AuthenticationServiceImpl();
-		Date date = new Date();
+		Date date = ic.getDate();
 		SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
 		Authentication cre = authService.getUserCredential();
 		TaskStatements ts = new TaskStatements();

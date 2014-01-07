@@ -61,8 +61,9 @@ public class EmployeeController extends SelectorComposer<Component> {
 
 	@Listen("onClick = #priskirtiDarbuotojaButton")
 	public void priskirtiKreipiniDarbuotjui() throws Exception {
+		mainControllers.IndexController ic = new mainControllers.IndexController(); 
 		if (!darbuotojas.getValue().equals("")) {
-			Date date = new Date();
+			Date date = ic.getDate();
 			SimpleDateFormat formatedDate = new SimpleDateFormat("yyyy-MM-dd");
 			AuthenticationService authService = new AuthenticationServiceImpl();
 			Authentication cre = authService.getUserCredential();

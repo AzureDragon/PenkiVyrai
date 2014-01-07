@@ -69,10 +69,10 @@ public class ContractRegistrationController extends
 	@Listen("onClick=#createContractButton")
 	public void createContract() throws Exception {
 
-		
+		mainControllers.IndexController ic = new mainControllers.IndexController(); 
 			try {
 				TaskStatements ts = new TaskStatements();
-				Date date = new Date();
+				Date date = ic.getDate();
 				SimpleDateFormat todayDate = new SimpleDateFormat(
 						"yyyy/MM/dd HH:mm");
 				SimpleDateFormat formatingDate = new SimpleDateFormat(

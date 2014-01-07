@@ -44,10 +44,10 @@ AuthenticationService authService = new AuthenticationServiceImpl();
 
 @Listen ("onClick=#createEmployee")
 public void createEmployee () throws Exception{
-
+	mainControllers.IndexController ic = new mainControllers.IndexController(); 
 	try {
 		TaskStatements ts = new TaskStatements();
-		Date date = new Date();
+		Date date = ic.getDate();
 		
 		AuthenticationService authService = new AuthenticationServiceImpl();
 		Authentication cre = authService.getUserCredential();

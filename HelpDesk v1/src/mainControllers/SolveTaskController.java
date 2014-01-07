@@ -1,9 +1,9 @@
 package mainControllers;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.Date;
 
 import model.Clasifiers;
 import model.Delegate;
@@ -75,18 +75,26 @@ public class SolveTaskController extends SearchController {
 		connect = Clasifiers.getConnection();
 		statement = connect.createStatement();
 		resultSet = statement
-				.executeQuery("SELECT delegates.Id, delegates.ClientId, delegates.Name, delegates.Surname, delegates.Telephone , delegates.Mail, delegates.Active FROM delegates WHERE delegates.Id="
+				.executeQuery("SELECT task.Registered FROM task WHERE task.Id="
 						+ solveTaskWindow.getAttribute("taskId"));
-
-		Date RegistrationTime = null;
+		
+		mainControllers.IndexController ic = new mainControllers.IndexController();
+		
+		Date RegistrationTime = new Date(0);
 		
 		while (resultSet.next()) {					
 			RegistrationTime = resultSet.getDate("Registered");
 		}
 		statement.close();
-		mainControllers.IndexController ic = new mainControllers.IndexController();  
-		long diff = (RegistrationTime.getTime() - ic.getDate().getTime()) / (3600 * 1000) % 60;
+		
+
+		
+		if(RegistrationTime.getTime() < ic.getDate().getTime())
+		{
+		System.out.print(RegistrationTime + " " + ic.getDate());
+		long diff = (RegistrationTime.getTime() - ic.getDate().getTime());
 		System.out.print(diff+"\n");
+		}
 	}
 
 	public Task getSolvingTask() {
