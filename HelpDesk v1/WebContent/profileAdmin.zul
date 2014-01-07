@@ -1,19 +1,30 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
-<zk>
-<window title="new page title" border="normal">
-<groupbox>
+<?page title="Sistemos valdymas"
+  xml="version="1.0" 
+  encoding="UTF-8""
+contentType="text/html;charset=UTF-8"
+?>
 
-<button label="Ištrinti duombazės duomenis">
-   <attribute name="onClick">
-        <![CDATA[	
-          services.DataControllServiceImpl dataControll = new services.DataControllServiceImpl();
-			dataControll.clearDB();
-          ]]>
-      </attribute>
-
-
-</button>
-  <button label="Importuoti duombaze" upload="true,maxsize=300">
+<zk xmlns:n="native">
+<include src="menu.zul"/>
+   <groupbox sclass="footerUp">
+	        <hbox>
+                <image src="/img/admin.png"></image>
+                <vbox>
+			     <n:h1 class="cg-title">Sistemos valdymas</n:h1>
+			    <hbox class="cg-down-title"> 	
+				<a href="index.zul"
+					label="Pagrindinis" class="cg-down-title" />
+				»
+				<a href="profileAdmin.zul"
+					label="Sistemos valdymas" class="cg-down-title" />					
+				</hbox>
+				</vbox>
+			</hbox>   
+	</groupbox>
+	<hbox>	
+<groupbox title="Duomenų bazės valdymas" width="200px">
+<vbox>
+  <button label="Duomenų importavimas" upload="true">
       <attribute name="onUpload">
         <![CDATA[
           org.zkoss.util.media.Media media = event.getMedia();
@@ -23,31 +34,42 @@
         ]]>
       </attribute>
     </button>
-	</groupbox>		
-	
-	    <vlayout>
-	    Kurią informaciją norite eksportuoti?
+<button label="Išvalyti duomenų bazę">
+   <attribute name="onClick">
+        <![CDATA[	
+          services.DataControllServiceImpl dataControll = new services.DataControllServiceImpl();
+			dataControll.clearDB();
+          ]]>
+      </attribute>
+</button>
+</vbox>
+</groupbox>	
+<groupbox title="Sistemos ataskaitos" width="400px">
+<vbox>
+Pasirinkite ataskaitą:
+        <checkbox id="l1" label="Kreipiniai, kuriuose nebuvo laikomasi terminų." />
+        <checkbox id="l2" label="Sistemos naudotojų informacija." />
+        <separator />
+</vbox>  
+<!--
+<vbox>
+Pasirinkite ataskaitą:
         <checkbox id="l1" label="Kreipiniai, kuriuose nebuvo laikomasi terminų." onCheck="doChecked()" />
         <checkbox id="l2" label="Sistemos naudotojų informacija." onCheck="doChecked()" />
-        <checkbox id="l3" label="3 ataskaita" onCheck="doChecked()" />
-        <checkbox id="l4" label="4 ataskaita" onCheck="doChecked()" />
-        <checkbox id="l5" label="5 ataskaita" onCheck="doChecked()" />
         <separator />
-        <hlayout>
-            paspaudus eksportuoti bus eksportuojama :
-            <label id="layout" />
+</vbox>        
+         <hlayout>
+         Sugeneruotos bus šios ataskaitos:<label id="layout" />
         </hlayout>
         <zscript><![CDATA[
             void doChecked() {
                 layout.value = (l1.isChecked() ? l1.label+' ' : "") 
-                    + (l2.isChecked() ? l2.label+' ' : "")
-                    + (l3.isChecked() ? l3.label+' ' : "")
-                    + (l4.isChecked() ? l4.label+' ' : "")
-                    + (l5.isChecked() ? l5.label+' ' : "");
+                    + (l2.isChecked() ? l2.label+' ' : "");
             }
         ]]></zscript>
-    </vlayout>
-          <button label="eksportuoti">
+ -->        
+        <groupbox>
+          <button label="Generuoti">
       <attribute name="onClick">
         <![CDATA[	
           mainControllers.IndexController ic = new mainControllers.IndexController();  
@@ -56,15 +78,33 @@ if(l1.isChecked() || l2.isChecked())
           else
           	System.out.print("Neegzistuoja\n");
 else
-	Clients.showNotification("Nepasirinkta jokia ataskaita.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 50000, true);
+	Clients.showNotification("Nepasirinkta nei viena ataskaita.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 50000, true);
 
 		  
         ]]>
       </attribute>
     </button>
-
-</window>	            
-
+    </groupbox>
+</groupbox>
+<groupbox title="Sistemos laikas" width="300px">
+<vbox>
+<hbox>
+Dabartinis laikas:
+<timer id="timer2" delay="1000" repeats="true">
+    <attribute name="onTimer">
+ Locale locale = org.zkoss.util.Locales.getCurrent();
+ java.text.DateFormat dateFormat = java.text.DateFormat.getDateTimeInstance(
+   java.text.DateFormat.MEDIUM, java.text.DateFormat.MEDIUM, locale);
+ String strTime = dateFormat.format(java.util.Calendar.getInstance(locale)
+   .getTime());
+ timer.setValue(strTime);
+</attribute>
+   </timer>
+<label id="timer" width="33%" /> 
+</hbox>
+<groupbox title="Laiko nustatymas">
+<vbox>
+<hbox>
 <datebox id="db2" cols="12" format="medium" onCreate="self.value = new Date()">
               <attribute name="onChange">
         <![CDATA[	
@@ -100,17 +140,30 @@ try {
         ]]>
       </attribute>
             </timebox>
+</hbox>
+
+          <button label="Išsaugoti">
+      <attribute name="onClick">
+        <![CDATA[	
+          mainControllers.IndexController ic = new mainControllers.IndexController();  
+if(l1.isChecked() || l2.isChecked())
+          if(ic.Export(l1.isChecked(), l2.isChecked()).exists()) { Filedownload.save(ic.Export(l1.isChecked(), l2.isChecked()) ,"null"); }
+          else
+          	System.out.print("Neegzistuoja\n");
+else
+	Clients.showNotification("Nepasirinkta nei viena ataskaita.", Clients.NOTIFICATION_TYPE_ERROR, null, "middle_center", 50000, true);
+
+		  
+        ]]>
+      </attribute>
+    </button>
+</vbox>
+</groupbox>
+</vbox>
+
             
-            <timer id="timer2" delay="1000" repeats="true">
-    <attribute name="onTimer">
- Locale locale = org.zkoss.util.Locales.getCurrent();
- java.text.DateFormat dateFormat = java.text.DateFormat.getDateTimeInstance(
-   java.text.DateFormat.MEDIUM, java.text.DateFormat.MEDIUM, locale);
- String strTime = dateFormat.format(java.util.Calendar.getInstance(locale)
-   .getTime());
- timer.setValue(strTime);
-</attribute>
-   </timer>
-<label id="timer" width="33%" />
-kazkas as neveikiu
+        
+</groupbox>
+</hbox>	            
+<include src="footer.zul"/>
 </zk>
