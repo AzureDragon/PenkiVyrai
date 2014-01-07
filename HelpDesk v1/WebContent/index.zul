@@ -20,13 +20,13 @@ contentType="text/html;charset=UTF-8"
 	</groupbox>
 	<hbox>
 	<vbox>
-<groupbox title="Meniu">
+<groupbox title="Diagramos">
 		<radiogroup>
 			<vlayout>
-				<radio label="Kreipinių statistika" selected="true"
-					onCheck="doCheckTask()" />			
-				<radio label="Geriausi darbuotojai"
-					onCheck="doCheckEmployee()" />
+				<checkbox id="l1" label="Kreipinių statistika"
+					onCheck="doCheckTask()" onCreate="doCheckTask()" checked="true"/>			
+				<checkbox id="l2" label="Geriausi darbuotojai"
+					onCheck="doCheckEmployee()" onCreate="doCheckEmployee()" checked="true" />
 			</vlayout>
 		</radiogroup>
 </groupbox>
@@ -47,7 +47,17 @@ contentType="text/html;charset=UTF-8"
 </vbox>	
 <groupbox title="Apžvalga">
 <hbox>
-<groupbox>
+        <zscript><![CDATA[
+            void doCheckTask() {
+               test.setVisible((l1.isChecked()));
+            }
+        ]]></zscript>
+        <zscript><![CDATA[
+            void doCheckEmployee() {
+               test2.setVisible((l2.isChecked()));
+            }
+        ]]></zscript>        
+<groupbox id="test" visible="false">
 <vlayout apply="org.zkoss.bind.BindComposer"
     viewModel="@id('vm') @init('pie.PieChartVM')">
     <chart id="mychart" title="Kreipinių statistika"
@@ -60,7 +70,7 @@ contentType="text/html;charset=UTF-8"
     </hlayout>
     </vlayout>
 </groupbox>
-<groupbox>    
+<groupbox id="test2" visible="false">    
     <vlayout apply="org.zkoss.bind.BindComposer"
     viewModel="@id('vm') @init('bar.BarChartVM')">
     <chart id="mybarchart" width="520" height="400"
