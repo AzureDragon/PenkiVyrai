@@ -41,6 +41,7 @@ padding-bottom: 0;
 }
 </style>
 <include src="menu.zul" />
+<window apply="mainControllers.ClientViewController">
 	        <groupbox sclass="footerUp">
 	        <hbox>
                 <image src="/img/client5.png"></image>
@@ -63,7 +64,7 @@ padding-bottom: 0;
 			</hbox>     
             </groupbox>
            
-	<groupbox mold="3d" apply="mainControllers.ClientViewController">
+	<groupbox mold="3d" >
     <caption label="Kliento informacija"></caption>
 		<hbox align="start">
 		<groupbox title="Pagrindinė informacija" width="390px">
@@ -99,7 +100,7 @@ padding-bottom: 0;
 		</hbox>
 	</groupbox>
 	<n:div align="center"> 
-	<groupbox mold="3d" apply="mainControllers.ClientViewController">
+	<groupbox mold="3d">
     <caption label="Kliento kreipiniai"></caption>
     <listbox maxlength="8" id="clientTasks"
 				sclass="z-listbox-autopaging" height="300px"
@@ -150,9 +151,35 @@ padding-bottom: 0;
 				</template>
 			</listbox>
 	</groupbox>	
-		<groupbox mold="3d" apply="mainControllers.ClientViewController">
-    <caption label="Kliento atstovai"></caption>
-	</groupbox>
-	<include src="footer.zul" />	
 </n:div>
+		<groupbox mold="3d">
+    <caption label="Kliento atstovai"></caption>
+    <listbox maxlength="8" id="delegatesListbox"
+				sclass="z-listbox-autopaging" height="300px"
+				emptyMessage="Atstovų nerasta">
+
+				<listhead sizable="true">
+			
+					<listheader label="Vardas" width="20%" />
+					<listheader label="Pavardė" width="20%" />
+					<listheader label="Tel. Nr." width="20%" />
+					<listheader label="El. paštas" width="20%" />
+					<listheader label="Būsena" width="20%" />
+				</listhead>
+
+				<template name="model">
+					<listitem context="msg" height="5px"
+						sclass="z-listbox-autopaging">
+						<listcell height="20px" label="${each.firstName}"></listcell>
+						<listcell height="20px" label="${each.lastName}"></listcell>
+						<listcell height="20px" label="${each.phone}"></listcell>
+						<listcell height="20px" label="${each.mail}"></listcell>
+						<listcell height="20px" label="${each.active2}"></listcell>
+					</listitem>
+				</template>
+			</listbox>
+	</groupbox>
+	</window>
+	<include src="footer.zul" />	
+
 </zk>

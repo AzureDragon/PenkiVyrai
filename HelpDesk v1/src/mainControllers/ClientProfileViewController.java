@@ -76,16 +76,8 @@ public class ClientProfileViewController extends SelectorComposer<Component> {
 		else
 		{ 
 			Authentication cre = authService.getUserCredential();
-			
 			refreshProfileView();
-		
-			Class.forName("com.mysql.jdbc.Driver");
-			connect = Clasifiers.getConnection();
-			statement = connect.createStatement();
-			System.out.println("select * from delegates WHERE ClientId="+ cre.getClientId()+";");
-			resultSet = statement.executeQuery("select * from delegates WHERE ClientId="+ cre.getClientId()+";");
-		
-			delegatesListbox.setModel(new ListModelList<Delegate>(writeResultSet(resultSet)));
+			delegatesListbox.setModel(new ListModelList<Delegate>(getDelegates(cre.getClientId())));
 		}
 	}
 
@@ -144,6 +136,22 @@ else
 			Executions.sendRedirect("login.zul");
 		else
 			refreshProfileView();
+	}
+	
+	
+	public List<Delegate> getDelegates (int clientId) throws Exception{
+		
+		
+		
+		
+		Class.forName("com.mysql.jdbc.Driver");
+		connect = Clasifiers.getConnection();
+		statement = connect.createStatement();
+		System.out.println("select * from delegates WHERE ClientId="+ clientId+";");
+		resultSet = statement.executeQuery("select * from delegates WHERE ClientId="+ clientId +";");
+		
+		
+		return writeResultSet(resultSet);
 	}
 	private List<Delegate> writeResultSet(ResultSet resultSet) throws Exception {
 		 List<Delegate> delegateList;

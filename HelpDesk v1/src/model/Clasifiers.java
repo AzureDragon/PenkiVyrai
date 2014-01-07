@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 
 import addtionalControllers.TaskStatements;
 
@@ -11,7 +12,7 @@ public class Clasifiers {
 	// Map <Integer, String> type = new HashMap<Integer, String>();
 
 	public static java.sql.Connection conn;
-
+	public static Date date;
 	public static String getTypeName(int type) {
 
 		if (type == 0) {
