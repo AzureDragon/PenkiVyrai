@@ -44,7 +44,7 @@ public class IndexController extends SelectorComposer<Component> {
 
 	Media media;
 	
-	static Date date = new Date();
+	static Date date;
 
 	public static Date getDate() {
 		//System.out.print(date+"\n");
@@ -52,6 +52,7 @@ public class IndexController extends SelectorComposer<Component> {
 	}
 
 	public static void setDate(Date date) {
+		
 		IndexController.date = date;
 	}
 
