@@ -16,14 +16,8 @@
 }
 </style>
 <div sclass="footer">
-                Copyright © 2013-2014 Penki Vyrai. All rights reserved.
+                Copyright © 2013-2014 Penki Vyrai. All rights reserved
  </div>
- <timer id="timer2" delay="1000" repeats="true" visible="false">
-    <attribute name="onTimer">
-          mainControllers.IndexController ic = new mainControllers.IndexController();  
-          long ONE_SECOND_IN_MILLIS=1000;
-          long t=ic.getDate().getTime();
-          ic.setDate(new Date(t+((ONE_SECOND_IN_MILLIS))));
-</attribute>
-</timer>
+
+
 </zk>
