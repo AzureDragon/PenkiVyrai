@@ -47,6 +47,7 @@ public class IndexController extends SelectorComposer<Component> {
 	static Date date = new Date();
 
 	public static Date getDate() {
+		System.out.print(date+"\n");
 		return date;
 	}
 
