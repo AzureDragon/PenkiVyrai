@@ -24,9 +24,9 @@ contentType="text/html;charset=UTF-8"
 		<radiogroup>
 			<vlayout>
 				<radio label="Kreipinių statistika" selected="true"
-					onCheck="@global-command('configChanged', threeD=false, exploded=false)" />			
+					onCheck="doCheckTask()" />			
 				<radio label="Geriausi darbuotojai"
-					onCheck="@global-command('configChanged', threeD=true, exploded=false)" />
+					onCheck="doCheckEmployee()" />
 			</vlayout>
 		</radiogroup>
 </groupbox>

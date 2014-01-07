@@ -58,7 +58,7 @@ padding-bottom: 0;
 			</timer>
 		</cell>
         -->
-		<toolbarbutton image="/img/time.png" href="profileAdmin.zul" label="Sistemos laikas: laikas" id="time" />          
+		<toolbarbutton image="/img/adminmini.png" href="profileAdmin.zul" label="Sistemos valdymas" id="time" />          
 		<toolbarbutton image="/img/profile.png" label="Profilis" id="profile">
 		 <attribute name="onClick">
         <![CDATA[	
